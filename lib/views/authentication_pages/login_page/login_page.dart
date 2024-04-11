@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/forgotpassword_pages/forgotpassword_pages.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/components/components.dart';
+import 'package:lmsapp/views/authentication_pages/register_page/register_page.dart';
+import 'package:lmsapp/views/menucard/main_menu.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -58,9 +61,9 @@ class LoginPage extends StatelessWidget {
                       scale: 0.8.w,
                       child: Checkbox(
                         activeColor: AppColors.primarybrown,
-                        visualDensity: const VisualDensity(
-                          horizontal: -4,
-                          vertical: VisualDensity.minimumDensity,
+                        visualDensity: VisualDensity(
+                          horizontal: -4.w,
+                          vertical: -4.h,
                         ),
                         value: true,
                         onChanged: (newValue) {},
@@ -72,16 +75,24 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(
-                  'Forgot Password',
-                  style: otherstyle,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context, CustomPageRoute(child: ForgotPassword()));
+                  },
+                  child: Text(
+                    'Forgot Password',
+                    style: otherstyle,
+                  ),
                 ),
               ],
             ),
             AppSizeBox.defaultHeight,
             CustomButton(
               text: 'Next',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, CustomPageRoute(child: MainMenu()));
+              },
             ),
             AppSizeBox.defaultHeight,
             Row(
@@ -117,7 +128,10 @@ class LoginPage extends StatelessWidget {
                   width: 6.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context, CustomPageRoute(child: const RegisterPage()));
+                  },
                   child: Text(
                     'Register',
                     style: otherfont,

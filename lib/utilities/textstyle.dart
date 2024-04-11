@@ -15,6 +15,13 @@ TextStyle get normaltextStyle {
       color: AppColors.primarygrey);
 }
 
+TextStyle get anotherormaltextStyle {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      color: AppColors.primarygrey);
+}
+
 TextStyle get othernormaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w500,
@@ -77,6 +84,7 @@ TextStyle get interfont {
       fontSize: 16.sp,
       color: AppColors.primaryblack);
 }
+
 TextStyle get getfonts {
   return GoogleFonts.inter(
       fontWeight: FontWeight.w700,
