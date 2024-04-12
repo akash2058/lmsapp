@@ -13,7 +13,6 @@ class CustomButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 53.h,
         width: MediaQuery.sizeOf(context).width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
@@ -22,10 +21,13 @@ class CustomButton extends StatelessWidget {
               AppColors.secondarybrown,
               AppColors.primaryacent
             ])),
-        child: Center(
-          child: Text(
-            text,
-            style: buttonstyle,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 21.h),
+          child: Center(
+            child: Text(
+              text,
+              style: buttonstyle,
+            ),
           ),
         ),
       ),
