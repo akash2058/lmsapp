@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
 class CustomSmallButton extends StatelessWidget {
@@ -6,11 +9,16 @@ class CustomSmallButton extends StatelessWidget {
   double? height;
   double? width;
   String text;
+  Color? textcolor;
+  List<Color>? colors;
   VoidCallback onTap;
+  Color? bordercolor;
   CustomSmallButton(
       {super.key,
       required this.text,
       this.height,
+      this.colors,
+      this.textcolor,
       this.width,
       this.backgroudcolor,
       required this.onTap});
@@ -25,7 +33,8 @@ class CustomSmallButton extends StatelessWidget {
         onPressed: onTap,
         child: Text(
           text,
-          style: buttonstyle,
+          style: GoogleFonts.manrope(
+              fontWeight: FontWeight.w700, fontSize: 16.sp, color: textcolor),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/cart/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
@@ -12,5 +13,10 @@ class MenuProviders extends ChangeNotifier {
     ChatScreen(),
     CartScreen(),
     ProfileScreen(),
+  ];
+  List<String> socialimges = [
+    AppImages.insta,
+    AppImages.facebok,
+    AppImages.youtube
   ];
 }

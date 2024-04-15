@@ -9,4 +9,6 @@ class SvgImages {
   static const lmslogo = 'assets/logolms.svg';
   static const search = 'assets/search.svg';
   static const bottomsheetimg = 'assets/bottomsheetimg.svg';
+  static const activelesson = 'assets/active.svg';
+  static const clock = 'assets/clock.svg';
 }

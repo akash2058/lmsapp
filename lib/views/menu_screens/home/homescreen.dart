@@ -3,162 +3,215 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lmsapp/customwidgets/custombutton.dart';
-import 'package:lmsapp/customwidgets/customsmallbutton.dart';
-import 'package:lmsapp/customwidgets/customtextformfield.dart';
+import 'package:lmsapp/customwidgets/customsearch.dart';
+import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/addcoursecard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/addedcourselist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/addedcoursetitle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/courselist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/coursetitle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/customupcommingtestcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/lmslider.dart';
+import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/reviewlist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/reviewtitle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
+import 'package:lmsapp/views/menu_screens/home/components/upcomingtestitle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/upcomingtestlist.dart';
+import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CustomSearchField(
-                  prefix: SvgPicture.asset(
-                    SvgImages.search,
-                    height: 24.h,
-                  ),
-                  hint: 'Search any thing',
-                ),
-                CircleAvatar(
-                  backgroundColor: AppColors.secondarylight,
-                  child: Padding(
-                    padding: EdgeInsets.all(18.sp),
-                    child: SvgPicture.asset(
-                      SvgImages.bottomsheetimg,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 32.h,
-            ),
-            Container(
-              height: 170.h,
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
-                  gradient: LinearGradient(colors: [
-                    AppColors.primaryacent,
-                    AppColors.primarybrown
-                  ])),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'All Course',
-                      style: allcoursefont,
-                    ),
-                    SizedBox(
-                      height: 4.h,
-                    ),
-                    Text(
-                      'Art & Illustration',
-                      style: allCoursetitle,
-                    ),
-                    SizedBox(
-                      height: 12.h,
-                    ),
-                    Text(
-                      '20/25 Lesson',
-                      style: lessonfont,
-                    ),
-                    SizedBox(
-                      height: 28.h,
-                    ),
-                    CustomSmallButton(
-                        height: 28.h,
-                        backgroudcolor: AppColors.primarybrown,
-                        text: 'Search',
-                        onTap: () {})
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 12.h,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  3,
-                  (index) => Row(
+    return Consumer<MenuProviders>(
+      builder: (context, main, child) {
+        return Scaffold(
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Container(
-                        height: 8.h,
-                        width: 8.w,
-                        decoration: BoxDecoration(
-                            color: AppColors.primarybrown,
-                            shape: BoxShape.circle),
+                      CustomSearchField(
+                        prefix: SvgPicture.asset(
+                          SvgImages.search,
+                          height: 24.h,
+                        ),
+                        hint: 'Search any thing',
                       ),
-                      SizedBox(
-                        width: 5.w,
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primarylightgrey),
+                        child: Padding(
+                          padding: EdgeInsets.all(16.sp),
+                          child: SvgPicture.asset(
+                            SvgImages.bottomsheetimg,
+                            height: 24.h,
+                          ),
+                        ),
                       )
                     ],
                   ),
-                )),
-            SizedBox(
-              height: 20.h,
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  const LmsSlider(),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  const SliderIndicator(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const CourseTitle(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.r),
+                              gradient: const LinearGradient(colors: [
+                                AppColors.primarybrown,
+                                AppColors.secondarybrown,
+                                AppColors.primaryacent
+                              ])),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 12.w),
+                          child: Text(
+                            'All Course',
+                            style: anotherjakratafont,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.r),
+                              gradient: const LinearGradient(colors: [
+                                AppColors.primarybrown,
+                                AppColors.secondarybrown,
+                                AppColors.primaryacent
+                              ])),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 12.w),
+                          child: Text(
+                            'Computer Networking',
+                            style: anotherjakratafont,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.r),
+                              gradient: const LinearGradient(colors: [
+                                AppColors.primarybrown,
+                                AppColors.secondarybrown,
+                                AppColors.primaryacent
+                              ])),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.h, horizontal: 12.w),
+                          child: Text(
+                            'Networking',
+                            style: anotherjakratafont,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  const CourseList(),
+                  SizedBox(
+                    height: 15.h,
+                  ),
+                  const AddedCoursesTitle(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const AddedCourseList(),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  const UpComingTestTitle(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const UpComingTestList(),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  const StudentReviewsTitle(),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  ReviewList(),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  Text(
+                    'Social Links',
+                    style: titleStyle,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    children: List.generate(
+                        main.socialimges.length,
+                        (index) => Row(
+                              children: [
+                                Image.asset(
+                                  main.socialimges[index],
+                                  height: 41.h,
+                                ),
+                                SizedBox(
+                                  width: 9.6.w,
+                                )
+                              ],
+                            )),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Popular Courses',
-                  style: titleStyle,
-                ),
-                Text(
-                  'See all',
-                  style: jakratafont,
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
 
-class CustomSearchField extends StatelessWidget {
-  String hint;
-  Widget? prefix;
-  Widget? suffix;
-  CustomSearchField({super.key, required this.hint, this.prefix, this.suffix});
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Card(
-        elevation: 1,
-        color: AppColors.secondarylight,
-        child: TextFormField(
-          style: hintstyle,
-          decoration: InputDecoration(
-              prefixIconConstraints: BoxConstraints(minWidth: 56.w),
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
-              isDense: true,
-              hintStyle: hintstyle,
-              prefixIcon: prefix,
-              suffix: suffix,
-              hintText: hint,
-              border: InputBorder.none),
-        ),
-      ),
-    );
-  }
-}
+
+
+// ignore: must_be_immutable
+
+
+
+
+
+
+
+// ignore: must_be_immutable
+

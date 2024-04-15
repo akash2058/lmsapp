@@ -40,20 +40,25 @@ class _MainMenuState extends State<MainMenu> {
                     SvgImages.notifi,
                     height: 24.h,
                   )),
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.primarylightgrey)),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.menu,
-                      size: 24.h,
-                      color: AppColors.primarygrey,
-                    ),
-                  )),
+              Builder(builder: (context) {
+                return GestureDetector(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: AppColors.primarylightgrey)),
+                      child: Icon(
+                        Icons.menu,
+                        size: 24.h,
+                        color: AppColors.primarygrey,
+                      )),
+                );
+              }),
               SizedBox(
                 width: 28.w,
               )

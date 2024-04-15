@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +23,13 @@ TextStyle get jakratafont {
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.secondarygrey);
+}
+
+TextStyle get anotherjakratafont {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: AppColors.primarywhite);
 }
 
 TextStyle get anotherormaltextStyle {
@@ -61,8 +69,15 @@ TextStyle get fonts {
 
 TextStyle get titlestyle {
   return GoogleFonts.manrope(
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w700,
       fontSize: 16.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get reviewtitlestyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
       color: AppColors.primaryblack);
 }
 
@@ -78,6 +93,13 @@ TextStyle get otherstyle {
       fontWeight: FontWeight.w500,
       fontSize: 14.sp,
       color: AppColors.primaryblack);
+}
+
+TextStyle get testdetailstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: AppColors.primarygrey);
 }
 
 TextStyle get buttonstyle {
@@ -127,4 +149,62 @@ TextStyle get lessonfont {
       fontWeight: FontWeight.w400,
       fontSize: 10.sp,
       color: AppColors.primarylowlightdark);
+}
+
+TextStyle get lessonfontt {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w500,
+      fontSize: 12.sp,
+      color: AppColors.hintextcolor);
+}
+
+TextStyle get namestyle {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 12.sp,
+      color: AppColors.primarygrey);
+}
+
+TextStyle get coursetitlefont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 12.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get courseprice {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 12.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get pricefont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w700,
+      fontSize: 18.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get pricestyle {
+  return GoogleFonts.inter(
+      fontWeight: FontWeight.w700,
+      fontSize: 16.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get disountfont {
+  return GoogleFonts.poppins(
+      textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: AppColors.secondarygrey);
+}
+
+TextStyle get reviewfont {
+  return GoogleFonts.poppins(
+      // textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primarygrey);
 }
