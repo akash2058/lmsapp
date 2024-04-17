@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-class CourseTitle extends StatelessWidget {
-  const CourseTitle({
+class PopularCourseTitle extends StatelessWidget {
+  const PopularCourseTitle({
     super.key,
   });
 

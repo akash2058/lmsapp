@@ -11,10 +11,24 @@ TextStyle get titleStyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get itemsfont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: AppColors.primarygrey);
+}
+
 TextStyle get normaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
+      color: AppColors.primarygrey);
+}
+
+TextStyle get subtitlefont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 10.sp,
       color: AppColors.primarygrey);
 }
 
@@ -30,6 +44,13 @@ TextStyle get jakratafont {
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.secondarygrey);
+}
+
+TextStyle get jakratafontblack {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.primarygrey);
 }
 
 TextStyle get anotherjakratafont {
@@ -60,10 +81,24 @@ TextStyle get allCoursetitle {
       color: AppColors.primarywhite);
 }
 
+TextStyle get gategorybuttonwhite {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
+      color: AppColors.primarywhite);
+}
+
+TextStyle get gategorybuttonblack {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
 TextStyle get othernormaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w500,
-      fontSize: 12.sp,
+      fontSize: 14.sp,
       color: AppColors.primarygrey);
 }
 
@@ -75,8 +110,8 @@ TextStyle get fonts {
 }
 
 TextStyle get titlestyle {
-  return GoogleFonts.manrope(
-      fontWeight: FontWeight.w700,
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
       fontSize: 16.sp,
       color: AppColors.primaryblack);
 }

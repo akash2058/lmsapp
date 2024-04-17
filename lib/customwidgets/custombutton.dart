@@ -6,14 +6,22 @@ import 'package:lmsapp/utilities/textstyle.dart';
 class CustomButton extends StatelessWidget {
   String text;
   VoidCallback onTap;
-  CustomButton({super.key, required this.text, required this.onTap});
+  double? height;
+  double? width;
+  CustomButton(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      this.height,
+      this.width});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: MediaQuery.sizeOf(context).width,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
             gradient: LinearGradient(colors: [
@@ -21,13 +29,10 @@ class CustomButton extends StatelessWidget {
               AppColors.secondarybrown,
               AppColors.primaryacent
             ])),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 21.h),
-          child: Center(
-            child: Text(
-              text,
-              style: buttonstyle,
-            ),
+        child: Center(
+          child: Text(
+            text,
+            style: buttonstyle,
           ),
         ),
       ),

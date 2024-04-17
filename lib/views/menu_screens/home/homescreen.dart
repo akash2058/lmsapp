@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/bottomsheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lmsdrawer.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/addedcourselist.dart';
@@ -33,7 +35,8 @@ class HomeScreen extends StatelessWidget {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
         return Scaffold(
-          drawer: LmsDrawer(),
+          backgroundColor: AppColors.lightwhite,
+          drawer: const LmsDrawer(),
           appBar: AppBar(
             leading: Padding(
               padding: EdgeInsets.only(left: 28.w),
@@ -94,15 +97,24 @@ class HomeScreen extends StatelessWidget {
                         ),
                         hint: 'Search any thing',
                       ),
-                      Container(
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.primarylightgrey),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 18.h, horizontal: 16.w),
-                          child: SvgPicture.asset(
-                            SvgImages.bottomsheetimg,
+                      GestureDetector(
+                        onTap: () {
+                          showBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return LmsBottomSheet();
+                              });
+                        },
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.primarylightgrey),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 18.h, horizontal: 16.w),
+                            child: SvgPicture.asset(
+                              SvgImages.bottomsheetimg,
+                            ),
                           ),
                         ),
                       )
@@ -119,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const CourseTitle(),
+                  const PopularCourseTitle(),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -185,7 +197,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 15.h,
                   ),
-                  const CourseList(),
+                  const PopularCourseList(),
                   SizedBox(
                     height: 15.h,
                   ),
@@ -247,6 +259,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

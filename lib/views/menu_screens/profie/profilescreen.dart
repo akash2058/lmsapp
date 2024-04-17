@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_screens/profie/components/profileheader.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -33,23 +35,17 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
-              child: CustomTile(
-                  leading: Container(
-                    height: 56.h,
-                    width: 56.w,
-                    decoration: const BoxDecoration(
-                        color: AppColors.primaryred, shape: BoxShape.circle),
-                  ),
-                  title: 'Bimantara Afif',
-                  subtitle: 'bimantara@email.com'),
+            ProfileHeader(
+              name: 'Bimantara Afif',
+              email: 'bimantara@email.co',
+              img: AppImages.imgone,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 102.w),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
                 decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
                     border: Border.all(color: AppColors.bordercolor)),
                 child: Text(
                   'Edit Profile',
@@ -57,8 +53,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 40.h,
+            ),
             Divider(
-              color: AppColors.bordercolor,
+              thickness: 4.h,
+              color: AppColors.lightwhite,
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 28.w),
@@ -71,26 +71,50 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       title: 'Notification',
                       subtitle: 'Ringtone, message, notification'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.heart),
                       title: 'Whish list',
                       subtitle: 'Your favorite courses'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.cart),
                       title: 'Purchased Courses',
                       subtitle: 'Courses you have purchased'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.pay),
                       title: 'Payment History',
                       subtitle: 'Courses you have orders'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.achive),
                       title: 'Achievements and Certificates',
                       subtitle: 'Achievements, badges, and certificates'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.pay),
                       title: 'Referral system',
                       subtitle: 'Achievements, badges, and certificates'),
+                  Divider(
+                    thickness: 2.h,
+                    color: AppColors.lightwhite,
+                  ),
                   CustomTile(
                       leading: SvgPicture.asset(SvgImages.setting),
                       title: 'Preferences',
@@ -122,6 +146,9 @@ class ProfileScreen extends StatelessWidget {
                   SvgImages.logout,
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20.h,
             )
           ],
         ),

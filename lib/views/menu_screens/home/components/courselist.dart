@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 
-class CourseList extends StatelessWidget {
-  const CourseList({
+class PopularCourseList extends StatelessWidget {
+  const  PopularCourseList({
     super.key,
   });
 
