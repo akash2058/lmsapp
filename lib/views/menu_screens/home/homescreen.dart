@@ -1,22 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
-import 'package:lmsapp/customwidgets/customtile.dart';
+
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/home/components/addcoursecard.dart';
+import 'package:lmsapp/views/drawer/lmsdrawer.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/addedcourselist.dart';
 import 'package:lmsapp/views/menu_screens/home/components/addedcoursetitle.dart';
 import 'package:lmsapp/views/menu_screens/home/components/courselist.dart';
 import 'package:lmsapp/views/menu_screens/home/components/coursetitle.dart';
-import 'package:lmsapp/views/menu_screens/home/components/customupcommingtestcard.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/lmslider.dart';
-import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/reviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/components/reviewtitle.dart';
 import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
         return Scaffold(
-          drawer: const Drawer(),
+          drawer: LmsDrawer(),
           appBar: AppBar(
             leading: Padding(
               padding: EdgeInsets.only(left: 28.w),
