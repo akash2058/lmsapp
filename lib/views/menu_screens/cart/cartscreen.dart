@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -14,30 +17,6 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        height: 130.h,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Total Payment',
-                  style: reviewfont,
-                ),
-                Text(
-                  'INR 8,640',
-                  style: onboardtitle,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 16.h,
-            ),
-            CustomButton(height: 53.h, text: 'CheckOut', onTap: () {})
-          ],
-        ),
-      ),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -59,29 +38,28 @@ class CartScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    4,
-                    (index) => Column(
-                      children: [
-                        CartCard(
-                          coursetitle: 'UI/UX',
-                          price: '4800',
-                          title: 'Expert Wireframing for Mobile.',
-                          img: AppImages.imgone,
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              child: SizedBox(
+                height: 360.h,
+                child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          CartCard(
+                              coursetitle: 'UI/UX',
+                              price: '4800',
+                              title: 'Expert Wireframing for Mobile',
+                              img: AppImages.imgone),
+                          SizedBox(
+                            height: 20.h,
+                          )
+                        ],
+                      );
+                    }),
               ),
             ),
             SizedBox(
-              height: 15.h,
+              height: 50.h,
             ),
             Column(
               children: [
@@ -133,7 +111,31 @@ class CartScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 32.h,
+              height: 20.h,
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total Payment',
+                      style: reviewfont,
+                    ),
+                    Text(
+                      'INR 8,640',
+                      style: onboardtitle,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 13.h,
+                ),
+                CustomButton(height: 53.h, text: 'CheckOut', onTap: () {})
+              ],
+            ),
+            SizedBox(
+              height: 20.h,
             )
           ],
         ),
