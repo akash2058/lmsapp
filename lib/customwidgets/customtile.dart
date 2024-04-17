@@ -19,21 +19,19 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+        minVerticalPadding: 10,
         visualDensity: VisualDensity(horizontal: -4.w, vertical: -4.h),
-        contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         leading: leading,
         dense: true,
         title: Text(
-          'Rodolfo Goode',
+          title,
           style: reviewtitlestyle,
         ),
         subtitle: Text(
-          '6 days ago',
+          subtitle,
           style: normaltextStyle,
         ),
         trailing: trailing);
   }
 }
-
-
-  

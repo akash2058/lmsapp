@@ -8,4 +8,7 @@ class AppImages {
   static const insta = 'assets/insta.png';
   static const facebok = 'assets/fb.png';
   static const youtube = 'assets/youtube.png';
+  static const onboardone = 'assets/onboardone.jpg';
+  static const onboardtwo = 'assets/onboardtwo.jpg';
+  static const onboardthree = 'assets/onboardthree.jpg';
 }

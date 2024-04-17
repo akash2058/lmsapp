@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/providers/appproviders.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
+import 'package:lmsapp/views/boardscreen/boardscreen.dart';
 import 'package:lmsapp/views/splashscreen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         providers: getProviders(),
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: LoginPage(),
+          home: SplashScreen(),
         ),
       ),
     );

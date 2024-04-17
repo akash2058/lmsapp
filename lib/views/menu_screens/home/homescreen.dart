@@ -33,8 +33,54 @@ class HomeScreen extends StatelessWidget {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
         return Scaffold(
+          drawer: const Drawer(),
+          appBar: AppBar(
+            leading: Padding(
+              padding: EdgeInsets.only(left: 28.w),
+              child: Image.asset(
+                AppImages.applogo,
+              ),
+            ),
+            automaticallyImplyLeading: false,
+            actions: [
+              Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: AppColors.primarylightgrey)),
+                  child: SvgPicture.asset(
+                    SvgImages.notifi,
+                    height: 24.h,
+                  )),
+              Builder(builder: (context) {
+                return GestureDetector(
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border:
+                              Border.all(color: AppColors.primarylightgrey)),
+                      child: Icon(
+                        Icons.menu,
+                        size: 24.h,
+                        color: AppColors.primarygrey,
+                      )),
+                );
+              }),
+              SizedBox(
+                width: 28.w,
+              )
+            ],
+          ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
+            padding: EdgeInsets.symmetric(
+              horizontal: 28.w,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,14 +95,14 @@ class HomeScreen extends StatelessWidget {
                         hint: 'Search any thing',
                       ),
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: AppColors.primarylightgrey),
                         child: Padding(
-                          padding: EdgeInsets.all(16.sp),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 18.h, horizontal: 16.w),
                           child: SvgPicture.asset(
                             SvgImages.bottomsheetimg,
-                            height: 24.h,
                           ),
                         ),
                       )

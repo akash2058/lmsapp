@@ -11,4 +11,12 @@ class SvgImages {
   static const bottomsheetimg = 'assets/bottomsheetimg.svg';
   static const activelesson = 'assets/active.svg';
   static const clock = 'assets/clock.svg';
+  static const notifica = 'assets/notifcation.svg';
+  static const setting = 'assets/settings.svg';
+  static const referal = 'assets/referral.svg';
+  static const pay = 'assets/pay.svg';
+  static const sett = 'assets/clock.svg';
+  static const achive = 'assets/award.svg';
+  static const logout = 'assets/logout.svg';
+  static const heart = 'assets/heart.svg';
 }

@@ -13,9 +13,16 @@ TextStyle get titleStyle {
 
 TextStyle get normaltextStyle {
   return GoogleFonts.manrope(
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.primarygrey);
+}
+
+TextStyle get logoutfont {
+  return GoogleFonts.inter(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.primaryred);
 }
 
 TextStyle get jakratafont {
@@ -88,8 +95,22 @@ TextStyle get authenticationtitlestyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get onboardtitle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 24.sp,
+      color: AppColors.primaryblack);
+}
+
 TextStyle get otherstyle {
   return GoogleFonts.manrope(
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get editprofilefont {
+  return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       fontSize: 14.sp,
       color: AppColors.primaryblack);
@@ -206,5 +227,13 @@ TextStyle get reviewfont {
       // textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
       fontWeight: FontWeight.w500,
       fontSize: 14.sp,
+      color: AppColors.primarygrey);
+}
+
+TextStyle get skipbutton {
+  return GoogleFonts.poppins(
+      // textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
       color: AppColors.primarygrey);
 }
