@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customitemprice.dart';
+import 'package:lmsapp/customwidgets/custompaymentcard.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
+import 'package:lmsapp/views/menu_screens/cart/paymentscreen/paymentview.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -76,35 +81,11 @@ class CartScreen extends StatelessWidget {
                 SizedBox(
                   height: 32.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Items',
-                      style: itemsfont,
-                    ),
-                    Text(
-                      'INR 10,800',
-                      style: otherfont,
-                    )
-                  ],
-                ),
+                CustomItemsPrice(amount: 'INR 8400', items: 'items'),
                 SizedBox(
                   height: 12.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Discounts',
-                      style: itemsfont,
-                    ),
-                    Text(
-                      '20%',
-                      style: otherfont,
-                    )
-                  ],
-                ),
+                CustomItemDiscount(discount: 'INR 8400', discountpercent: '20%')
               ],
             ),
             SizedBox(
@@ -112,23 +93,19 @@ class CartScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total Payment',
-                      style: reviewfont,
-                    ),
-                    Text(
-                      'INR 8,640',
-                      style: onboardtitle,
-                    ),
-                  ],
-                ),
+                CustomPaymentCard(amount: 'INR 8400'),
                 SizedBox(
                   height: 13.h,
                 ),
-                CustomButton(height: 53.h, text: 'CheckOut', onTap: () {})
+                CustomButton(
+                    height: 53.h,
+                    text: 'CheckOut',
+                    onTap: () {
+                      Navigator.push(
+                          // ignore: prefer_const_constructors
+                          context,
+                          CustomPageRoute(child: PaymentScreen()));
+                    })
               ],
             ),
             SizedBox(
