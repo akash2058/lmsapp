@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appimages.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/popularcourselandingpage.dart';
 
 class PopularCourseList extends StatelessWidget {
-  const  PopularCourseList({
+  const PopularCourseList({
     super.key,
   });
 
@@ -26,6 +28,12 @@ class PopularCourseList extends StatelessWidget {
                         discountprice: '5000',
                         price: 'INR 3,500',
                         title: 'Expert Wireframing for Mobile Design',
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              CustomPageRoute(
+                                  child: PopularCourseLandingPage()));
+                        },
                       ),
                       SizedBox(
                         width: 20.w,

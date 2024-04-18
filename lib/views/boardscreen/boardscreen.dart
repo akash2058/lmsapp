@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -123,7 +121,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                             ],
                           )),
                 ),
-                Spacer(),
+                const Spacer(),
                 CustomButton(text: 'Next', onTap: () {}),
                 SizedBox(
                   height: 20.h,

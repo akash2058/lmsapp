@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -81,9 +81,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 28.w,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                           showBottomSheet(
                               context: context,
                               builder: (context) {
-                                return LmsBottomSheet();
+                                return const LmsBottomSheet();
                               });
                         },
                         child: Container(
@@ -221,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  ReviewList(),
+                  const ReviewList(),
                   SizedBox(
                     height: 32.h,
                   ),

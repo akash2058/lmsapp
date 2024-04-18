@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -42,7 +44,7 @@ class UpcomingTestCard extends StatelessWidget {
             height: 8.w,
           ),
           Text(
-            '${questions}|${marks}|${duration}',
+            '$questions|$marks|$duration',
             style: testdetailstyle,
           )
         ],

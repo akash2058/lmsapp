@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -47,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
             AppSizeBox.defaultHeight,
             SizedBox(
               width: 148.w,
-              child: LinearProgressIndicator(
+              child: const LinearProgressIndicator(
                 color: AppColors.primarybrown,
               ),
             )

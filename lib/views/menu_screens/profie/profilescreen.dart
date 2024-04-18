@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -122,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Divider(
+            const Divider(
               color: AppColors.bordercolor,
             ),
             Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
 
 class ReviewList extends StatelessWidget {
@@ -22,6 +23,7 @@ class ReviewList extends StatelessWidget {
                     "Lyn's straight-talking approach always makes the problem easier to tackle. This session helped me la",
                 ratings: '4.5',
                 studentname: 'Rodolfo Goode',
+                image: AppImages.imgone,
               ),
               SizedBox(
                 width: 16.w,

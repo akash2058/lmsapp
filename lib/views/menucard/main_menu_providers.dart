@@ -30,10 +30,10 @@ void startAutoPageChange() {
   }
 
   List<Widget> screens = [
-    HomeScreen(),
-    ChatScreen(),
-    CartScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const ChatScreen(),
+    const CartScreen(),
+    const ProfileScreen(),
   ];
   List<String> socialimges = [
     AppImages.insta,

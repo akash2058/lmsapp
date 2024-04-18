@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-import 'package:flutter/material.dart';
 
 class CustomTile extends StatelessWidget {
   Widget? leading;
@@ -26,14 +22,14 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-      contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       dense: true,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           if (leading != null) leading!,
-          SizedBox(width: 8), // Adjust the width as needed
+          const SizedBox(width: 8), // Adjust the width as needed
           Text(
             title,
             style: reviewtitlestyle,

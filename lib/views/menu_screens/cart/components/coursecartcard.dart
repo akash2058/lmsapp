@@ -67,7 +67,7 @@ class CartCard extends StatelessWidget {
                           style: titleStyle,
                         ),
                         Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: AppColors.primaryred,
                                 shape: BoxShape.circle),
                             padding: EdgeInsets.all(6.5.sp),

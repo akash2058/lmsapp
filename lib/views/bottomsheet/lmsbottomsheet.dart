@@ -1,7 +1,4 @@
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -50,7 +47,7 @@ class LmsBottomSheet extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            GategoryButtonList(),
+            const GategoryButtonList(),
             SizedBox(
               height: 20.h,
             ),
@@ -62,7 +59,7 @@ class LmsBottomSheet extends StatelessWidget {
               height: 20.h,
             ),
             CustomFormField(
-                suffix: Icon(Icons.arrow_drop_down_outlined), hint: 'By Class'),
+                suffix: const Icon(Icons.arrow_drop_down_outlined), hint: 'By Class'),
             SizedBox(
               height: 20.h,
             ),
@@ -73,7 +70,7 @@ class LmsBottomSheet extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            SearchByRatings(),
+            const SearchByRatings(),
             SizedBox(
               height: 20.h,
             ),

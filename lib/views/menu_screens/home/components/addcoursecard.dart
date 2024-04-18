@@ -7,6 +7,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 
 import '../../../../utilities/appcolors.dart';
 
+// ignore: must_be_immutable
 class CourseCard extends StatelessWidget {
   String title;
   String lessons;
@@ -97,8 +98,8 @@ class CourseCard extends StatelessWidget {
                       Container(
                         height: 20.h,
                         width: 20.w,
-                        decoration: const BoxDecoration(
-                            color: AppColors.primaryred,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(image: AssetImage(img)),
                             shape: BoxShape.circle),
                       ),
                       Text(
@@ -109,7 +110,7 @@ class CourseCard extends StatelessWidget {
                         children: [
                           Image.asset(
                             AppImages.dollarsign,
-                            height: 20.h,
+                            height: 16.h,
                             color: AppColors.primarybrown,
                           ),
                           Text(

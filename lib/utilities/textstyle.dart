@@ -47,10 +47,17 @@ TextStyle get jakratafont {
 }
 
 TextStyle get jakratafontblack {
-  return GoogleFonts.manrope(
+  return GoogleFonts.plusJakartaSans(
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
-      color: AppColors.primarygrey);
+      color: AppColors.primaryblack);
+}
+
+TextStyle get ratinggrey {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.hintextcolor);
 }
 
 TextStyle get anotherjakratafont {
@@ -91,6 +98,13 @@ TextStyle get gategorybuttonwhite {
 TextStyle get gategorybuttonblack {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get lessonnumfont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.primaryblack);
 }
@@ -138,7 +152,7 @@ TextStyle get onboardtitle {
 }
 
 TextStyle get otherstyle {
-  return GoogleFonts.manrope(
+  return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       fontSize: 14.sp,
       color: AppColors.primaryblack);
@@ -174,7 +188,14 @@ TextStyle get formfieldstyle {
 
 TextStyle get hintstyle {
   return GoogleFonts.inter(
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get lessontitlefont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.primaryblack);
 }
@@ -232,6 +253,13 @@ TextStyle get courseprice {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w600,
       fontSize: 12.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get appbartitlestyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 16.sp,
       color: AppColors.primarybrown);
 }
 

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
@@ -78,7 +76,7 @@ class LoginPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, CustomPageRoute(child: ForgotPassword()));
+                        context, CustomPageRoute(child: const ForgotPassword()));
                   },
                   child: Text(
                     'Forgot Password',
@@ -91,7 +89,7 @@ class LoginPage extends StatelessWidget {
             CustomButton(
               text: 'Next',
               onTap: () {
-                Navigator.push(context, CustomPageRoute(child: MainMenu()));
+                Navigator.push(context, CustomPageRoute(child: const MainMenu()));
               },
             ),
             AppSizeBox.defaultHeight,
