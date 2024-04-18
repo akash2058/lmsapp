@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:lmsapp/customwidgets/custompaymentcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -44,41 +46,107 @@ class PaymentScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      trailing: const Icon(Icons.arrow_drop_down_sharp),
-                      leading: const Icon(Icons.wallet),
+                      visualDensity:
+                          const VisualDensity(horizontal: -4, vertical: -4),
+                      dense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 14.w, vertical: 10.h),
+                      trailing: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: AppColors.primarygrey,
+                      ),
+                      leading: Icon(
+                        Icons.wallet,
+                        size: 24.h,
+                        color: AppColors.primarygrey,
+                      ),
                       title: Text(
                         'Credit Card',
-                        style: titlestyle,
+                        style: itemsfont,
                       ),
                     ),
                     SizedBox(
                       height: 12.h,
                     ),
                     ListTile(
+                      visualDensity:
+                          const VisualDensity(horizontal: -4, vertical: -4),
+                      dense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 14.w, vertical: 10.h),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.r),
-                          side: BorderSide(color: AppColors.bordercolor)),
-                      trailing: const Icon(Icons.arrow_drop_down_sharp),
-                      leading: const Icon(Icons.wallet),
+                          side: const BorderSide(color: AppColors.bordercolor)),
+                      trailing: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: AppColors.primarygrey,
+                      ),
+                      leading: SvgPicture.asset(
+                        SvgImages.master,
+                      ),
                       title: Text(
-                        'Credit Card',
-                        style: titlestyle,
+                        '•••• 7658',
+                        style: itemsfont,
                       ),
                     ),
                     SizedBox(
                       height: 12.h,
                     ),
                     ListTile(
+                      visualDensity:
+                          const VisualDensity(horizontal: -4, vertical: -4),
+                      dense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 14.w, vertical: 10.h),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12.r),
-                          side: BorderSide(color: AppColors.bordercolor)),
-                      trailing: const Icon(Icons.arrow_drop_down_sharp),
-                      leading: const Icon(Icons.wallet),
+                          side: const BorderSide(color: AppColors.bordercolor)),
+                      trailing: const Icon(
+                        Icons.arrow_drop_down_sharp,
+                        color: AppColors.primarygrey,
+                      ),
+                      leading: SvgPicture.asset(
+                        SvgImages.visa,
+                      ),
                       title: Text(
-                        'Credit Card',
-                        style: titlestyle,
+                        '•••• 2322',
+                        style: itemsfont,
                       ),
                     ),
+                    SizedBox(
+                      height: 12.h,
+                    ),
+                    DottedBorder(
+                      dashPattern: [8],
+                      color: AppColors.primarybrown,
+                      borderType: BorderType.RRect,
+                      radius: Radius.circular(12),
+                      padding: EdgeInsets.all(6),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(12.r)),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          width: MediaQuery.sizeOf(context).width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.add,
+                                size: 16.h,
+                                color: AppColors.primarybrown,
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                'Add new Card',
+                                style: dotedborderstyle,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -103,20 +171,12 @@ class PaymentScreen extends StatelessWidget {
                 SizedBox(
                   height: 13.h,
                 ),
-                CustomButton(
-                    height: 53.h,
-                    text: 'CheckOut',
-                    onTap: () {
-                      Navigator.push(
-                          // ignore: prefer_const_constructors
-                          context,
-                          CustomPageRoute(child: const PaymentScreen()));
-                    })
+                CustomButton(height: 53.h, text: 'CheckOut', onTap: () {})
               ],
             ),
             SizedBox(
               height: 16.h,
-            )
+            ),
           ],
         ),
       ),

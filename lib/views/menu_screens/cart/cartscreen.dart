@@ -23,7 +23,7 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Cart',
-          style: pricefont,
+          style: appbartitlestyle,
         ),
         actions: [
           Icon(

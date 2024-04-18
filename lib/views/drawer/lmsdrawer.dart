@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/aboutuscreen.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/policyscreen.dart';
 
 class LmsDrawer extends StatelessWidget {
   const LmsDrawer({super.key});
@@ -26,9 +29,13 @@ class LmsDrawer extends StatelessWidget {
               height: 32.h,
             ),
             CustomTile(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: AboutUsScreen()));
+                },
                 leading: SvgPicture.asset(
-                  SvgImages.chat,
-                  height: 20.h,
+                  SvgImages.about,
+                  height: 24.h,
                 ),
                 title: 'About us',
                 subtitle: 'Contact us'),
@@ -38,7 +45,7 @@ class LmsDrawer extends StatelessWidget {
             CustomTile(
                 leading: SvgPicture.asset(
                   SvgImages.chat,
-                  height: 20.h,
+                  height: 24.h,
                 ),
                 title: 'Help',
                 subtitle: 'Achievements, badges, and certificates'),
@@ -47,8 +54,8 @@ class LmsDrawer extends StatelessWidget {
             ),
             CustomTile(
                 leading: SvgPicture.asset(
-                  SvgImages.chat,
-                  height: 20.h,
+                  SvgImages.help,
+                  height: 24.h,
                 ),
                 title: 'How to use app',
                 subtitle: 'Achievements, badges, and certificates'),
@@ -57,8 +64,8 @@ class LmsDrawer extends StatelessWidget {
             ),
             CustomTile(
                 leading: SvgPicture.asset(
-                  SvgImages.achive,
-                  height: 20.h,
+                  SvgImages.review,
+                  height: 24.h,
                 ),
                 title: 'Our students reviews',
                 subtitle: 'Achievements, badges, and certificates'),
@@ -67,8 +74,8 @@ class LmsDrawer extends StatelessWidget {
             ),
             CustomTile(
                 leading: SvgPicture.asset(
-                  SvgImages.chat,
-                  height: 20.h,
+                  SvgImages.achive,
+                  height: 24.h,
                 ),
                 title: 'Achievements and Certificates',
                 subtitle: 'Achievements, badges, and certificates'),
@@ -76,9 +83,13 @@ class LmsDrawer extends StatelessWidget {
               height: 12.h,
             ),
             CustomTile(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: PolicyScreen()));
+                },
                 leading: SvgPicture.asset(
-                  SvgImages.chat,
-                  height: 20.h,
+                  SvgImages.policy,
+                  height: 24.h,
                 ),
                 title: 'Privacy policy',
                 subtitle: 'Achievements, badges, and certificates'),

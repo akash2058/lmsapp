@@ -18,6 +18,13 @@ TextStyle get itemsfont {
       color: AppColors.primarygrey);
 }
 
+TextStyle get aboutustyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      color: AppColors.primarygrey);
+}
+
 TextStyle get normaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w600,
@@ -37,6 +44,13 @@ TextStyle get logoutfont {
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.primaryred);
+}
+
+TextStyle get dotedborderstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
+      color: AppColors.primarybrown);
 }
 
 TextStyle get jakratafont {
@@ -186,6 +200,13 @@ TextStyle get formfieldstyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get messageindicationstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 18.sp,
+      color: AppColors.primarywhite);
+}
+
 TextStyle get hintstyle {
   return GoogleFonts.inter(
       fontWeight: FontWeight.w600,
@@ -277,6 +298,13 @@ TextStyle get pricestyle {
       color: AppColors.primarybrown);
 }
 
+TextStyle get wishlistitle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      fontSize: 16.sp,
+      color: AppColors.primarybrown);
+}
+
 TextStyle get disountfont {
   return GoogleFonts.poppins(
       textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
@@ -287,7 +315,6 @@ TextStyle get disountfont {
 
 TextStyle get reviewfont {
   return GoogleFonts.poppins(
-      // textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
       fontWeight: FontWeight.w500,
       fontSize: 14.sp,
       color: AppColors.primarygrey);
@@ -295,7 +322,6 @@ TextStyle get reviewfont {
 
 TextStyle get skipbutton {
   return GoogleFonts.poppins(
-      // textStyle: const TextStyle(decoration: TextDecoration.lineThrough),
       fontWeight: FontWeight.w500,
       fontSize: 16.sp,
       color: AppColors.primarygrey);

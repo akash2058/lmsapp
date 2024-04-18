@@ -29,7 +29,9 @@ class PopularCourseLandingPage extends StatelessWidget {
             SizedBox(
               width: 20.w,
             ),
-            Expanded(child: CustomButton(text: 'Add to Cart', onTap: () {}))
+            Expanded(
+                child: CustomButton(
+                    height: 53.h, text: 'Add to Cart', onTap: () {}))
           ],
         ),
       ),
@@ -49,7 +51,7 @@ class PopularCourseLandingPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CourseDetailCard(
-                    coursetitle: 'UI/UZ Design',
+                    coursetitle: 'UI/UX Design',
                     title: 'Expert Wireframing for Mobile Design',
                     duration: '4h 24m',
                     lessons: '4 lessons',

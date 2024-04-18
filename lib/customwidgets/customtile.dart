@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-
 class CustomTile extends StatelessWidget {
   Widget? leading;
   Widget? trailing;
   String title;
   String subtitle;
   Color? bordorcolor;
+  VoidCallback? onTap;
 
   CustomTile({
     Key? key,
+    this.onTap,
     required this.title,
     required this.subtitle,
     this.leading,
@@ -22,26 +23,19 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
+      minLeadingWidth: 10.w,
+      leading: leading,
       visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
       contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       dense: true,
-      title: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if (leading != null) leading!,
-          const SizedBox(width: 8), // Adjust the width as needed
-          Text(
-            title,
-            style: reviewtitlestyle,
-          ),
-        ],
+      title: Text(
+        title,
+        style: reviewtitlestyle,
       ),
-      subtitle: Padding(
-        padding: EdgeInsets.only(left: 30.w),
-        child: Text(
-          subtitle,
-          style: subtitlefont,
-        ),
+      subtitle: Text(
+        subtitle,
+        style: subtitlefont,
       ),
       trailing: trailing,
     );

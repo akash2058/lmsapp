@@ -19,4 +19,10 @@ class SvgImages {
   static const achive = 'assets/award.svg';
   static const logout = 'assets/logout.svg';
   static const heart = 'assets/heart.svg';
+  static const visa = 'assets/visa-logo.svg';
+  static const master = 'assets/Maestro.svg';
+  static const help = 'assets/help.svg';
+  static const about = 'assets/about.svg';
+  static const review = 'assets/review.svg';
+  static const policy = 'assets/lock.svg';
 }

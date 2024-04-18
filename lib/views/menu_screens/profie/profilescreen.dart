@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/profileheader.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/wishlistpage.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -67,6 +69,7 @@ class ProfileScreen extends StatelessWidget {
                   CustomTile(
                       leading: SvgPicture.asset(
                         SvgImages.notifica,
+                        height: 24.h,
                       ),
                       title: 'Notification',
                       subtitle: 'Ringtone, message, notification'),
@@ -75,7 +78,14 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.heart),
+                      onTap: () {
+                        Navigator.push(
+                            context, CustomPageRoute(child: WishListPage()));
+                      },
+                      leading: SvgPicture.asset(
+                        SvgImages.heart,
+                        height: 24.h,
+                      ),
                       title: 'Whish list',
                       subtitle: 'Your favorite courses'),
                   Divider(
@@ -83,7 +93,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.cart),
+                      leading: SvgPicture.asset(
+                        SvgImages.cart,
+                        height: 24.h,
+                      ),
                       title: 'Purchased Courses',
                       subtitle: 'Courses you have purchased'),
                   Divider(
@@ -91,7 +104,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.pay),
+                      leading: SvgPicture.asset(
+                        SvgImages.pay,
+                        height: 24.h,
+                      ),
                       title: 'Payment History',
                       subtitle: 'Courses you have orders'),
                   Divider(
@@ -99,7 +115,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.achive),
+                      leading: SvgPicture.asset(
+                        SvgImages.achive,
+                        height: 24.h,
+                      ),
                       title: 'Achievements and Certificates',
                       subtitle: 'Achievements, badges, and certificates'),
                   Divider(
@@ -107,7 +126,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.pay),
+                      leading: SvgPicture.asset(
+                        SvgImages.pay,
+                        height: 24.h,
+                      ),
                       title: 'Referral system',
                       subtitle: 'Achievements, badges, and certificates'),
                   Divider(
@@ -115,7 +137,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
-                      leading: SvgPicture.asset(SvgImages.setting),
+                      leading: SvgPicture.asset(
+                        SvgImages.setting,
+                        height: 24.h,
+                      ),
                       title: 'Preferences',
                       subtitle: 'Theme, Settings'),
                 ],
@@ -143,6 +168,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 leading: SvgPicture.asset(
                   SvgImages.logout,
+                  height: 24.h,
                 ),
               ),
             ),
