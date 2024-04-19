@@ -7,7 +7,11 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/certificatescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/profileheader.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/paymenthistorypage.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/purchasecoursepage.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/referalpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/wishlistpage.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -93,6 +97,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
+                      onTap: () {
+                        Navigator.push(context,
+                            CustomPageRoute(child: PurchaseCoursePage()));
+                      },
                       leading: SvgPicture.asset(
                         SvgImages.cart,
                         height: 24.h,
@@ -104,6 +112,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
+                      onTap: () {
+                        Navigator.push(
+                            context, CustomPageRoute(child: PaymentHistory()));
+                      },
                       leading: SvgPicture.asset(
                         SvgImages.pay,
                         height: 24.h,
@@ -115,6 +127,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
+                      onTap: () {
+                        Navigator.push(context,
+                            CustomPageRoute(child: CertificateScreen()));
+                      },
                       leading: SvgPicture.asset(
                         SvgImages.achive,
                         height: 24.h,
@@ -126,6 +142,10 @@ class ProfileScreen extends StatelessWidget {
                     color: AppColors.lightwhite,
                   ),
                   CustomTile(
+                      onTap: () {
+                        Navigator.push(
+                            context, CustomPageRoute(child: ReferalPage()));
+                      },
                       leading: SvgPicture.asset(
                         SvgImages.pay,
                         height: 24.h,

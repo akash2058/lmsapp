@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CustomItemsPrice extends StatelessWidget {
   String items;
   String amount;

@@ -21,9 +21,9 @@ class CustomSearchField extends StatelessWidget {
           decoration: InputDecoration(
               prefixIconConstraints: BoxConstraints(minWidth: 56.w),
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 20.h, horizontal: 16.w),
+                  EdgeInsets.symmetric(vertical: 15.h, horizontal: 16.w),
               isDense: true,
-              hintStyle: hintstyle,
+              hintStyle: searchintfont,
               prefixIcon: prefix,
               suffix: suffix,
               hintText: hint,

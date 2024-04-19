@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_screens/chat/chatdetails/chatdetailscren.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -11,12 +14,8 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Message',
-          style: pricefont,
-        ),
+      appBar: CustomAppbar(
+        title: 'Message',
         actions: [
           Icon(
             Icons.more_horiz,
@@ -35,6 +34,10 @@ class ChatScreen extends StatelessWidget {
           (index) => Column(
             children: [
               ChatCard(
+                ontap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: ChatDetailsScreen()));
+                },
                 name: 'Shane Martinez',
                 message:
                     'Have you spoken to the delivery man? He is more than an hour late',
@@ -60,9 +63,11 @@ class ChatCard extends StatelessWidget {
   String message;
   String time;
   String messageindication;
+  VoidCallback? ontap;
   ChatCard(
       {super.key,
       required this.name,
+      this.ontap,
       required this.message,
       required this.time,
       required this.messageindication,
@@ -70,53 +75,56 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ChatUserPicCard(img: img),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width,
+        decoration: BoxDecoration(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ChatUserPicCard(img: img),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: titlestyle,
+                  ),
+                  Text(
+                    message,
+                    style: itemsfont,
+                  )
+                ],
+              ),
+            ),
+            Column(
               children: [
                 Text(
-                  name,
-                  style: titlestyle,
-                ),
-                Text(
-                  message,
+                  time,
                   style: itemsfont,
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Container(
+                  height: 32.h,
+                  width: 31.w,
+                  decoration: BoxDecoration(
+                      color: AppColors.primarybrown,
+                      borderRadius: BorderRadius.circular(8.r)),
+                  child: Center(
+                    child: Text(
+                      messageindication,
+                      style: messageindicationstyle,
+                    ),
+                  ),
                 )
               ],
-            ),
-          ),
-          Column(
-            children: [
-              Text(
-                time,
-                style: itemsfont,
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              Container(
-                height: 32.h,
-                width: 31.w,
-                decoration: BoxDecoration(
-                    color: AppColors.primarybrown,
-                    borderRadius: BorderRadius.circular(8.r)),
-                child: Center(
-                  child: Text(
-                    messageindication,
-                    style: messageindicationstyle,
-                  ),
-                ),
-              )
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

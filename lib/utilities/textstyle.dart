@@ -11,6 +11,27 @@ TextStyle get titleStyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get faqstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 16.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get paymentpricestyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 12.sp,
+      color: AppColors.primaryred);
+}
+
+TextStyle get hinttextstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      color: AppColors.hintextcolor);
+}
+
 TextStyle get itemsfont {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
@@ -54,7 +75,7 @@ TextStyle get dotedborderstyle {
 }
 
 TextStyle get jakratafont {
-  return GoogleFonts.manrope(
+  return GoogleFonts.plusJakartaSans(
       fontWeight: FontWeight.w600,
       fontSize: 14.sp,
       color: AppColors.secondarygrey);
@@ -74,11 +95,18 @@ TextStyle get ratinggrey {
       color: AppColors.hintextcolor);
 }
 
-TextStyle get anotherjakratafont {
-  return GoogleFonts.manrope(
-      fontWeight: FontWeight.w400,
+TextStyle get linearindicatorstyle {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w500,
       fontSize: 14.sp,
-      color: AppColors.primarywhite);
+      color: AppColors.hintextcolor);
+}
+
+TextStyle get anotherjakratafont {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w500,
+      fontSize: 10.sp,
+      color: AppColors.hintextcolor);
 }
 
 TextStyle get anotherormaltextStyle {
@@ -126,6 +154,13 @@ TextStyle get lessonnumfont {
 TextStyle get othernormaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primarygrey);
+}
+
+TextStyle get searchintfont {
+  return GoogleFonts.rubik(
+      fontWeight: FontWeight.w400,
       fontSize: 14.sp,
       color: AppColors.primarygrey);
 }

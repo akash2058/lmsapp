@@ -7,7 +7,6 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
 
 class WishListPage extends StatelessWidget {
   const WishListPage({super.key});
@@ -15,6 +14,13 @@ class WishListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        child: CustomButton(
+          height: 53.h,
+          text: 'Back To HomePage',
+          onTap: () {},
+        ),
+      ),
       backgroundColor: AppColors.secondarylight,
       appBar: AppBar(
         centerTitle: true,
@@ -24,12 +30,12 @@ class WishListPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w),
+        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
         child: Column(
           children: [
             Column(
               children: List.generate(
-                  4,
+                  3,
                   (index) => Column(
                         children: [
                           WishListCard(
@@ -46,11 +52,6 @@ class WishListPage extends StatelessWidget {
                       )),
             ),
             Spacer(),
-            CustomButton(
-              height: 53.h,
-              text: 'Back To HomePage',
-              onTap: () {},
-            ),
             SizedBox(
               height: 16.h,
             )
@@ -165,9 +166,6 @@ class WishListCard extends StatelessWidget {
                           ))
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 12.h,
                 ),
               ],
             ),

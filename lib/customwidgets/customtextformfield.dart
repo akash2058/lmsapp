@@ -5,6 +5,8 @@ import 'package:lmsapp/utilities/textstyle.dart';
 
 // ignore: must_be_immutable
 class CustomFormField extends StatelessWidget {
+  int? maxlines;
+  Color? fillcolor;
   String hint;
   TextInputType? inputType;
   TextEditingController? controller;
@@ -15,18 +17,23 @@ class CustomFormField extends StatelessWidget {
       {super.key,
       required this.hint,
       this.controller,
+      this.fillcolor,
       this.suffix,
       this.prefix,
+      this.maxlines,
       this.inputType,
       this.validation});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: AppColors.primarylightgrey)),
+          color: fillcolor,
+          borderRadius: BorderRadius.circular(10.r),
+          border: Border.all(color: AppColors.secondarygrey)),
       child: TextFormField(
+        maxLines: maxlines,
         style: formfieldstyle,
         decoration: InputDecoration(
             suffixIcon: suffix,
@@ -35,7 +42,7 @@ class CustomFormField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.only(top: 15.h, left: 14.w, bottom: 15.h),
             isDense: true,
-            hintStyle: formfieldstyle,
+            hintStyle: hinttextstyle,
             hintText: hint),
       ),
     );

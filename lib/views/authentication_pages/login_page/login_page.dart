@@ -75,8 +75,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context, CustomPageRoute(child: const ForgotPassword()));
+                    Navigator.push(context,
+                        CustomPageRoute(child: const ForgotPassword()));
                   },
                   child: Text(
                     'Forgot Password',
@@ -89,7 +89,8 @@ class LoginPage extends StatelessWidget {
             CustomButton(
               text: 'Next',
               onTap: () {
-                Navigator.push(context, CustomPageRoute(child: const MainMenu()));
+                Navigator.push(
+                    context, CustomPageRoute(child: const MainMenu()));
               },
             ),
             AppSizeBox.defaultHeight,

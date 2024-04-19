@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
 
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -25,6 +26,7 @@ import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
 import 'package:lmsapp/views/menu_screens/home/components/upcomingtestitle.dart';
 import 'package:lmsapp/views/menu_screens/home/components/upcomingtestlist.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:lmsapp/views/notification/lmsnotification.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,16 +48,22 @@ class HomeScreen extends StatelessWidget {
             ),
             automaticallyImplyLeading: false,
             actions: [
-              Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: AppColors.primarylightgrey)),
-                  child: SvgPicture.asset(
-                    SvgImages.notifi,
-                    height: 24.h,
-                  )),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: const LmsNotifcation()));
+                },
+                child: Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 11.w),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: AppColors.primarylightgrey)),
+                    child: SvgPicture.asset(
+                      SvgImages.notifi,
+                      height: 24.h,
+                    )),
+              ),
               Builder(builder: (context) {
                 return GestureDetector(
                   onTap: () {

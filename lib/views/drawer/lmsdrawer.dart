@@ -6,6 +6,9 @@ import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/views/drawer/drawerscreen/aboutuscreen.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/appguidlinescreen.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/certificatescreen.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/helpscreen.dart';
 import 'package:lmsapp/views/drawer/drawerscreen/policyscreen.dart';
 
 class LmsDrawer extends StatelessWidget {
@@ -43,6 +46,9 @@ class LmsDrawer extends StatelessWidget {
               height: 12.h,
             ),
             CustomTile(
+                onTap: () {
+                  Navigator.push(context, CustomPageRoute(child: HelpScreen()));
+                },
                 leading: SvgPicture.asset(
                   SvgImages.chat,
                   height: 24.h,
@@ -53,6 +59,10 @@ class LmsDrawer extends StatelessWidget {
               height: 12.h,
             ),
             CustomTile(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: AppGuideLineScreen()));
+                },
                 leading: SvgPicture.asset(
                   SvgImages.help,
                   height: 24.h,
@@ -73,6 +83,10 @@ class LmsDrawer extends StatelessWidget {
               height: 12.h,
             ),
             CustomTile(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: CertificateScreen()));
+                },
                 leading: SvgPicture.asset(
                   SvgImages.achive,
                   height: 24.h,

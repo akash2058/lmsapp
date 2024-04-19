@@ -6,8 +6,6 @@ import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
 import 'package:lmsapp/customwidgets/custompaymentcard.dart';
-import 'package:lmsapp/customwidgets/customroute.dart';
-import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';

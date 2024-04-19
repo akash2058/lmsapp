@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       ensureScreenSize: true,
       // ignore: prefer_const_constructors
-      designSize: Size(428, 928),
+      designSize: Size(428, 932),
       child: MultiProvider(
         providers: getProviders(),
         child: const MaterialApp(

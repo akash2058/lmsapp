@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/appimages.dart';
+
+import 'package:lmsapp/views/menu_screens/profie/components/paymenthistorypagecard.dart';
+
+class PaymentHistory extends StatelessWidget {
+  const PaymentHistory({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        color: AppColors.primarywhite,
+        child: CustomButton(
+          text: 'Back to Homepage',
+          onTap: () {},
+        ),
+      ),
+      appBar: CustomAppbar(title: 'Payment History'),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
+        child: Column(
+            children: List.generate(
+                3,
+                (index) => Column(
+                      children: [
+                        PaymentHistoryCard(
+                          coursetitle: 'UI/UX Development',
+                          date: '23,MARCH 2023',
+                          price: 'INR 4800',
+                          time: '10:59 PM',
+                          img: AppImages.imgone,
+                        ),
+                        SizedBox(
+                          height: 24.h,
+                        )
+                      ],
+                    ))),
+      ),
+    );
+  }
+}

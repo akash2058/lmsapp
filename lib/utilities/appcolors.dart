@@ -13,8 +13,10 @@ class AppColors {
   static const hintextcolor = Color(0xffA2A5B1);
   static const secondarylight = Color(0xffF6F8FA);
   static const secondarygrey = Color(0xffC9CCDB);
-  static const bordercolor = Color(0xffEDEDED);
+  static const bordercolor = Color(0xffD1D1D6);
   static const primaryellow = Color(0xffF2C71C);
   static const lightwhite = Color(0xffF6F6F6);
   static const primarygreen = Color(0xff48F48D);
+  static const secondarygreen = Color(0xff44B461);
+  static const formfillcolor = Color(0xffF5C8BA);
 }
