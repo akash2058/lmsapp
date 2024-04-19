@@ -14,7 +14,7 @@ class ChatDetailsScreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
         elevation: 3,
-        child: MessageBox(),
+        child: const MessageBox(),
       ),
       appBar: CustomAppbar(title: 'Shane Martinez'),
     );
@@ -30,14 +30,14 @@ class MessageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
+        const Icon(
           Icons.mic,
           color: AppColors.primarybrown,
         ),
         SizedBox(
           width: 11.w,
         ),
-        Icon(
+        const Icon(
           Icons.image,
           color: AppColors.primarybrown,
         ),
@@ -48,7 +48,7 @@ class MessageBox extends StatelessWidget {
             child: CustomFormField(
           fillcolor: AppColors.primarywhite,
           hint: 'Write message',
-          suffix: Icon(Icons.emoji_emotions_outlined),
+          suffix: const Icon(Icons.emoji_emotions_outlined),
         )),
         SizedBox(
           width: 16.w,
