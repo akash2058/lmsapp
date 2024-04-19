@@ -45,6 +45,9 @@ class ChatScreen extends StatelessWidget {
                 time: '5 min',
                 messageindication: '3',
               ),
+              SizedBox(
+                height: 20.h,
+              ),
               Divider(
                 thickness: 1.h,
                 color: AppColors.bordercolor,

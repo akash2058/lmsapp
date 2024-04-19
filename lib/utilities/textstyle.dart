@@ -109,6 +109,13 @@ TextStyle get anotherjakratafont {
       color: AppColors.hintextcolor);
 }
 
+TextStyle get popularcoursestyle {
+  return GoogleFonts.plusJakartaSans(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: AppColors.primarywhite);
+}
+
 TextStyle get anotherormaltextStyle {
   return GoogleFonts.manrope(
       fontWeight: FontWeight.w400,

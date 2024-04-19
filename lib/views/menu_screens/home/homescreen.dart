@@ -158,7 +158,7 @@ class HomeScreen extends StatelessWidget {
                               vertical: 10.h, horizontal: 12.w),
                           child: Text(
                             'All Course',
-                            style: anotherjakratafont,
+                            style: popularcoursestyle,
                           ),
                         ),
                         SizedBox(
@@ -176,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                               vertical: 10.h, horizontal: 12.w),
                           child: Text(
                             'Computer Networking',
-                            style: anotherjakratafont,
+                            style: popularcoursestyle,
                           ),
                         ),
                         SizedBox(
@@ -194,7 +194,7 @@ class HomeScreen extends StatelessWidget {
                               vertical: 10.h, horizontal: 12.w),
                           child: Text(
                             'Networking',
-                            style: anotherjakratafont,
+                            style: popularcoursestyle,
                           ),
                         ),
                       ],
