@@ -15,13 +15,6 @@ class OnBoardScreen extends StatefulWidget {
 
 class _OnBoardScreenState extends State<OnBoardScreen> {
   @override
-  void initState() {
-    var state = Provider.of<MenuProviders>(context, listen: false);
-    super.initState();
-    state.pageController = PageController();
-    state.startAutoPageChange();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
@@ -66,6 +59,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   children: List.generate(
                       menu.onboardtitle.length,
                       (index) => Text(
+                            textAlign: TextAlign.center,
                             menu.currentslide == index
                                 ? menu.onboardtitle[index]
                                 : '',
@@ -122,10 +116,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                           )),
                 ),
                 const Spacer(),
-                CustomButton(text: 'Next', onTap: () {}),
+                CustomButton(height: 53.h, text: 'Next', onTap: () {}),
                 SizedBox(
                   height: 20.h,
-                )
+                ),
               ],
             ),
           ),

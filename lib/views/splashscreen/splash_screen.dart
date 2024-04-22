@@ -7,6 +7,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/boardscreen/boardscreen.dart';
 import 'package:lmsapp/views/menucard/main_menu.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/purchasecard.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/landingpages/purchasedcourselandingpage.dart';
 
 class PurchaseCoursePage extends StatelessWidget {
   const PurchaseCoursePage({super.key});
@@ -59,6 +60,10 @@ class PurchaseCoursePage extends StatelessWidget {
               height: 32.h,
             ),
             PurchaseCourseCard(
+              onTap: () {
+                Navigator.push(context,
+                    CustomPageRoute(child: const PurchasedCourseLandingPage()));
+              },
               coursetitle: 'UI/UX Designer',
               lesson: '9 Lessons',
               img: AppImages.imgone,

@@ -13,6 +13,7 @@ import 'package:lmsapp/views/menu_screens/profie/profilepages/paymenthistorypage
 import 'package:lmsapp/views/menu_screens/profie/profilepages/purchasecoursepage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/referalpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/wishlistpage.dart';
+import 'package:lmsapp/views/notification/lmsnotification.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -71,6 +72,10 @@ class ProfileScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTile(
+                      onTap: () {
+                        Navigator.push(context,
+                            CustomPageRoute(child: const LmsNotifcation()));
+                      },
                       leading: SvgPicture.asset(
                         SvgImages.notifica,
                         height: 24.h,
@@ -83,8 +88,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   CustomTile(
                       onTap: () {
-                        Navigator.push(
-                            context, CustomPageRoute(child: WishListPage()));
+                        Navigator.push(context,
+                            CustomPageRoute(child: const WishListPage()));
                       },
                       leading: SvgPicture.asset(
                         SvgImages.heart,
@@ -99,7 +104,7 @@ class ProfileScreen extends StatelessWidget {
                   CustomTile(
                       onTap: () {
                         Navigator.push(context,
-                            CustomPageRoute(child: PurchaseCoursePage()));
+                            CustomPageRoute(child: const PurchaseCoursePage()));
                       },
                       leading: SvgPicture.asset(
                         SvgImages.cart,
@@ -113,8 +118,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   CustomTile(
                       onTap: () {
-                        Navigator.push(
-                            context, CustomPageRoute(child: PaymentHistory()));
+                        Navigator.push(context,
+                            CustomPageRoute(child: const PaymentHistory()));
                       },
                       leading: SvgPicture.asset(
                         SvgImages.pay,
@@ -129,7 +134,7 @@ class ProfileScreen extends StatelessWidget {
                   CustomTile(
                       onTap: () {
                         Navigator.push(context,
-                            CustomPageRoute(child: CertificateScreen()));
+                            CustomPageRoute(child: const CertificateScreen()));
                       },
                       leading: SvgPicture.asset(
                         SvgImages.achive,
@@ -143,8 +148,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   CustomTile(
                       onTap: () {
-                        Navigator.push(
-                            context, CustomPageRoute(child: ReferalPage()));
+                        Navigator.push(context,
+                            CustomPageRoute(child: const ReferalPage()));
                       },
                       leading: SvgPicture.asset(
                         SvgImages.pay,

@@ -35,6 +35,7 @@ class _MainMenuState extends State<MainMenu> {
                     child: SvgPicture.asset(
                       SvgImages.home,
                       height: 24.h,
+                      // ignore: deprecated_member_use
                       color: menu.currenttab == 0
                           ? AppColors.primarybrown
                           : AppColors.primarygrey,
