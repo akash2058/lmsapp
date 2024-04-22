@@ -19,7 +19,7 @@ class CustomLessonTile extends StatelessWidget {
     return Card(
       child: ListTile(
         visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
         dense: true,
         title: Text(
           lessontitle,

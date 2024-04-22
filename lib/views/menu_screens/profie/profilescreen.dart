@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
               color: AppColors.lightwhite,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

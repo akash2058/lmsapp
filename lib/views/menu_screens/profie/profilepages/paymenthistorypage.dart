@@ -3,10 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 
 import 'package:lmsapp/views/menu_screens/profie/components/paymenthistorypagecard.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/landingpages/paymentcourselandingpage.dart';
 
 class PaymentHistory extends StatelessWidget {
   const PaymentHistory({super.key});
@@ -31,6 +33,12 @@ class PaymentHistory extends StatelessWidget {
                 (index) => Column(
                       children: [
                         PaymentHistoryCard(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: PaymentCourseLandingPage()));
+                          },
                           coursetitle: 'UI/UX Development',
                           date: '23,MARCH 2023',
                           price: 'INR 4800',

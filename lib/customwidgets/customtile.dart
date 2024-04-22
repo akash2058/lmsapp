@@ -24,10 +24,9 @@ class CustomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      minLeadingWidth: 10.w,
       leading: leading,
-      visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      visualDensity: VisualDensity(horizontal: -4.w, vertical: -4.h),
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
       dense: true,
       title: Text(
         title,
@@ -35,7 +34,7 @@ class CustomTile extends StatelessWidget {
       ),
       subtitle: Text(
         subtitle,
-        style: subtitlefont,
+        style: lessonfontt,
       ),
       trailing: trailing,
     );

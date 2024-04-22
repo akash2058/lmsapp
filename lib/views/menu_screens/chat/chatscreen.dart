@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
@@ -36,7 +36,7 @@ class ChatScreen extends StatelessWidget {
               ChatCard(
                 ontap: () {
                   Navigator.push(
-                      context, CustomPageRoute(child: ChatDetailsScreen()));
+                      context, CustomPageRoute(child: const ChatDetailsScreen()));
                 },
                 name: 'Shane Martinez',
                 message:
@@ -60,6 +60,7 @@ class ChatScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ChatCard extends StatelessWidget {
   String img;
   String name;
@@ -82,7 +83,7 @@ class ChatCard extends StatelessWidget {
       onTap: ontap,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -133,6 +134,7 @@ class ChatCard extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ChatUserPicCard extends StatelessWidget {
   String img;
   ChatUserPicCard({super.key, required this.img});

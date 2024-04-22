@@ -25,6 +25,7 @@ import 'package:lmsapp/views/menu_screens/home/components/reviewtitle.dart';
 import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
 import 'package:lmsapp/views/menu_screens/home/components/upcomingtestitle.dart';
 import 'package:lmsapp/views/menu_screens/home/components/upcomingtestlist.dart';
+import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lmsnotification.dart';
 import 'package:provider/provider.dart';
@@ -97,11 +98,18 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       CustomSearchField(
+                        onTap: () {
+                          Navigator.push(context,
+                              CustomPageRoute(child: MySearchScreen()));
+                        },
                         prefix: SvgPicture.asset(
                           SvgImages.search,
                           height: 24.h,
                         ),
                         hint: 'Search any thing',
+                      ),
+                      SizedBox(
+                        width: 20.w,
                       ),
                       GestureDetector(
                         onTap: () {

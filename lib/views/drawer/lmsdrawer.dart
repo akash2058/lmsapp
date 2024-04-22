@@ -34,7 +34,7 @@ class LmsDrawer extends StatelessWidget {
             CustomTile(
                 onTap: () {
                   Navigator.push(
-                      context, CustomPageRoute(child: AboutUsScreen()));
+                      context, CustomPageRoute(child: const AboutUsScreen()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.about,
@@ -47,7 +47,7 @@ class LmsDrawer extends StatelessWidget {
             ),
             CustomTile(
                 onTap: () {
-                  Navigator.push(context, CustomPageRoute(child: HelpScreen()));
+                  Navigator.push(context, CustomPageRoute(child: const HelpScreen()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.chat,
@@ -61,7 +61,7 @@ class LmsDrawer extends StatelessWidget {
             CustomTile(
                 onTap: () {
                   Navigator.push(
-                      context, CustomPageRoute(child: AppGuideLineScreen()));
+                      context, CustomPageRoute(child: const AppGuideLineScreen()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.help,
@@ -85,7 +85,7 @@ class LmsDrawer extends StatelessWidget {
             CustomTile(
                 onTap: () {
                   Navigator.push(
-                      context, CustomPageRoute(child: CertificateScreen()));
+                      context, CustomPageRoute(child: const CertificateScreen()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.achive,
@@ -99,7 +99,7 @@ class LmsDrawer extends StatelessWidget {
             CustomTile(
                 onTap: () {
                   Navigator.push(
-                      context, CustomPageRoute(child: PolicyScreen()));
+                      context, CustomPageRoute(child: const PolicyScreen()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.policy,

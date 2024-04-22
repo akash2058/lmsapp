@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customexpansiontile.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/components/aboutcard.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/components/lessonlist.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/lessonlist.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/components/coursedetailcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
 
 import 'components/landingpagehead.dart';
 
@@ -83,6 +87,23 @@ class PopularCourseLandingPage extends StatelessWidget {
                   SizedBox(
                     height: 16.h,
                   ),
+                  CustomExpansionTile(
+                    lessonnum: '01',
+                    duration: '5min 34s',
+                    lessontitle: 'Introduction to the Class',
+                    children: [
+                      Customlessontext(
+                        title:
+                            'Course Introduction - AWS Certified Solutions Architect Associate',
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Customlessondetails(
+                          title:
+                              'Please Read Lectures carefully Please Read Lectures carefullyPlease Read Lectures carefully'),
+                    ],
+                  ),
                   LessonLists(),
                   SizedBox(
                     height: 16.h,
@@ -101,34 +122,6 @@ class PopularCourseLandingPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CourseReviewList extends StatelessWidget {
-  const CourseReviewList({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: List.generate(
-          3,
-          (index) => Column(
-                children: [
-                  ReviewCard(
-                      duration: '6 days ago',
-                      givereview:
-                          "Lyn's straight-talking approach always makes the problem easier to tackle. This session helped me la",
-                      ratings: '4.5',
-                      studentname: 'Rodolfo Goode',
-                      image: AppImages.imgone),
-                  SizedBox(
-                    height: 16.h,
-                  )
-                ],
-              )),
     );
   }
 }

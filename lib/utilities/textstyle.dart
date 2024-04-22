@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -18,11 +19,41 @@ TextStyle get faqstyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get testtitlestyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w700,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
+TextStyle get testnumberstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 10.sp,
+      color: AppColors.primaryblack);
+}
+
 TextStyle get paymentpricestyle {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       fontSize: 12.sp,
       color: AppColors.primaryred);
+}
+
+TextStyle get Linethroughtbrowntyle {
+  return GoogleFonts.manrope(
+      decoration: TextDecoration.underline,
+      fontWeight: FontWeight.w600,
+      fontSize: 12.sp,
+      color: AppColors.primarybrown);
+}
+
+TextStyle get Linethroughtgreystyle {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w600,
+      decoration: TextDecoration.underline,
+      fontSize: 12.sp,
+      color: AppColors.primarygrey);
 }
 
 TextStyle get hinttextstyle {
@@ -121,6 +152,20 @@ TextStyle get anotherormaltextStyle {
       fontWeight: FontWeight.w400,
       fontSize: 16.sp,
       color: AppColors.primarygrey);
+}
+
+TextStyle get anotherormaltextStylewhite {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      color: AppColors.primarywhite);
+}
+
+TextStyle get anotherormaltextblackstyle {
+  return GoogleFonts.manrope(
+      fontWeight: FontWeight.w400,
+      fontSize: 16.sp,
+      color: AppColors.primaryblack);
 }
 
 TextStyle get allcoursefont {
@@ -367,4 +412,11 @@ TextStyle get skipbutton {
       fontWeight: FontWeight.w500,
       fontSize: 16.sp,
       color: AppColors.primarygrey);
+}
+
+TextStyle get ratingtextstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: AppColors.primaryblack);
 }

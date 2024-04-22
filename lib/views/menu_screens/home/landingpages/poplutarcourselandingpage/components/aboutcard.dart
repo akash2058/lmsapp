@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../../../utilities/textstyle.dart';
+import '../../../../../../utilities/textstyle.dart';
 
 class AboutCourseCard extends StatelessWidget {
   String description;
