@@ -13,7 +13,7 @@ class UpComingTestLandingpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(title: 'UI/UX Designer'),
+      appBar: CustomAppbar(autoapply: true, title: 'UI/UX Designer'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
         child: Column(

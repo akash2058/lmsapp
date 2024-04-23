@@ -10,7 +10,7 @@ class AppGuideLineScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        title: 'FAQ',
+        title: 'FAQ', autoapply: true,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 28.h),

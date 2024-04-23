@@ -87,6 +87,7 @@ class LoginPage extends StatelessWidget {
             ),
             AppSizeBox.defaultHeight,
             CustomButton(
+              height: 53.h,
               text: 'Next',
               onTap: () {
                 Navigator.push(

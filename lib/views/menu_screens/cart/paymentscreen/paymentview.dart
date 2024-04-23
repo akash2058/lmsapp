@@ -7,6 +7,7 @@ import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
 import 'package:lmsapp/customwidgets/custompaymentcard.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
@@ -16,6 +17,108 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        height: 153.h,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 28.w,
+          ),
+          child: Column(
+            children: [
+              CustomPaymentCard(
+                amount: 'INR 8400',
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              CustomButton(
+                  height: 53.h,
+                  text: 'Purchase Now',
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext) {
+                          return AlertDialog(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 52.h),
+                            title: Container(
+                              height: 153.h,
+                              width: 153.w,
+                              // ignore: prefer_const_constructors
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fitHeight,
+                                      image:
+                                          AssetImage(AppImages.successlogo))),
+                            ),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Payment Successfully',
+                                  style: titleStyle,
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Text(
+                                  'Transaction Number : 12345678',
+                                  style: itemsfont,
+                                ),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Divider(),
+                                SizedBox(
+                                  height: 12.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Amount paid:',
+                                      style: titlestyle,
+                                    ),
+                                    Text(
+                                      '\$40',
+                                      style: pricestyle,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Payed By:',
+                                      style: payedstyle,
+                                    ),
+                                    Text(
+                                      '***8446',
+                                      style: itemsfont,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 66.h,
+                                ),
+                                CustomButton(
+                                    height: 53.h,
+                                    text: 'Back To HomePage',
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    })
+                              ],
+                            ),
+                          );
+                        });
+                  })
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: Text(
           'Payment',
@@ -163,17 +266,7 @@ class PaymentScreen extends StatelessWidget {
                   discount: 'INR 8400',
                   discountpercent: '20%',
                 ),
-                CustomPaymentCard(
-                  amount: 'INR 8400',
-                ),
-                SizedBox(
-                  height: 13.h,
-                ),
-                CustomButton(height: 53.h, text: 'CheckOut', onTap: () {})
               ],
-            ),
-            SizedBox(
-              height: 16.h,
             ),
           ],
         ),

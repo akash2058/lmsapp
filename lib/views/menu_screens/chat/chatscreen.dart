@@ -25,6 +25,7 @@ class ChatScreen extends StatelessWidget {
             width: 21.w,
           )
         ],
+        autoapply: false,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 34.h),
@@ -33,10 +34,13 @@ class ChatScreen extends StatelessWidget {
           3,
           (index) => Column(
             children: [
+              SizedBox(
+                height: 20.h,
+              ),
               ChatCard(
                 ontap: () {
-                  Navigator.push(
-                      context, CustomPageRoute(child: const ChatDetailsScreen()));
+                  Navigator.push(context,
+                      CustomPageRoute(child: const ChatDetailsScreen()));
                 },
                 name: 'Shane Martinez',
                 message:

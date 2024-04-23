@@ -13,4 +13,6 @@ class AppImages {
   static const onboardthree = 'assets/onboardthree.jpg';
   static const aboutus = 'assets/aboutus.jpg';
   static const certificate = 'assets/certificate.png';
+  static const successlogo = 'assets/checklogo.png';
+  static const notest = 'assets/test.png';
 }

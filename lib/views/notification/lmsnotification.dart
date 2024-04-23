@@ -11,6 +11,7 @@ class LmsNotifcation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
+        autoapply: true,
         title: 'Notifications',
         actions: [
           Icon(Icons.more_horiz),

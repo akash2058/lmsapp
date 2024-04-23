@@ -24,7 +24,7 @@ class PaymentHistory extends StatelessWidget {
           onTap: () {},
         ),
       ),
-      appBar: CustomAppbar(title: 'Payment History'),
+      appBar: CustomAppbar(autoapply: true, title: 'Payment History'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
         child: Column(

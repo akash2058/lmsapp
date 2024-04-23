@@ -23,6 +23,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
+        autoapply: true,
         title: 'Course title',
         actions: [
           Icon(Icons.more_horiz),
@@ -76,7 +77,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
                   SizedBox(
                     height: 16.h,
                   ),
-                  PayedCourseLandingPage(),
+                  const PayedCourseLandingPage(),
                   SizedBox(
                     height: 16.h,
                   ),

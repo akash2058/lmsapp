@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/otpscreen/otpscreen.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -56,10 +58,22 @@ class RegisterPage extends StatelessWidget {
               'Confirm Password',
               style: othernormaltextStyle,
             ),
-            AppSizeBox.defaultHeightforsplash,
+            SizedBox(
+              height: 4.h,
+            ),
             CustomFormField(hint: 'enter your confirm password'),
-            AppSizeBox.defaultHeight,
-            CustomButton(text: 'Register', onTap: () {}),
+            SizedBox(
+              height: 32.h,
+            ),
+            CustomButton(
+                height: 53.h,
+                text: 'Register',
+                onTap: () {
+                  Navigator.push(context, CustomPageRoute(child: OtpScreen()));
+                }),
+            SizedBox(
+              height: 20.h,
+            ),
             Row(
               children: [
                 Transform.scale(

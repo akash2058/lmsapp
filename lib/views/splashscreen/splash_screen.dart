@@ -7,6 +7,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/boardscreen/boardscreen.dart';
 import 'package:lmsapp/views/menucard/main_menu.dart';
 
@@ -27,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void splashscreen() {
     Timer(const Duration(seconds: 2), () {
       Navigator.pushAndRemoveUntil(
-          context, CustomPageRoute(child: const MainMenu()), (route) => false);
+          context, CustomPageRoute(child: const LoginPage()), (route) => false);
     });
   }
 

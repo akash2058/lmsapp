@@ -10,7 +10,9 @@ class ReferalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(actions: [
+      appBar: CustomAppbar(
+            autoapply: true,
+        actions: [
         Icon(Icons.more_horiz),
         SizedBox(
           width: 20.w,

@@ -9,12 +9,15 @@ class CertificateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(actions: [
-        Icon(Icons.more_horiz),
-        SizedBox(
-          width: 20.w,
-        )
-      ], title: 'Achievements and Certificates'),
+      appBar: CustomAppbar(
+          autoapply: true,
+          actions: [
+            Icon(Icons.more_horiz),
+            SizedBox(
+              width: 20.w,
+            )
+          ],
+          title: 'Achievements and Certificates'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
         child: Column(

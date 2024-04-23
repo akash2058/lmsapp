@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
 import 'package:lmsapp/customwidgets/custompaymentcard.dart';
@@ -19,12 +20,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Cart',
-          style: appbartitlestyle,
-        ),
+      appBar: CustomAppbar(
+        autoapply: false,
+        title: 'Cart',
         actions: [
           Icon(
             Icons.more_horiz,

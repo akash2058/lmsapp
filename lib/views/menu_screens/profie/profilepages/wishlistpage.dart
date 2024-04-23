@@ -3,10 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/profie/components/wishlistcard.dart';
 
 class WishListPage extends StatelessWidget {
   const WishListPage({super.key});
@@ -39,6 +42,12 @@ class WishListPage extends StatelessWidget {
                   (index) => Column(
                         children: [
                           WishListCard(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(
+                                      child: const PopularCourseLandingPage()));
+                            },
                             title: 'Expert Wireframing for Mobile...',
                             coursetitle: 'Graphic Design',
                             lesson: '9 Lessons',
@@ -62,116 +71,4 @@ class WishListPage extends StatelessWidget {
   }
 }
 
-class WishListCard extends StatelessWidget {
-  String title;
-  String coursetitle;
-  String lesson;
-  String duration;
-  String img;
-  WishListCard(
-      {super.key,
-      required this.title,
-      required this.coursetitle,
-      required this.lesson,
-      required this.duration,
-      required this.img});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          color: AppColors.primarywhite),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 12.h,
-          ),
-          Container(
-            height: 86.h,
-            width: 80.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.r),
-                image: DecorationImage(image: AssetImage(img))),
-          ),
-          SizedBox(
-            width: 12.w,
-          ),
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: wishlistitle,
-                ),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Row(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(SvgImages.activelesson),
-                        SizedBox(
-                          width: 6.5.w,
-                        ),
-                        Text(
-                          lesson,
-                          style: lessonfontt,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    Row(
-                      children: [
-                        SvgPicture.asset(SvgImages.clock),
-                        SizedBox(
-                          width: 6.5.w,
-                        ),
-                        Text(
-                          duration,
-                          style: lessonfontt,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 12.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        coursetitle,
-                        style: coursetitlefont,
-                      ),
-                      Container(
-                          decoration: const BoxDecoration(
-                              color: AppColors.primaryred,
-                              shape: BoxShape.circle),
-                          padding: EdgeInsets.all(6.5.sp),
-                          child: Icon(
-                            Icons.delete,
-                            color: AppColors.primarywhite,
-                            size: 18.h,
-                          ))
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// ignore: must_be_immutable

@@ -12,6 +12,13 @@ TextStyle get titleStyle {
       color: AppColors.primaryblack);
 }
 
+TextStyle get payedstyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
 TextStyle get faqstyle {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
@@ -185,7 +192,7 @@ TextStyle get allCoursetitle {
 TextStyle get gategorybuttonwhite {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
-      fontSize: 16.sp,
+      fontSize: 14.sp,
       color: AppColors.primarywhite);
 }
 
@@ -329,6 +336,20 @@ TextStyle get getfonts {
       color: AppColors.primarygrey);
 }
 
+TextStyle get otpstyle {
+  return GoogleFonts.inter(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.secondarygrey);
+}
+
+TextStyle get resendotpstyle {
+  return GoogleFonts.inter(
+      fontWeight: FontWeight.w600,
+      fontSize: 14.sp,
+      color: AppColors.primaryblack);
+}
+
 TextStyle get lessonfont {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
@@ -414,9 +435,23 @@ TextStyle get skipbutton {
       color: AppColors.primarygrey);
 }
 
+TextStyle get coursestyle {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 14.sp,
+      color: AppColors.primarygrey);
+}
+
 TextStyle get ratingtextstyle {
   return GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
       fontSize: 12.sp,
       color: AppColors.primaryblack);
+}
+
+TextStyle get editfont {
+  return GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      fontSize: 12.sp,
+      color: AppColors.hintextcolor);
 }

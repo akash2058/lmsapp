@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
@@ -72,7 +73,7 @@ class CartCard extends StatelessWidget {
                                 shape: BoxShape.circle),
                             padding: EdgeInsets.all(6.5.sp),
                             child: Icon(
-                              Icons.delete,
+                              CupertinoIcons.delete,
                               color: AppColors.primarywhite,
                               size: 18.h,
                             ))

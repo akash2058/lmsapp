@@ -22,7 +22,7 @@ class ChatDetailsScreen extends StatelessWidget {
         elevation: 3,
         child: const MessageBox(),
       ),
-      appBar: CustomAppbar(title: 'Shane Martinez'),
+      appBar: CustomAppbar(title: 'Shane Martinez', autoapply: true,),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
         child: SingleChildScrollView(

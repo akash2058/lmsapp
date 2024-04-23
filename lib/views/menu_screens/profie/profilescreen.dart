@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -9,6 +10,7 @@ import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/drawer/drawerscreen/certificatescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/profileheader.dart';
+import 'package:lmsapp/views/menu_screens/profie/profilepages/landingpages/editprofile.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/paymenthistorypage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/purchasecoursepage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/referalpage.dart';
@@ -21,12 +23,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: pricefont,
-        ),
+      appBar: CustomAppbar(
+        autoapply: false,
+        title: 'Profile',
         actions: [
           Icon(
             Icons.more_horiz,
@@ -48,14 +47,21 @@ class ProfileScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 102.w),
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(color: AppColors.bordercolor)),
-                child: Text(
-                  'Edit Profile',
-                  style: editprofilefont,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context, CustomPageRoute(child: EditProfille()));
+                },
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: AppColors.bordercolor)),
+                  child: Text(
+                    'Edit Profile',
+                    style: editprofilefont,
+                  ),
                 ),
               ),
             ),
