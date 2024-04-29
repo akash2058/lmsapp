@@ -95,27 +95,6 @@ class LoginPage extends StatelessWidget {
               },
             ),
             AppSizeBox.defaultHeight,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 1.h,
-                  width: 168.w,
-                  color: AppColors.primarylowlightdark,
-                ),
-                Text(
-                  'Or',
-                  style: getfonts,
-                ),
-                Container(
-                  height: 1.h,
-                  width: 168.w,
-                  color: AppColors.primarylowlightdark,
-                ),
-              ],
-            ),
-            AppSizeBox.defaultHeight,
-            const GoogleCard(),
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

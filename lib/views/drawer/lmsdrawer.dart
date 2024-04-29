@@ -32,81 +32,82 @@ class LmsDrawer extends StatelessWidget {
               height: 32.h,
             ),
             CustomTile(
-                onTap: () {
-                  Navigator.push(
-                      context, CustomPageRoute(child: const AboutUsScreen()));
-                },
-                leading: SvgPicture.asset(
-                  SvgImages.about,
-                  height: 24.h,
-                ),
-                title: 'About us',
-                subtitle: 'Contact us'),
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const AboutUsScreen()));
+              },
+              leading: SvgPicture.asset(
+                SvgImages.about,
+                height: 24.h,
+              ),
+              title: 'About us',
+            ),
             SizedBox(
               height: 12.h,
             ),
             CustomTile(
-                onTap: () {
-                  Navigator.push(context, CustomPageRoute(child: const HelpScreen()));
-                },
-                leading: SvgPicture.asset(
-                  SvgImages.chat,
-                  height: 24.h,
-                ),
-                title: 'Help',
-                subtitle: 'Achievements, badges, and certificates'),
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const HelpScreen()));
+              },
+              leading: SvgPicture.asset(
+                SvgImages.chat,
+                height: 24.h,
+              ),
+              title: 'Help',
+            ),
             SizedBox(
               height: 12.h,
             ),
             CustomTile(
-                onTap: () {
-                  Navigator.push(
-                      context, CustomPageRoute(child: const AppGuideLineScreen()));
-                },
-                leading: SvgPicture.asset(
-                  SvgImages.help,
-                  height: 24.h,
-                ),
-                title: 'How to use app',
-                subtitle: 'Achievements, badges, and certificates'),
+              onTap: () {
+                Navigator.push(context,
+                    CustomPageRoute(child: const AppGuideLineScreen()));
+              },
+              leading: SvgPicture.asset(
+                SvgImages.help,
+                height: 24.h,
+              ),
+              title: 'How to use app',
+            ),
             SizedBox(
               height: 12.h,
             ),
             CustomTile(
-                leading: SvgPicture.asset(
-                  SvgImages.review,
-                  height: 24.h,
-                ),
-                title: 'Our students reviews',
-                subtitle: 'Achievements, badges, and certificates'),
+              leading: SvgPicture.asset(
+                SvgImages.review,
+                height: 24.h,
+              ),
+              title: 'Our students reviews',
+            ),
             SizedBox(
               height: 12.h,
             ),
             CustomTile(
-                onTap: () {
-                  Navigator.push(
-                      context, CustomPageRoute(child: const CertificateScreen()));
-                },
-                leading: SvgPicture.asset(
-                  SvgImages.achive,
-                  height: 24.h,
-                ),
-                title: 'Achievements and Certificates',
-                subtitle: 'Achievements, badges, and certificates'),
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const CertificateScreen()));
+              },
+              leading: SvgPicture.asset(
+                SvgImages.achive,
+                height: 24.h,
+              ),
+              title: 'Achievements and Certificates',
+            ),
             SizedBox(
               height: 12.h,
             ),
             CustomTile(
-                onTap: () {
-                  Navigator.push(
-                      context, CustomPageRoute(child: const PolicyScreen()));
-                },
-                leading: SvgPicture.asset(
-                  SvgImages.policy,
-                  height: 24.h,
-                ),
-                title: 'Privacy policy',
-                subtitle: 'Achievements, badges, and certificates'),
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const PolicyScreen()));
+              },
+              leading: SvgPicture.asset(
+                SvgImages.policy,
+                height: 24.h,
+              ),
+              title: 'Privacy policy',
+            ),
           ],
         ),
       ),

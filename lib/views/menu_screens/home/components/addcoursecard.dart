@@ -29,7 +29,8 @@ class CourseCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(width: 1.5.w, color: AppColors.bordercolor)),
+          border:
+              Border.all(width: 1.5.w, color: AppColors.primarylowlightdark)),
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: EdgeInsets.all(12.sp),

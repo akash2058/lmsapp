@@ -20,11 +20,13 @@ class GuidelineTitles extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(
-              title,
-              style: faqstyle,
+            Flexible(
+              child: Text(
+                title,
+                style: faqstyle,
+              ),
             ),
-            Icon(Icons.arrow_drop_down)
+            const Icon(Icons.arrow_drop_down)
           ],
         ),
       ),

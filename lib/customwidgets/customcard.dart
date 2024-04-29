@@ -33,7 +33,10 @@ class CoursesCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 280.w,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+        decoration: BoxDecoration(
+            border:
+                Border.all(width: 1.w, color: AppColors.primarylowlightdark),
+            borderRadius: BorderRadius.circular(15.r)),
         child: Column(
           children: [
             Container(

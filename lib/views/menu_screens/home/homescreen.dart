@@ -14,16 +14,16 @@ import 'package:lmsapp/views/bottomsheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lmsdrawer.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/addedcourselist.dart';
-import 'package:lmsapp/views/menu_screens/home/components/addedcoursetitle.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/courselist.dart';
 import 'package:lmsapp/views/menu_screens/home/components/coursetitle.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/lmslider.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/reviewlist.dart';
-import 'package:lmsapp/views/menu_screens/home/components/reviewtitle.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
-import 'package:lmsapp/views/menu_screens/home/components/upcomingtestitle.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/upcomingtestlist.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
@@ -145,7 +145,9 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const PopularCourseTitle(),
+                  CourseTitle(
+                    title: 'Popular Courses',
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -215,7 +217,9 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 15.h,
                   ),
-                  const AddedCoursesTitle(),
+                  CourseTitle(
+                    title: 'Recently Added Courses',
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -223,7 +227,9 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 32.h,
                   ),
-                  const UpComingTestTitle(),
+                  CourseTitle(
+                    title: 'Upcoming Test',
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -231,7 +237,22 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 32.h,
                   ),
-                  const StudentReviewsTitle(),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  CourseTitle(
+                    title: 'Featured Courses',
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  const UpComingTestList(),
+                  SizedBox(
+                    height: 32.h,
+                  ),
+                  CourseTitle(
+                    title: 'Our Student Reviews',
+                  ),
                   SizedBox(
                     height: 20.h,
                   ),

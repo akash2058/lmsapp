@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-class PopularCourseTitle extends StatelessWidget {
-  const PopularCourseTitle({
+class CourseTitle extends StatelessWidget {
+  String title;
+   CourseTitle({
     super.key,
+    required this.title
   });
 
   @override
@@ -12,12 +15,15 @@ class PopularCourseTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'Popular Courses',
+          title,
           style: titleStyle,
         ),
-        Text(
-          'See all',
-          style: jakratafont,
+        GestureDetector(
+          onTap: () {},
+          child: Text(
+            'See all',
+            style: jakratafont,
+          ),
         )
       ],
     );

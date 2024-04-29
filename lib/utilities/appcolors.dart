@@ -13,7 +13,7 @@ class AppColors {
   static const primarylowlightdark = Color(0xffD9D9D9);
   static const hintextcolor = Color(0xffA2A5B1);
   static const secondarylight = Color(0xffF6F8FA);
-  static const secondarygrey = Color(0xffC9CCDB);
+  static const secondarygrey = Color.fromARGB(255, 153, 155, 165);
   static const bordercolor = Color(0xffD1D1D6);
   static const primaryellow = Color(0xffF2C71C);
   static const lightwhite = Color(0xffF6F6F6);

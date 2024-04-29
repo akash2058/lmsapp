@@ -1,7 +1,7 @@
 class AppImages {
   static const applogo = 'assets/lmslogo.png';
   static const googlelogo = 'assets/google.png';
-  static const cardback = 'assets/card.png';
+  static const cardback = 'assets/card.jpeg';
   static const dollarsign = 'assets/dollar.png';
   static const imgone = 'assets/imgone.png';
   static const uiuximg = 'assets/uiuximg.png';

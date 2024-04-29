@@ -6,7 +6,7 @@ class CustomTile extends StatelessWidget {
   Widget? leading;
   Widget? trailing;
   String title;
-  String subtitle;
+  String? subtitle;
   Color? bordorcolor;
   VoidCallback? onTap;
 
@@ -14,7 +14,7 @@ class CustomTile extends StatelessWidget {
     Key? key,
     this.onTap,
     required this.title,
-    required this.subtitle,
+    this.subtitle,
     this.leading,
     this.bordorcolor,
     this.trailing,
@@ -33,7 +33,7 @@ class CustomTile extends StatelessWidget {
         style: reviewtitlestyle,
       ),
       subtitle: Text(
-        subtitle,
+        subtitle ?? '',
         style: lessonfontt,
       ),
       trailing: trailing,
