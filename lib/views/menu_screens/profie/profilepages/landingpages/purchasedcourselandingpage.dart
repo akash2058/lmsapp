@@ -30,22 +30,24 @@ class _PurchasedCourseLandingPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        elevation: currentstate == 0 ? 0 : 1,
-        child: Column(
-          children: [
-            if (currentstate == 0) SizedBox(),
-            if (currentstate == 1)
-              CustomButton(
-                height: 53.h,
-                text: 'Confirm',
-                onTap: () {},
+      bottomNavigationBar: currentstate == 0
+          ? null
+          : BottomAppBar(
+              elevation: currentstate == 0 ? 0 : 1,
+              child: Column(
+                children: [
+                  if (currentstate == 0) SizedBox(),
+                  if (currentstate == 1)
+                    CustomButton(
+                      height: 53.h,
+                      text: 'Confirm',
+                      onTap: () {},
+                    ),
+                  if (currentstate == 2)
+                    CustomButton(height: 53.h, text: 'Give Test', onTap: () {})
+                ],
               ),
-            if (currentstate == 2)
-              CustomButton(height: 53.h, text: 'Give Test', onTap: () {})
-          ],
-        ),
-      ),
+            ),
       appBar: CustomAppbar(autoapply: true, title: 'UI/UX Designer'),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),

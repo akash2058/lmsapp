@@ -32,10 +32,12 @@ class CustomTile extends StatelessWidget {
         title,
         style: reviewtitlestyle,
       ),
-      subtitle: Text(
-        subtitle ?? '',
-        style: lessonfontt,
-      ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle!,
+              style: lessonfontt,
+            )
+          : null,
       trailing: trailing,
     );
   }

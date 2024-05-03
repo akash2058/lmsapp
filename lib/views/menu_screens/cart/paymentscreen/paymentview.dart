@@ -18,7 +18,6 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        height: 153.h,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 28.w,

@@ -18,8 +18,8 @@ class WishListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
+        padding: EdgeInsets.symmetric(vertical: 45.h, horizontal: 28.w),
         child: CustomButton(
-          height: 53.h,
           text: 'Back To HomePage',
           onTap: () {},
         ),
