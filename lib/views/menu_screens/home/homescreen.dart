@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -10,6 +11,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
 import 'package:lmsapp/views/bottomsheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lmsdrawer.dart';
 
@@ -30,8 +32,28 @@ import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lmsnotification.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      homedata();
+    });
+  }
+
+  void homedata() async {
+    var state = Provider.of<MenuProviders>(context, listen: false);
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
+    await state.getResourcesData(auth.user?.data?.token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,206 +111,173 @@ class HomeScreen extends StatelessWidget {
               )
             ],
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CustomSearchField(
-                        onTap: () {
-                          Navigator.push(context,
-                              CustomPageRoute(child: MySearchScreen()));
-                        },
-                        prefix: SvgPicture.asset(
-                          SvgImages.search,
-                          height: 24.h,
-                        ),
-                        hint: 'Search any thing',
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          showBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return const LmsBottomSheet();
-                              });
-                        },
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.primarylightgrey),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 18.h, horizontal: 16.w),
-                            child: SvgPicture.asset(
-                              SvgImages.bottomsheetimg,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  const LmsSlider(),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  const SliderIndicator(),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  CourseTitle(
-                    title: 'Popular Courses',
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+          body: main.loadinghomedata == true
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: AppColors.primarybrown,
+                ))
+              : Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
+                  child: SingleChildScrollView(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50.r),
-                              gradient: const LinearGradient(colors: [
-                                AppColors.primarybrown,
-                                AppColors.secondarybrown,
-                                AppColors.primaryacent
-                              ])),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 12.w),
-                          child: Text(
-                            'All Course',
-                            style: popularcoursestyle,
-                          ),
+                        Row(
+                          children: [
+                            CustomSearchField(
+                              onTap: () {
+                                Navigator.push(context,
+                                    CustomPageRoute(child: MySearchScreen()));
+                              },
+                              prefix: SvgPicture.asset(
+                                SvgImages.search,
+                                height: 24.h,
+                              ),
+                              hint: 'Search any thing',
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return const LmsBottomSheet();
+                                    });
+                              },
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.primarylightgrey),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 18.h, horizontal: 16.w),
+                                  child: SvgPicture.asset(
+                                    SvgImages.bottomsheetimg,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                         SizedBox(
-                          width: 16.w,
+                          height: 32.h,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50.r),
-                              gradient: const LinearGradient(colors: [
-                                AppColors.primarybrown,
-                                AppColors.secondarybrown,
-                                AppColors.primaryacent
-                              ])),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 12.w),
-                          child: Text(
-                            'Computer Networking',
-                            style: popularcoursestyle,
-                          ),
+                        const LmsSlider(),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        const SliderIndicator(),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        CourseTitle(
+                          title: 'Popular Courses',
                         ),
                         SizedBox(
-                          width: 16.w,
+                          height: 20.h,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50.r),
-                              gradient: const LinearGradient(colors: [
-                                AppColors.primarybrown,
-                                AppColors.secondarybrown,
-                                AppColors.primaryacent
-                              ])),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 12.w),
-                          child: Text(
-                            'Networking',
-                            style: popularcoursestyle,
-                          ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: List.generate(
+                                main.home?.data?.category?.length ?? 0,
+                                (index) => Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50.r),
+                                          gradient: LinearGradient(colors: [
+                                            AppColors.primarybrown,
+                                            AppColors.secondarybrown,
+                                            AppColors.primaryacent
+                                          ])),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10.h, horizontal: 12.w),
+                                      child: Text(
+                                        main.home?.data?.category?[index].title
+                                                .toString() ??
+                                            '',
+                                        style: popularcoursestyle,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 15.w,
+                                    )
+                                  ],
+                                ),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        const PopularCourseList(),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        CourseTitle(
+                          title: 'Recently Added Courses',
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        const AddedCourseList(),
+                        SizedBox(
+                          height: 32.h,
+                        ),
+                        CourseTitle(
+                          title: 'Featured Courses',
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        const UpComingTestList(),
+                        SizedBox(
+                          height: 32.h,
+                        ),
+                        CourseTitle(
+                          title: 'Our Student Reviews',
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        const ReviewList(),
+                        SizedBox(
+                          height: 32.h,
+                        ),
+                        Text(
+                          'Social Links',
+                          style: titleStyle,
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: List.generate(
+                              main.socialimges.length,
+                              (index) => Row(
+                                    children: [
+                                      Image.asset(
+                                        main.socialimges[index],
+                                        height: 41.h,
+                                      ),
+                                      SizedBox(
+                                        width: 9.6.w,
+                                      )
+                                    ],
+                                  )),
+                        ),
+                        SizedBox(
+                          height: 20.h,
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  const PopularCourseList(),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  CourseTitle(
-                    title: 'Recently Added Courses',
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const AddedCourseList(),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  CourseTitle(
-                    title: 'Upcoming Test',
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const UpComingTestList(),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  CourseTitle(
-                    title: 'Featured Courses',
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const UpComingTestList(),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  CourseTitle(
-                    title: 'Our Student Reviews',
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const ReviewList(),
-                  SizedBox(
-                    height: 32.h,
-                  ),
-                  Text(
-                    'Social Links',
-                    style: titleStyle,
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Row(
-                    children: List.generate(
-                        main.socialimges.length,
-                        (index) => Row(
-                              children: [
-                                Image.asset(
-                                  main.socialimges[index],
-                                  height: 41.h,
-                                ),
-                                SizedBox(
-                                  width: 9.6.w,
-                                )
-                              ],
-                            )),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                ],
-              ),
-            ),
-          ),
+                ),
         );
       },
     );

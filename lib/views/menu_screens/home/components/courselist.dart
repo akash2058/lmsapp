@@ -4,6 +4,8 @@ import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:provider/provider.dart';
 
 class PopularCourseList extends StatelessWidget {
   const PopularCourseList({
@@ -12,34 +14,46 @@ class PopularCourseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-          children: List.generate(
-              3,
-              (index) => Row(
-                    children: [
-                      CoursesCard(
-                        img: AppImages.cardback,
-                        coursetitle: 'Graphic Design',
-                        lessons: '9 Lessons',
-                        duration: '78 hrs 30 min',
-                        discount: '30% OFF',
-                        discountprice: '5000',
-                        price: 'INR 3,500',
-                        title: 'Expert Wireframing for Mobile Design',
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CustomPageRoute(
-                                  child: PopularCourseLandingPage()));
-                        },
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      )
-                    ],
-                  ))),
+    return Consumer<MenuProviders>(
+      builder: (context, main, child) {
+        return SizedBox(
+          height: 288.h,
+          width: MediaQuery.sizeOf(context).width,
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: main.home?.data?.featuredCourse?.length ?? 0,
+            itemBuilder: (context, index) {
+              var data = main.home?.data?.popularCourse?[index];
+              // Ensure coursePrice and salePrice are non-nullable
+              int coursePrice = data?.coursePrice ?? 0;
+              int salePrice = data?.salePrice ?? 0;
+
+              // Calculate discount amount and percentage
+              int discountAmount = coursePrice - salePrice;
+              double percentage = (discountAmount / coursePrice) * 100;
+
+              return CoursesCard(
+                img: '${main.home?.data?.baseUrl}/${data?.image}',
+                coursetitle: data?.category ?? '',
+                lessons:
+                    '${main.home?.data?.featuredCourse?[index].playlistsCount} Lessons',
+                duration:
+                    '${main.home?.data?.popularCourse?[index].courseTime ?? ''} min',
+                discount: '${percentage}% OFF',
+                discountprice: '5000',
+                price:
+                    'INR${main.home?.data?.popularCourse?[index].coursePrice ?? ''}',
+                title: main.home?.data?.popularCourse?[index].title ?? '',
+                onTap: () {
+                  Navigator.push(context,
+                      CustomPageRoute(child: const PopularCourseLandingPage()));
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

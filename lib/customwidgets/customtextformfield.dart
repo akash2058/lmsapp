@@ -8,42 +8,62 @@ class CustomFormField extends StatelessWidget {
   int? maxlines;
   Color? fillcolor;
   String hint;
+  bool? hidepassword;
   TextInputType? inputType;
   TextEditingController? controller;
-  FormFieldValidator? validation;
+  FormFieldValidator<String>? validation;
   Widget? prefix;
   Widget? suffix;
-  CustomFormField(
-      {super.key,
-      required this.hint,
-      this.controller,
-      this.fillcolor,
-      this.suffix,
-      this.prefix,
-      this.maxlines,
-      this.inputType,
-      this.validation});
+
+  CustomFormField({
+    Key? key,
+    required this.hint,
+    this.controller,
+    this.fillcolor,
+    this.hidepassword,
+    this.suffix,
+    this.prefix,
+    this.maxlines,
+    this.inputType,
+    this.validation,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(
-          color: fillcolor,
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: AppColors.secondarygrey)),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
       child: TextFormField(
-        maxLines: maxlines,
         style: formfieldstyle,
+        controller: controller,
+        obscureText: hidepassword ?? false,
+        validator: validation ?? (value) => null,
         decoration: InputDecoration(
-            suffixIcon: suffix,
-            prefixIcon: prefix,
-            border: InputBorder.none,
-            contentPadding:
-                EdgeInsets.only(top: 15.h, left: 14.w, bottom: 15.h),
-            isDense: true,
-            hintStyle: hinttextstyle,
-            hintText: hint),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 15.w, vertical: 14.h),
+          isDense: true,
+          hintText: hint,
+          enabled: true,
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(color: AppColors.primarylightgrey),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(color: AppColors.primarylightgrey),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(color: AppColors.primarylightgrey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(color: AppColors.primarylightgrey),
+          ),
+          border: InputBorder.none,
+          hintStyle: hinttextstyle,
+          suffixIcon: suffix,
+          prefixIcon: prefix,
+        ),
       ),
     );
   }

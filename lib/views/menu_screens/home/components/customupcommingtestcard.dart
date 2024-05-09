@@ -40,7 +40,7 @@ class UpcomingTestCard extends StatelessWidget {
               width: 178.w,
               decoration: BoxDecoration(
                 image:
-                    DecorationImage(fit: BoxFit.fill, image: AssetImage(img)),
+                    DecorationImage(fit: BoxFit.fill, image: NetworkImage(img)),
               ),
             ),
             SizedBox(

@@ -42,8 +42,8 @@ class CourseCard extends StatelessWidget {
               height: 116.h,
               width: 104.w,
               decoration: BoxDecoration(
-                  image:
-                      DecorationImage(fit: BoxFit.fill, image: AssetImage(img)),
+                  image: DecorationImage(
+                      fit: BoxFit.fill, image: NetworkImage(img)),
                   borderRadius: BorderRadius.circular(8.r)),
             ),
             SizedBox(
@@ -100,7 +100,8 @@ class CourseCard extends StatelessWidget {
                         height: 20.h,
                         width: 20.w,
                         decoration: BoxDecoration(
-                            image: DecorationImage(image: AssetImage(img)),
+                            image: DecorationImage(
+                                fit: BoxFit.fill, image: NetworkImage(img)),
                             shape: BoxShape.circle),
                       ),
                       Text(

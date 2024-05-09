@@ -1,18 +1,45 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lmsapp/model/homemodel.dart';
+import 'package:lmsapp/model/usermodel.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilescreen.dart';
+import 'package:lmsapp/views/menu_screens/service/mainscreenservices.dart';
 
 class MenuProviders extends ChangeNotifier {
   int currenttab = 0;
   int currentslide = 0;
+  UserModel? _userModel;
+  UserModel? get user => _userModel;
+
+  HomeModel? _homeModel;
+  HomeModel? get home => _homeModel;
+  bool loadinghomedata = false;
+
+  getResourcesData(token) async {
+    try {
+      loadinghomedata = true;
+      notifyListeners();
+      await fetchHomedata(token).then((home) {
+        _homeModel = HomeModel.fromJson(home);
+
+        loadinghomedata = false;
+        notifyListeners();
+        print('home$home');
+      });
+    } catch (e) {
+      loadinghomedata = false;
+      notifyListeners();
+      throw e;
+    }
+  }
 
   late PageController pageController;
-void startAutoPageChange() {
+  void startAutoPageChange() {
     Timer.periodic(const Duration(seconds: 0), (Timer timer) {
       if (currentslide < onboardimgs.length - 1) {
         currentslide++;

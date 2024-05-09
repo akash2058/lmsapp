@@ -45,9 +45,7 @@ class CoursesCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      img,
-                    )),
+                    image: NetworkImage(img)),
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15.r),
                     topLeft: Radius.circular(15.r)),
