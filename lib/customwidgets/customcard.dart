@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -44,8 +45,7 @@ class CoursesCard extends StatelessWidget {
               width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(img)),
+                    fit: BoxFit.cover, image: NetworkImage(img)),
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15.r),
                     topLeft: Radius.circular(15.r)),
@@ -131,9 +131,11 @@ class CoursesCard extends StatelessWidget {
                         price,
                         style: pricefont,
                       ),
-                      Text(
-                        discountprice,
-                        style: disountfont,
+                      Flexible(
+                        child: Text(
+                          discountprice,
+                          style: disountfont,
+                        ),
                       ),
                       Text(
                         discount,
