@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
 import 'package:lmsapp/views/drawer/drawerscreen/controller/drawercontroller.dart';
@@ -35,7 +36,11 @@ class _PolicyScreenState extends State<PolicyScreen> {
         return Scaffold(
           appBar: AppBar(),
           body: draw.loadingprivacy == true
-              ? const CircularProgressIndicator()
+              // ignore: prefer_const_constructors
+              ? Center(
+                  child: const CircularProgressIndicator(
+                  color: AppColors.primarybrown,
+                ))
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: SingleChildScrollView(

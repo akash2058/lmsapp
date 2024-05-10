@@ -10,6 +10,7 @@ import 'package:lmsapp/utilities/textvalidation.dart';
 import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
 import 'package:lmsapp/views/authentication_pages/forgotpassword_pages/forgotpassword_pages.dart';
 import 'package:lmsapp/views/authentication_pages/register_page/register_page.dart';
+import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    var clean = Provider.of<AuthenticationProvider>(context, listen: false);
+    super.initState();
+    clean.emailcontroller.clear();
+    clean.passwordcontroller.clear();
+  }
+
   final fomrkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -166,5 +175,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-
