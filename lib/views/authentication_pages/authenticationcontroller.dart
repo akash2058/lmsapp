@@ -69,12 +69,10 @@ class AuthenticationProvider extends ChangeNotifier {
       await register(namecontroller.text, emailcontroller.text,
               passwordcontroller.text, confirmpasswordcontroller.text)
           .then((userMap) {
-        if (userMap['success'] == true) {
-          if (termsandcondition == true) {
-          } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(userMap['message'])));
-          }
+        if (userMap['success'] == false) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: AppColors.primaryred,
+              content: Text(userMap['message'])));
         }
         print('register$userMap');
         notifyListeners();
@@ -103,7 +101,7 @@ class AuthenticationProvider extends ChangeNotifier {
                   password: passwordcontroller.text,
                 );
               });
-        } else {
+        } else if (userMap['success'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primaryred,
               content: Text(userMap['message'])));

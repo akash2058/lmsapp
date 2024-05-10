@@ -43,7 +43,7 @@ class _RegisterSuccesfuldialogState extends State<RegisterSuccesfuldialog> {
             height: 53.h,
             text: 'Back To Login',
             onTap: () {
-              Navigator.push(context, CustomPageRoute(child: LoginPage()));
+              Navigator.push(context, CustomPageRoute(child: const LoginPage()));
             })
       ],
     );
