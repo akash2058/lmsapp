@@ -42,7 +42,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       homedata();
@@ -112,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           body: main.loadinghomedata == true
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                   color: AppColors.primarybrown,
                 ))
@@ -191,11 +190,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(50.r),
-                                          gradient: LinearGradient(colors: [
-                                            AppColors.primarybrown,
-                                            AppColors.secondarybrown,
-                                            AppColors.primaryacent
-                                          ])),
+                                          gradient: const LinearGradient(
+                                              colors: [
+                                                AppColors.primarybrown,
+                                                AppColors.secondarybrown,
+                                                AppColors.primaryacent
+                                              ])),
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10.h, horizontal: 12.w),
                                       child: Text(
@@ -235,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        const UpComingTestList(),
+                        const FeaturedCourse(),
                         SizedBox(
                           height: 32.h,
                         ),

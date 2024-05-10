@@ -1,49 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
+import 'package:lmsapp/views/drawer/drawerscreen/controller/drawercontroller.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
-class PolicyScreen extends StatelessWidget {
+class PolicyScreen extends StatefulWidget {
   const PolicyScreen({super.key});
 
   @override
+  State<PolicyScreen> createState() => _PolicyScreenState();
+}
+
+class _PolicyScreenState extends State<PolicyScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      privacyPolicy();
+    });
+  }
+
+  void privacyPolicy() async {
+    var userdata = Provider.of<AuthenticationProvider>(context, listen: false);
+    var state = Provider.of<DrawerProvider>(context, listen: false);
+    await state.getPrivacyPolicy(userdata.user?.data?.token);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Privacy Policy',
-                style: authenticationtitlestyle,
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                'Enter the email associated with your account and we’ll send an email with code to reset your password.',
-                style: aboutustyle,
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                style: aboutustyle,
-              ),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                style: aboutustyle,
-              ),
-            ],
-          ),
-        ),
-      ),
+    return Consumer<DrawerProvider>(
+      builder: (context, draw, child) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: draw.loadingprivacy == true
+              ? const CircularProgressIndicator()
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 28.w),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${draw.privacy?.data?.privacyPolicy?.privacyHeading}',
+                          style: authenticationtitlestyle,
+                        ),
+                        SizedBox(
+                          height: 12.h,
+                        ),
+                        HtmlWidget(draw.privacy?.data?.privacyPolicy
+                                ?.privacyDescription ??
+                            '')
+                        // Text(
+                        //   '${draw.privacy?.data?.privacyPolicy?.privacyDescription}',
+                        //   style: aboutustyle,
+                        // ),
+                      ],
+                    ),
+                  ),
+                ),
+        );
+      },
     );
   }
 }

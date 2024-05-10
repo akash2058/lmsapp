@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/utilities/appimages.dart';
+
 import 'package:lmsapp/views/menu_screens/home/components/addcoursecard.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +16,8 @@ class AddedCourseList extends StatelessWidget {
       builder: (context, main, child) {
         return Column(
           children: List.generate(
-            main.home?.data?.recentlyAddedCourse?.length ?? 0,
-            (index) => Column(
+              main.home?.data?.recentlyAddedCourse?.length ?? 0, (index) {
+            return Column(
               children: [
                 CourseCard(
                   title: main.home?.data?.recentlyAddedCourse?[index].title
@@ -25,7 +25,7 @@ class AddedCourseList extends StatelessWidget {
                       '',
                   lessons: '9 Lessons',
                   duration:
-                      '${main.home?.data?.recentlyAddedCourse?[index].courseTime ?? ''} hrs',
+                      '${main.home?.data?.recentlyAddedCourse?[index].courseTime ?? ''} min',
                   name: 'Courtney Henry',
                   price: main
                           .home?.data?.recentlyAddedCourse?[index].coursePrice
@@ -38,8 +38,8 @@ class AddedCourseList extends StatelessWidget {
                   height: 15.h,
                 )
               ],
-            ),
-          ),
+            );
+          }),
         );
       },
     );

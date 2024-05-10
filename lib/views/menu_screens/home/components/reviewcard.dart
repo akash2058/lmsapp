@@ -29,6 +29,7 @@ class ReviewCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(16.sp),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +87,7 @@ class ReviewCard extends StatelessWidget {
             ),
             Text(
               givereview,
-                style: reviewfont,
+              style: reviewfont,
             )
           ],
         ),

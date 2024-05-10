@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:provider/provider.dart';
 
 class ReviewList extends StatelessWidget {
   const ReviewList({
@@ -10,28 +12,32 @@ class ReviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(
-          3,
-          (index) => Row(
-            children: [
-              ReviewCard(
-                duration: '6 days ago',
-                givereview:
-                    "Lyn's straight-talking approach always makes the problem easier to tackle. This session helped me la",
-                ratings: '4.5',
-                studentname: 'Rodolfo Goode',
-                image: AppImages.imgone,
-              ),
-              SizedBox(
-                width: 16.w,
-              )
-            ],
-          ),
-        ),
-      ),
+    return Consumer<MenuProviders>(
+      builder: (context, main, child) {
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children:
+                  List.generate(main.home?.data?.reviews?.length ?? 0, (index) {
+                var data = main.home?.data?.reviews?[index];
+                return Row(
+                  children: [
+                    ReviewCard(
+                      duration: data?.createdAt.toString() ?? '',
+                      givereview: data?.review.toString() ?? '',
+                      ratings: data?.stars.toString() ?? '',
+                      studentname: 'Rodolfo Goode',
+                      image: AppImages.imgone,
+                    ),
+                    SizedBox(
+                      width: 14.w,
+                    )
+                  ],
+                );
+              })),
+        );
+      },
     );
   }
 }
