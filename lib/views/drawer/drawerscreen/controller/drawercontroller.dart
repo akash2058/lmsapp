@@ -21,12 +21,12 @@ class DrawerProvider extends ChangeNotifier {
 
         loadingaboutus = false;
         notifyListeners();
-        print('about$aboutus');
+  
       });
     } catch (e) {
       loadingaboutus = false;
       notifyListeners();
-      throw e;
+      rethrow;
     }
   }
 
@@ -39,12 +39,12 @@ class DrawerProvider extends ChangeNotifier {
 
         loadingprivacy = false;
         notifyListeners();
-        print('policy$policy');
+       
       });
     } catch (e) {
       loadingprivacy = false;
       notifyListeners();
-      throw e;
+      rethrow;
     }
   }
 }

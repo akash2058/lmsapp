@@ -29,21 +29,16 @@ class CustomButton extends StatelessWidget {
             height: height,
             width: width,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              gradient: value
-                      .termsandcondition // Use gradient only if button is enabled
-                  ? const LinearGradient(
-                      colors: [
-                        AppColors.primarybrown,
-                        AppColors.secondarybrown,
-                        AppColors.primaryacent
-                      ],
-                    )
-                  : LinearGradient(colors: [
-                      Colors.grey,
-                      Colors.grey
-                    ]), // Set gradient to null if button is disabled
-            ),
+                borderRadius: BorderRadius.circular(12),
+                gradient: const LinearGradient(
+                  colors: [
+                    AppColors.primarybrown,
+                    AppColors.secondarybrown,
+                    AppColors.primaryacent
+                  ],
+                )
+                // Set gradient to null if button is disabled
+                ),
             child: Center(
               child: Text(
                 text,

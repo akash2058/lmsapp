@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void homedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-    await state.getResourcesData(auth.user?.data?.token);
+    await state.getHomedata(auth.user?.data?.token);
   }
 
   @override

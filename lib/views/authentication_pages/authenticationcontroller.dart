@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/model/usermodel.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/authentication_pages/forgotpassword_pages/components/registerdialogbox.dart';
-import 'package:lmsapp/views/authentication_pages/register_page/register_page.dart';
+import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/authentication_pages/service/authenticationservice.dart';
-import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
+
 import 'package:lmsapp/views/menucard/main_menu.dart';
 
 class AuthenticationProvider extends ChangeNotifier {
@@ -14,10 +13,12 @@ class AuthenticationProvider extends ChangeNotifier {
   bool hideconfirmpassword = false;
   bool hideenterpassword = true;
   bool loadinguser = false;
+  bool loadingforgotpassword = false;
 
   bool loadingregister = false;
   bool loadingverification = false;
-  bool termsandcondition = true;
+  bool termsandcondition = false;
+  bool loadinglogout = false;
 
   UserModel? _userModel;
   UserModel? get user => _userModel;
@@ -113,6 +114,58 @@ class AuthenticationProvider extends ChangeNotifier {
     } catch (e) {
       notifyListeners();
       loadingverification = false;
+      throw {"error": e}; // Throw a map containing the error message
+    }
+  }
+
+  getforgotPassword(context) async {
+    try {
+      loadingforgotpassword = true;
+      notifyListeners();
+      await fetchforgotPassword(emailcontroller.text).then((forgot) {
+        if (forgot['success'] == true) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: AppColors.primarygreen,
+              content: Text(forgot['message'])));
+        } else if (forgot['success'] == false) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: AppColors.primaryred,
+              content: Text(forgot['message'])));
+        }
+        print('forgot$forgot');
+        notifyListeners();
+        loadingforgotpassword = false;
+      });
+    } catch (e) {
+      notifyListeners();
+      loadingforgotpassword = false;
+      throw {"error": e}; // Throw a map containing the error message
+    }
+  }
+
+  logout(token, context) async {
+    try {
+      loadinglogout = true;
+      notifyListeners();
+      await fetchlogout(token).then((forgot) {
+        if (forgot['success'] == true) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: AppColors.primarygreen,
+              content: Text(forgot['message'])));
+          Navigator.pushAndRemoveUntil(
+              context, CustomPageRoute(child: LoginPage()), (route) => false);
+        } else if (forgot['success'] == false) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: AppColors.primaryred,
+              content: Text(forgot['message'])));
+        }
+        print('logout$forgot');
+        notifyListeners();
+        loadinglogout = false;
+      });
+    } catch (e) {
+      notifyListeners();
+      loadinglogout = false;
       throw {"error": e}; // Throw a map containing the error message
     }
   }

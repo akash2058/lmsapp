@@ -73,3 +73,43 @@ Future<Map<String, dynamic>> verifybyotp(
   }
   return responseData;
 }
+
+Future<Map<String, dynamic>> fetchforgotPassword(
+  email,
+) async {
+  var body = {
+    'email': email,
+  };
+  final response = await http.post(
+    Uri.parse(AppUrls.forgotpassword),
+    body: body,
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  print("responseData is $responseData");
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
+Future<Map<String, dynamic>> fetchlogout(token) async {
+  final response = await http.get(
+    Uri.parse(AppUrls.logout),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  print("responseData is $responseData");
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}

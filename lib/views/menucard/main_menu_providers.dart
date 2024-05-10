@@ -20,7 +20,7 @@ class MenuProviders extends ChangeNotifier {
   HomeModel? get home => _homeModel;
   bool loadinghomedata = false;
 
-  getResourcesData(token) async {
+  getHomedata(token) async {
     try {
       loadinghomedata = true;
       notifyListeners();
@@ -29,12 +29,12 @@ class MenuProviders extends ChangeNotifier {
 
         loadinghomedata = false;
         notifyListeners();
-        print('home$home');
+       
       });
     } catch (e) {
       loadinghomedata = false;
       notifyListeners();
-      throw e;
+      rethrow;
     }
   }
 

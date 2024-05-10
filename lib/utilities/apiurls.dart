@@ -6,6 +6,8 @@ class AppUrls {
   static const String home = "${mainUrl}home";
   static const String aboutus = "${mainUrl}about-us";
   static const String policy = "${mainUrl}privacy-policy";
+  static const String forgotpassword = "${mainUrl}forget-password";
+  static const String logout = "${mainUrl}logout";
 
   static const String imagepath =
       "https://lms.hirephpdeveloperindia.com/public/uploads/course";
