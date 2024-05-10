@@ -12,7 +12,7 @@ import 'package:lmsapp/views/menucard/main_menu.dart';
 class AuthenticationProvider extends ChangeNotifier {
   bool hidepasswordlogin = false;
   bool hideconfirmpassword = false;
-  bool hideenterpassword = false;
+  bool hideenterpassword = true;
   bool loadinguser = false;
 
   bool loadingregister = false;
@@ -71,18 +71,6 @@ class AuthenticationProvider extends ChangeNotifier {
           .then((userMap) {
         if (userMap['success'] == true) {
           if (termsandcondition == true) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: AppColors.primarygreen,
-                content: Text(userMap['message'])));
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return RegisterSuccesfuldialog(
-                    name: namecontroller.text,
-                    email: emailcontroller.text,
-                    password: passwordcontroller.text,
-                  );
-                });
           } else {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(userMap['message'])));
@@ -99,24 +87,26 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  fetchotp(context) async {
+  fetchotp(context, name, email, password) async {
     try {
       loadingverification = true;
       notifyListeners();
-      await verifybyotp(
-        emailcontroller.text,
-        passwordcontroller.text,
-        namecontroller.text,
-      ).then((userMap) {
+      await verifybyotp(name, email, password).then((userMap) {
         _userModel = UserModel.fromJson(userMap);
         if (userMap['success'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: AppColors.primarygreen,
-              content: Text(userMap['message'])));
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return RegisterSuccesfuldialog(
+                  name: namecontroller.text,
+                  email: emailcontroller.text,
+                  password: passwordcontroller.text,
+                );
+              });
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primaryred,
-              content: Text(' Agree With terms and condition')));
+              content: Text(userMap['message'])));
         }
         print('verify$userMap');
         notifyListeners();

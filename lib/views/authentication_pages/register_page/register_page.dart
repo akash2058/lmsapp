@@ -103,6 +103,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               if (fomrkeys.currentState!.validate()) {
                                 auth.fetchRegister(context);
                               }
+                              auth.fetchotp(
+                                  context,
+                                  auth.namecontroller.text,
+                                  auth.emailcontroller.text,
+                                  auth.passwordcontroller.text);
                             }
                           : () {},
                     ),

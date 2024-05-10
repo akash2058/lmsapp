@@ -9,7 +9,7 @@ Future<Map<String, dynamic>> fetchAboutus(token) async {
       Uri.parse(AppUrls.aboutus),
       headers: {
         // 'Content-Type': 'application/json',
-        'Authorization': ' Bearer ${token}'
+        'Authorization': ' Bearer $token'
       },
     );
 
@@ -31,7 +31,7 @@ Future<Map<String, dynamic>> fetchPrivacyPolicy(token) async {
       Uri.parse(AppUrls.policy),
       headers: {
         // 'Content-Type': 'application/json',
-        'Authorization': ' Bearer ${token}'
+        'Authorization': ' Bearer $token'
       },
     );
 
