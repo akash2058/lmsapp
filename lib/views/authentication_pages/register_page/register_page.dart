@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -93,24 +94,25 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(
                       height: 32.h,
                     ),
-                    CustomButton(
-                      height: 53.h,
-                      text: auth.loadingregister == true
-                          ? 'Please Wait.....'
-                          : 'Register',
-                      onTap: auth.termsandcondition == true
-                          ? () {
+                    auth.termsandcondition == true
+                        ? CustomButton(
+                            height: 53.h,
+                            text: auth.loadingregister == true
+                                ? 'Please Wait.....'
+                                : 'Register',
+                            onTap: () {
                               if (fomrkeys.currentState!.validate()) {
                                 auth.fetchRegister(context);
                               }
-                              auth.fetchotp(
-                                  context,
-                                  auth.namecontroller.text,
-                                  auth.emailcontroller.text,
-                                  auth.passwordcontroller.text);
-                            }
-                          : () {},
-                    ),
+                            })
+                        : CustomSmallButton(
+                            height: 53.h,
+                            textcolor: AppColors.primarywhite,
+                            backgroudcolor: AppColors.primarygrey,
+                            width: MediaQuery.sizeOf(context).width,
+                            text: 'Register',
+                            onTap: () {},
+                          ),
                     SizedBox(
                       height: 20.h,
                     ),

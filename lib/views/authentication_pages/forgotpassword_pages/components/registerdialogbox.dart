@@ -9,14 +9,14 @@ import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:provider/provider.dart';
 
 class RegisterSuccesfuldialog extends StatefulWidget {
+  String name;
   String email;
   String password;
-  String name;
-  RegisterSuccesfuldialog({
+   RegisterSuccesfuldialog({
     super.key,
     required this.name,
     required this.email,
-    required this.password,
+    required this.password
   });
 
   @override
@@ -25,8 +25,6 @@ class RegisterSuccesfuldialog extends StatefulWidget {
 }
 
 class _RegisterSuccesfuldialogState extends State<RegisterSuccesfuldialog> {
-  @override
-  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const CircleAvatar(
@@ -43,7 +41,8 @@ class _RegisterSuccesfuldialogState extends State<RegisterSuccesfuldialog> {
             height: 53.h,
             text: 'Back To Login',
             onTap: () {
-              Navigator.push(context, CustomPageRoute(child: const LoginPage()));
+              Navigator.push(
+                  context, CustomPageRoute(child: const LoginPage()));
             })
       ],
     );
