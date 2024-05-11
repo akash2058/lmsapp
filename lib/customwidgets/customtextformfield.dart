@@ -38,6 +38,8 @@ class CustomFormField extends StatelessWidget {
         obscureText: hidepassword ?? false,
         validator: validation ?? (value) => null,
         decoration: InputDecoration(
+          // errorText: 'Wrong creds',
+          // errorStyle: ,
           contentPadding:
               EdgeInsets.symmetric(horizontal: 15.w, vertical: 14.h),
           isDense: true,
@@ -45,19 +47,19 @@ class CustomFormField extends StatelessWidget {
           enabled: true,
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(color: AppColors.primarylightgrey),
+            borderSide: const BorderSide(color: AppColors.primarylightgrey),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(color: AppColors.primarylightgrey),
+            borderSide: const BorderSide(color: AppColors.primarylightgrey),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(color: AppColors.primarylightgrey),
+            borderSide: const BorderSide(color: AppColors.primarylightgrey),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
-            borderSide: BorderSide(color: AppColors.primarylightgrey),
+            borderSide: const BorderSide(color: AppColors.primarylightgrey),
           ),
           border: InputBorder.none,
           hintStyle: hinttextstyle,

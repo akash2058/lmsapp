@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lmsapp/model/homemodel.dart';
-import 'package:lmsapp/model/usermodel.dart';
+import 'package:lmsapp/models/homemodel.dart';
+import 'package:lmsapp/models/usermodel.dart';
 import 'package:lmsapp/views/menu_screens/service/mainscreenservices.dart';
 
 class MainMenuScreenController extends ChangeNotifier {

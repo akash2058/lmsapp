@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lmsapp/model/homemodel.dart';
-import 'package:lmsapp/model/usermodel.dart';
+import 'package:lmsapp/models/homemodel.dart';
+import 'package:lmsapp/models/usermodel.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';

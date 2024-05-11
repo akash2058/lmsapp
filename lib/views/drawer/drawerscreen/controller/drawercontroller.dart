@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lmsapp/model/aboutusmodel.dart';
-import 'package:lmsapp/model/privacymodel.dart';
+import 'package:lmsapp/models/aboutusmodel.dart';
+import 'package:lmsapp/models/privacymodel.dart';
 import 'package:lmsapp/views/drawer/drawerscreen/services/drawerservices.dart';
 
 class DrawerProvider extends ChangeNotifier {

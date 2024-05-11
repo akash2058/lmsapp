@@ -7,17 +7,17 @@ class PrivacyPolicyModel {
 
   PrivacyPolicyModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -29,14 +29,14 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     privacyPolicy = json['privacy_policy'] != null
-        ? new PrivacyPolicy.fromJson(json['privacy_policy'])
+        ? PrivacyPolicy.fromJson(json['privacy_policy'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.privacyPolicy != null) {
-      data['privacy_policy'] = this.privacyPolicy!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (privacyPolicy != null) {
+      data['privacy_policy'] = privacyPolicy!.toJson();
     }
     return data;
   }
@@ -54,9 +54,9 @@ class PrivacyPolicy {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['privacy_heading'] = this.privacyHeading;
-    data['privacy_description'] = this.privacyDescription;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['privacy_heading'] = privacyHeading;
+    data['privacy_description'] = privacyDescription;
     return data;
   }
 }

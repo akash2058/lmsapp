@@ -77,20 +77,17 @@ class OtpScreen extends StatelessWidget {
                       text: value.loadingverification == true
                           ? 'Please Wait'
                           : 'Verify and register account',
-                      onTap:
-                          // ignore: unrelated_type_equality_checks
-                          value.registers?.data?.otp == value.otpcontroller.text
-                              ? () {
-                                  if (otpkey.currentState!.validate()) {
-                                    value.fetchotp(context);
-                                  }
-                                }
-                              : () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          backgroundColor: AppColors.primaryred,
-                                          content: Text('OTP Not Valid !!!')));
-                                })
+                      onTap: () {
+                        if (value.registers?.data?.otp.toString() ==
+                            value.otpcontroller.text) {
+                          if (otpkey.currentState!.validate()) {
+                            value.fetchotp(context);
+                          }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Otp invalid')));
+                        }
+                      })
                 ],
               ),
             ),

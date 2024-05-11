@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
-import 'package:lmsapp/model/registermodel.dart';
-import 'package:lmsapp/model/usermodel.dart';
+import 'package:lmsapp/models/registermodel.dart';
+import 'package:lmsapp/models/usermodel.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/authentication_pages/forgotpassword_pages/components/registerdialogbox.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
@@ -122,12 +122,6 @@ class AuthenticationProvider extends ChangeNotifier {
           },
         );
         // OTP is not valid, show message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: AppColors.primaryred,
-            content: Text('OTP is not valid'),
-          ),
-        );
       } else {
         // API call was not successful, show message from API response
         ScaffoldMessenger.of(context).showSnackBar(
