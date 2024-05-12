@@ -19,9 +19,18 @@ class PaymentHistory extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: AppColors.primarywhite,
-        child: CustomButton(
-          text: 'Back to Homepage',
-          onTap: () {},
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              CustomButton(
+                width: MediaQuery.sizeOf(context).width,
+                height: 53.h,
+                text: 'Back to Homepage',
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
       ),
       appBar: CustomAppbar(autoapply: true, title: 'Payment History'),

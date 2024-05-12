@@ -115,9 +115,9 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
                 child: GridView.builder(
                     itemCount: 10,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.71,
-                        crossAxisCount: 2,
                         mainAxisSpacing: 14.h,
+                        childAspectRatio: 0.65,
+                        crossAxisCount: 2,
                         crossAxisSpacing: 14.w),
                     itemBuilder: (context, index) {
                       return UpcomingTestCard(

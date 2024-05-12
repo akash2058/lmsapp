@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
-import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/wishlistcard.dart';
@@ -18,8 +15,9 @@ class WishListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.symmetric(vertical: 45.h, horizontal: 28.w),
+        padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 28.w),
         child: CustomButton(
+          height: 53.h,
           text: 'Back To HomePage',
           onTap: () {},
         ),

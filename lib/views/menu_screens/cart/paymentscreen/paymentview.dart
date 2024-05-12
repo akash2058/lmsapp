@@ -1,5 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
@@ -18,6 +20,7 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
+        height: 155.h,
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 28.w,
@@ -104,16 +107,19 @@ class PaymentScreen extends StatelessWidget {
                                   height: 66.h,
                                 ),
                                 CustomButton(
-                                    height: 53.h,
+                                    width: MediaQuery.sizeOf(context).width,
                                     text: 'Back To HomePage',
                                     onTap: () {
                                       Navigator.pop(context);
-                                    })
+                                    }),
+                                SizedBox(
+                                  height: 20.h,
+                                )
                               ],
                             ),
                           );
                         });
-                  })
+                  }),
             ],
           ),
         ),
