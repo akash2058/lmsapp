@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appimages.dart';
-import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/review_card.dart';
 
 class CourseReviewList extends StatelessWidget {
   const CourseReviewList({

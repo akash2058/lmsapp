@@ -24,6 +24,10 @@ class FeaturedCourse extends StatelessWidget {
             // Calculate discount amount and percentage
             int discountAmount = coursePrice - salePrice;
             double percentage = (discountAmount / coursePrice) * 100;
+            String discountpercent = percentage.toStringAsFixed(0);
+            discountpercent =
+                discountpercent.substring(0, discountpercent.length - 0);
+
             return CoursesCard(
                 img: '${main.home?.data?.baseUrl}/${data?.image}',
                 coursetitle: main.home?.data?.featuredCourse?[index].category
@@ -32,7 +36,7 @@ class FeaturedCourse extends StatelessWidget {
                 lessons:
                     '${main.home?.data?.featuredCourse?[index].playlistsCount} lessons',
                 duration: '${data?.courseTime} min',
-                discount: percentage.hashCode.runtimeType.toString(),
+                discount: 'off$discountpercent',
                 discountprice: '${data?.salePrice}',
                 price:
                     'INR ${main.home?.data?.featuredCourse?[index].coursePrice}',

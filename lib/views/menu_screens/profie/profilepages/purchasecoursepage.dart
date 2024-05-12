@@ -7,7 +7,7 @@ import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/home/components/customupcommingtestcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/custom_upcomming_testcard.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/purchasecard.dart';
 import 'package:lmsapp/views/menu_screens/profie/profilepages/landingpages/purchasedcourselandingpage.dart';
 

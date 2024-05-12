@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customexpansiontile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/review_card.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';

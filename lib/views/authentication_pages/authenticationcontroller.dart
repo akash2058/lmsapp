@@ -15,7 +15,9 @@ import 'package:lmsapp/views/menucard/main_menu.dart';
 class AuthenticationProvider extends ChangeNotifier {
   bool hidepasswordlogin = false;
   bool hideconfirmpassword = false;
-  bool hideenterpassword = true;
+  bool hideenterpassword = false;
+  bool hidecreatepasswords = false;
+
   bool loadinguser = false;
   bool loadingforgotpassword = false;
 
@@ -38,6 +40,16 @@ class AuthenticationProvider extends ChangeNotifier {
 
   hidepassword() {
     hideenterpassword = !hideenterpassword;
+    notifyListeners();
+  }
+
+  hidecreatepassword() {
+    hidecreatepasswords = !hidecreatepasswords;
+    notifyListeners();
+  }
+
+  hideconfirmpasswords() {
+    hideconfirmpassword = !hideconfirmpassword;
     notifyListeners();
   }
 
@@ -111,16 +123,9 @@ class AuthenticationProvider extends ChangeNotifier {
       );
 
       if (userMap['success'] == true) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return RegisterSuccesfuldialog(
-              name: namecontroller.text,
-              email: emailcontroller.text,
-              password: passwordcontroller.text,
-            );
-          },
-        );
+        _userModel = UserModel.fromJson(userMap);
+        Navigator.pushAndRemoveUntil(context,
+            CustomPageRoute(child: const MainMenu()), (route) => false);
         // OTP is not valid, show message
       } else {
         // API call was not successful, show message from API response
@@ -131,7 +136,6 @@ class AuthenticationProvider extends ChangeNotifier {
           ),
         );
       }
-      print(userMap);
       notifyListeners();
       loadingverification = false;
     } catch (e) {

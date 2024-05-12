@@ -1,6 +1,6 @@
 String? validateEmail(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter your email';
+    return 'email required';
   }
 
   // Use a regex to validate the email format
@@ -16,7 +16,7 @@ String? validateEmail(String? value) {
 
 String? validatePassword(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a password';
+    return 'password required';
   }
 
   // if (value.length < 8) {
@@ -28,7 +28,7 @@ String? validatePassword(String? value) {
 
 String? validateotp(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a given otp';
+    return 'otp required';
   }
 
   // if (value.length < 8) {
@@ -40,7 +40,7 @@ String? validateotp(String? value) {
 
 String? validaterepeatPassword(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter a password';
+    return 'repeat password required';
   }
 
   // if (value.length < 8) {
@@ -52,7 +52,7 @@ String? validaterepeatPassword(String? value) {
 
 String? validatename(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Prepare Name';
+    return 'Name required';
   }
 
   return null;

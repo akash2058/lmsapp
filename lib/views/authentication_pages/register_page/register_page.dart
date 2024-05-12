@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
-import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/utilities/textvalidation.dart';
 import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
-import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
-import 'package:lmsapp/views/authentication_pages/otpscreen/otpscreen.dart';
+
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -76,6 +73,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     AppSizeBox.defaultHeightforsplash,
                     CustomFormField(
+                        hidepassword: auth.hidecreatepasswords,
+                        suffix: GestureDetector(
+                            onTap: () {
+                              auth.hidecreatepassword();
+                            },
+                            child: Icon(
+                              auth.hidecreatepasswords == true
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: AppColors.primarybrown,
+                            )),
                         validation: validatePassword,
                         controller: auth.passwordcontroller,
                         hint: 'enter your created password'),
@@ -88,6 +96,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 4.h,
                     ),
                     CustomFormField(
+                        hidepassword: auth.hideconfirmpassword,
+                        suffix: GestureDetector(
+                          onTap: () {
+                            auth.hideconfirmpasswords();
+                          },
+                          child: Icon(
+                            auth.hideconfirmpassword == true
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.primarybrown,
+                          ),
+                        ),
                         validation: validaterepeatPassword,
                         controller: auth.confirmpasswordcontroller,
                         hint: 'enter your confirm password'),

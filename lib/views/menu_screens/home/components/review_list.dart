@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appimages.dart';
-import 'package:lmsapp/views/menu_screens/home/components/reviewcard.dart';
+import 'package:lmsapp/views/menu_screens/home/components/review_card.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 

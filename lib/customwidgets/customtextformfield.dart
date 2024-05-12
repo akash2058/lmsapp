@@ -39,12 +39,12 @@ class CustomFormField extends StatelessWidget {
         validator: validation ?? (value) => null,
         decoration: InputDecoration(
           // errorText: 'Wrong creds',
-          // errorStyle: ,
+          errorStyle: paymentpricestyle,
           contentPadding:
               EdgeInsets.symmetric(horizontal: 15.w, vertical: 14.h),
           isDense: true,
           hintText: hint,
-          enabled: true,
+
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
             borderSide: const BorderSide(color: AppColors.primarylightgrey),

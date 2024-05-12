@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       hidepassword: auth.hideenterpassword,
                       controller: auth.passwordcontroller,
-                      // validation: validatePassword,
+                      validation: validatePassword,
                       maxlines: 1,
                       hint: 'Enter Your Password'),
                   AppSizeBox.defaultHeight,

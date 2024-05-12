@@ -15,18 +15,18 @@ import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart'
 import 'package:lmsapp/views/bottomsheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lmsdrawer.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/addedcourselist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/added_courselist.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/courselist.dart';
-import 'package:lmsapp/views/menu_screens/home/components/coursetitle.dart';
+import 'package:lmsapp/views/menu_screens/home/components/course_title.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/lmslider.dart';
+import 'package:lmsapp/views/menu_screens/home/components/lms_slider.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/reviewlist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/review_list.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/sliderindicator.dart';
+import 'package:lmsapp/views/menu_screens/home/components/slider_indicator.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/upcomingtestlist.dart';
+import 'package:lmsapp/views/menu_screens/home/components/upcoming_testlist.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menucard/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lmsnotification.dart';
