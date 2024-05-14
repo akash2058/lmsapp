@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
-import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 
 class PopularCourseList extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:lmsapp/customwidgets/customcard.dart';
 
-import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 
 class FeaturedCourse extends StatelessWidget {

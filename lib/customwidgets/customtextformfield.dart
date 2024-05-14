@@ -5,6 +5,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 
 // ignore: must_be_immutable
 class CustomFormField extends StatelessWidget {
+  VoidCallback? ontap;
   int? maxlines;
   Color? fillcolor;
   String hint;
@@ -19,6 +20,7 @@ class CustomFormField extends StatelessWidget {
     Key? key,
     required this.hint,
     this.controller,
+    this.ontap,
     this.fillcolor,
     this.hidepassword,
     this.suffix,
@@ -33,6 +35,7 @@ class CustomFormField extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: TextFormField(
+        onTap: ontap,
         style: formfieldstyle,
         controller: controller,
         obscureText: hidepassword ?? false,

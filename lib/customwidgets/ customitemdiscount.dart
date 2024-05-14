@@ -1,6 +1,8 @@
+// ignore: file_names
 import 'package:flutter/cupertino.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CustomItemDiscount extends StatelessWidget {
   String discount;
   String discountpercent;

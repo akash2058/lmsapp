@@ -7,7 +7,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/utilities/textvalidation.dart';
-import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 
 import 'package:provider/provider.dart';
 

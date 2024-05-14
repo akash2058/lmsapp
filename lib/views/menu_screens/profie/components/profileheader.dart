@@ -23,7 +23,7 @@ class ProfileHeader extends StatelessWidget {
               height: 56.h,
               width: 56.w,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(img)),
+                  image: DecorationImage(image: NetworkImage(img)),
                   shape: BoxShape.circle),
             ),
             SizedBox(

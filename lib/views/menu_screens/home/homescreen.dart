@@ -11,9 +11,9 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
-import 'package:lmsapp/views/bottomsheet/lmsbottomsheet.dart';
-import 'package:lmsapp/views/drawer/lmsdrawer.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
+import 'package:lmsapp/views/drawer/lms_drawer.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/added_courselist.dart';
 
@@ -28,8 +28,8 @@ import 'package:lmsapp/views/menu_screens/home/components/slider_indicator.dart'
 
 import 'package:lmsapp/views/menu_screens/home/components/upcoming_testlist.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
-import 'package:lmsapp/views/menucard/main_menu_providers.dart';
-import 'package:lmsapp/views/notification/lmsnotification.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/notification/lms_notification.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {

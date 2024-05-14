@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/providers/appproviders.dart';
 
-import 'package:lmsapp/views/splashscreen/splash_screen.dart';
+import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,11 +15,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_constructors
     return ScreenUtilInit(
       minTextAdapt: true,
       ensureScreenSize: true,
-      // ignore: prefer_const_constructors
       designSize: Size(428, 926),
       child: MultiProvider(
         providers: getProviders(),

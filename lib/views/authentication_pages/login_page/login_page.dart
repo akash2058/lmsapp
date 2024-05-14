@@ -7,8 +7,8 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/utilities/textvalidation.dart';
-import 'package:lmsapp/views/authentication_pages/authenticationcontroller.dart';
-import 'package:lmsapp/views/authentication_pages/forgotpassword_pages/forgotpassword_pages.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/views/authentication_pages/forgot_password_pages/forgot_password_pages.dart';
 import 'package:lmsapp/views/authentication_pages/register_page/register_page.dart';
 
 import 'package:provider/provider.dart';
@@ -31,8 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void logincrediantial() {
     var clean = Provider.of<AuthenticationProvider>(context, listen: false);
-    clean.emailcontroller.clear();
-    clean.passwordcontroller.clear();
+    clean.loadLoginData();
   }
 
   final fomrkey = GlobalKey<FormState>();
@@ -105,14 +104,16 @@ class _LoginPageState extends State<LoginPage> {
                           Transform.scale(
                             scale: 0.8.w,
                             child: Checkbox(
+                              semanticLabel: 'Remember me',
                               activeColor: AppColors.primarybrown,
                               visualDensity: VisualDensity(
                                 horizontal: -4.w,
                                 vertical: -4.h,
                               ),
-                              value: true,
+                              value: auth.isRememberMe,
                               onChanged: (newValue) {
-                                setState(() {});
+                                auth.toggleRememberMe(newValue!);
+                                auth.saveLoginData();
                               },
                             ),
                           ),

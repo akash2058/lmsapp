@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/addcoursecard.dart';
-import 'package:lmsapp/views/menucard/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 
 class AddedCourseList extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CustomTile extends StatelessWidget {
   Widget? leading;
   Widget? trailing;
@@ -23,6 +24,7 @@ class CustomTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minLeadingWidth: 10.w,
       onTap: onTap,
       leading: leading,
       visualDensity: VisualDensity(horizontal: -4.w, vertical: -4.h),
