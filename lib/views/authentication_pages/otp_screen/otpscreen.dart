@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
-import 'package:lmsapp/customwidgets/customroute.dart';
-
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/utilities/textvalidation.dart';
@@ -73,21 +70,28 @@ class OtpScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   CustomButton(
-                      height: 53.h,
-                      text: value.loadingverification == true
-                          ? 'Please Wait'
-                          : 'Verify and register account',
-                      onTap: () {
-                        if (value.registers?.data?.otp.toString() ==
-                            value.otpcontroller.text) {
-                          if (otpkey.currentState!.validate()) {
-                            value.fetchotp(context);
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Otp invalid')));
+                    height: 53.h,
+                    text: value.loadingverification == true
+                        ? 'Please Wait'
+                        : 'Verify and register account',
+                    onTap: () {
+                      final otpText = value.otpcontroller.text;
+                      final otpInt = int.tryParse(otpText);
+                      if (otpInt != null &&
+                          otpInt == value.registers?.data?.otp) {
+                        if (otpkey.currentState!.validate()) {
+                          value.fetchotp(context);
                         }
-                      })
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: AppColors.primaryred,
+                            content: Text('OTP Not Valid !!!'),
+                          ),
+                        );
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -118,7 +122,7 @@ class OtpField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: hintstyle,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
                   isDense: true,
                   border: InputBorder.none),
@@ -133,7 +137,7 @@ class OtpField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: hintstyle,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
                   isDense: true,
                   border: InputBorder.none),
@@ -148,7 +152,7 @@ class OtpField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: hintstyle,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
                   isDense: true,
                   border: InputBorder.none),
@@ -163,7 +167,7 @@ class OtpField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: hintstyle,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
                   isDense: true,
                   border: InputBorder.none),
@@ -178,7 +182,7 @@ class OtpField extends StatelessWidget {
               keyboardType: TextInputType.phone,
               style: hintstyle,
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 20),
                   isDense: true,
                   border: InputBorder.none),

@@ -5,7 +5,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/controller/drawercontroller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';

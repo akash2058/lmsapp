@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -36,7 +34,7 @@ class _PurchasedCourseLandingPageState
               elevation: currentstate == 0 ? 0 : 1,
               child: Column(
                 children: [
-                  if (currentstate == 0) SizedBox(),
+                  if (currentstate == 0) const SizedBox(),
                   if (currentstate == 1)
                     CustomButton(
                       height: 53.h,
@@ -186,7 +184,7 @@ class _PurchasedCourseLandingPageState
                       SizedBox(
                         height: 16.h,
                       ),
-                      CourseReviewList(),
+                      const CourseReviewList(),
                       Text(
                         'Overall rating',
                         style: titlestyle,
@@ -207,7 +205,7 @@ class _PurchasedCourseLandingPageState
                                           border: Border.all(
                                             color: AppColors.primarylightgrey,
                                           )),
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.star,
                                         color: AppColors.primaryellow,
                                       ),
@@ -263,7 +261,7 @@ class _PurchasedCourseLandingPageState
                   Container(
                     height: 140.h,
                     width: 140.w,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(AppImages.notest))),
                   ),

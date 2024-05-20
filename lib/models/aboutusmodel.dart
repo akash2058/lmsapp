@@ -7,17 +7,17 @@ class AboutUsModel {
 
   AboutUsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -29,14 +29,14 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     aboutUs = json['about_us'] != null
-        ? new AboutUs.fromJson(json['about_us'])
+        ? AboutUs.fromJson(json['about_us'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.aboutUs != null) {
-      data['about_us'] = this.aboutUs!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (aboutUs != null) {
+      data['about_us'] = aboutUs!.toJson();
     }
     return data;
   }
@@ -54,9 +54,9 @@ class AboutUs {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['about_image'] = this.aboutImage;
-    data['about_description'] = this.aboutDescription;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['about_image'] = aboutImage;
+    data['about_description'] = aboutDescription;
     return data;
   }
 }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +9,6 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lms_drawer.dart';
 
@@ -50,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void homedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-    await state.getHomedata(auth.user?.data?.token);
+    await state.getHomedata();
   }
 
   @override
@@ -127,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             CustomSearchField(
                               onTap: () {
                                 Navigator.push(context,
-                                    CustomPageRoute(child: MySearchScreen()));
+                                    CustomPageRoute(child: const MySearchScreen()));
                               },
                               prefix: SvgPicture.asset(
                                 SvgImages.search,

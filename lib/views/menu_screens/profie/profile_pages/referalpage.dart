@@ -13,6 +13,7 @@ class ReferalPage extends StatelessWidget {
       appBar: CustomAppbar(
             autoapply: true,
         actions: [
+        // ignore: prefer_const_constructors
         Icon(Icons.more_horiz),
         SizedBox(
           width: 20.w,

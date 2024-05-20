@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CourseDetailCard extends StatelessWidget {
   String coursetitle;
   String title;
@@ -79,7 +80,7 @@ class CourseDetailCard extends StatelessWidget {
                     width: 32.w,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            fit: BoxFit.fitHeight, image: AssetImage(img)),
+                            fit: BoxFit.fitHeight, image: NetworkImage(img)),
                         shape: BoxShape.circle,
                         color: AppColors.hintextcolor),
                   ),

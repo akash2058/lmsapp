@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
 // ignore: must_be_immutable

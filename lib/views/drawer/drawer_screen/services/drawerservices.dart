@@ -15,7 +15,6 @@ Future<Map<String, dynamic>> fetchAboutus(token) async {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      print("gila  $data");
       return data;
     } else {
       throw Exception('Failed to get data');
@@ -37,7 +36,6 @@ Future<Map<String, dynamic>> fetchPrivacyPolicy(token) async {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      print("gila  $data");
       return data;
     } else {
       throw Exception('Failed to get data');

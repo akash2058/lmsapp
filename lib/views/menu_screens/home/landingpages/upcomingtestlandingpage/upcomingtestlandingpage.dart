@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
-import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -26,23 +24,23 @@ class UpComingTestLandingpage extends StatelessWidget {
             SizedBox(
               height: 20.h,
             ),
-            TestLists(),
+            const TestLists(),
             SizedBox(
               height: 20.h,
             ),
-            LatestQuizetitle(),
+            const LatestQuizetitle(),
             SizedBox(
               height: 20.h,
             ),
-            QuizCard(),
+            const QuizCard(),
             SizedBox(
               height: 20.h,
             ),
-            QuizCard(),
+            const QuizCard(),
             SizedBox(
               height: 20.h,
             ),
-            QuizCard(),
+            const QuizCard(),
             SizedBox(
               height: 20.h,
             ),
@@ -152,6 +150,7 @@ class TestLists extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class TestCard extends StatelessWidget {
   String testtitle;
   String duration;
@@ -171,7 +170,7 @@ class TestCard extends StatelessWidget {
           Container(
             height: 74.h,
             width: 74.w,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: AppColors.formfillcolor, shape: BoxShape.circle),
           ),
           SizedBox(
@@ -186,7 +185,7 @@ class TestCard extends StatelessWidget {
             height: 15.h,
           ),
           Text(
-            '${duration}/20',
+            '$duration/20',
             style: testnumberstyle,
           )
         ],

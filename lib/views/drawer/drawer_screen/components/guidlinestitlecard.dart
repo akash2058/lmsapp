@@ -4,6 +4,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 
 import '../../../../utilities/appcolors.dart';
 
+// ignore: must_be_immutable
 class GuidelineTitles extends StatelessWidget {
   String title;
   GuidelineTitles({super.key, required this.title});

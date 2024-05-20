@@ -19,7 +19,6 @@ Future<Map<String, dynamic>> fetchLogin(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -42,7 +41,6 @@ Future<Map<String, dynamic>> register(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -67,7 +65,6 @@ Future<Map<String, dynamic>> verifybyotp(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -88,7 +85,6 @@ Future<Map<String, dynamic>> fetchforgotPassword(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -107,7 +103,6 @@ Future<Map<String, dynamic>> fetchlogout(token) async {
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -121,7 +116,6 @@ Future<Map<String, dynamic>> fetchChangepassword(
     'current_password': currentpassword,
     'confirm_password': confirmpassword,
   };
-  print(body);
   final response = await http.post(
     Uri.parse(AppUrls.changepassword),
     body: body,
@@ -134,7 +128,6 @@ Future<Map<String, dynamic>> fetchChangepassword(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print("responseData is $responseData");
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }

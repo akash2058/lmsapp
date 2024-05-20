@@ -5,6 +5,7 @@ import 'package:readmore/readmore.dart';
 
 import '../../../../../../utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class AboutCourseCard extends StatelessWidget {
   String description;
   AboutCourseCard({super.key, required this.description});
@@ -24,7 +25,7 @@ class AboutCourseCard extends StatelessWidget {
         ReadMoreText(
             lessStyle: appbartitlestyle,
             style: itemsfont,
-            description,
+            removeHtmlTags(description),
             trimMode: TrimMode.Line,
             trimLines: 2,
             colorClickableText: AppColors.primarybrown,
@@ -34,4 +35,9 @@ class AboutCourseCard extends StatelessWidget {
       ],
     );
   }
+}
+
+String removeHtmlTags(String htmlString) {
+  RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+  return htmlString.replaceAll(exp, '');
 }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
@@ -79,7 +77,10 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
 // Usage
 class MySearchScreen extends StatefulWidget {
+  const MySearchScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MySearchScreenState createState() => _MySearchScreenState();
 }
 
@@ -110,7 +111,7 @@ class _MySearchScreenState extends State<MySearchScreen> {
               suffix: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.clear),
+                  const Icon(Icons.clear),
                   SizedBox(
                     width: 18.w,
                   ),

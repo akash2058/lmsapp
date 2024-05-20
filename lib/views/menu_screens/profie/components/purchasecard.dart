@@ -5,6 +5,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class PurchaseCourseCard extends StatelessWidget {
   String coursetitle;
   String lesson;

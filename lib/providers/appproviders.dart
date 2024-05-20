@@ -1,7 +1,6 @@
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/controller/drawercontroller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/controller/menu_screen_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

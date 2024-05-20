@@ -44,7 +44,9 @@ class WishListPage extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   CustomPageRoute(
-                                      child: const PopularCourseLandingPage()));
+                                      child: PopularCourseLandingPage(
+                                    id: '',
+                                  )));
                             },
                             title: 'Expert Wireframing for Mobile...',
                             coursetitle: 'Graphic Design',
@@ -58,7 +60,7 @@ class WishListPage extends StatelessWidget {
                         ],
                       )),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 16.h,
             )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
@@ -46,7 +45,7 @@ class PaymentHistory extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 CustomPageRoute(
-                                    child: PaymentCourseLandingPage()));
+                                    child: const PaymentCourseLandingPage()));
                           },
                           coursetitle: 'UI/UX Development',
                           date: '23,MARCH 2023',

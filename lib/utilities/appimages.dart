@@ -15,4 +15,8 @@ class AppImages {
   static const certificate = 'assets/certificate.png';
   static const successlogo = 'assets/checklogo.png';
   static const notest = 'assets/test.png';
+  static const states = 'assets/state.png';
+  static const postalcode = 'assets/postal.png';
+  static const country = 'assets/country.png';
+  static const nointernet = 'assets/nointernet.png';
 }

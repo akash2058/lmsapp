@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
-import 'package:lmsapp/customwidgets/customexpansiontile.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -11,9 +9,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/landingpagehead.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/lessonlist.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/components/payedcourselist.dart';
 
 class PaymentCourseLandingPage extends StatelessWidget {
@@ -26,7 +22,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
         autoapply: true,
         title: 'Course title',
         actions: [
-          Icon(Icons.more_horiz),
+          const Icon(Icons.more_horiz),
           SizedBox(
             width: 28.w,
           ),
@@ -38,7 +34,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
             SizedBox(
               height: 24.h,
             ),
-            const LandingPageHead(),
+             LandingPageHead(img: '',),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
               child: Column(
@@ -88,7 +84,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
                   SizedBox(
                     height: 16.h,
                   ),
-                  CourseReviewList(),
+                  const CourseReviewList(),
                   Text(
                     'Overall rating',
                     style: titlestyle,
@@ -108,7 +104,7 @@ class PaymentCourseLandingPage extends StatelessWidget {
                                       border: Border.all(
                                         color: AppColors.primarylightgrey,
                                       )),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.star,
                                     color: AppColors.primaryellow,
                                   ),

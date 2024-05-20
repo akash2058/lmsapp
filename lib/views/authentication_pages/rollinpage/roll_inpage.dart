@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
@@ -135,7 +134,7 @@ class RollInPage extends StatelessWidget {
                 height: 53.h,
                 text: 'Roll In',
                 onTap: () {
-                  Navigator.push(context, CustomPageRoute(child: MainMenu()));
+                  Navigator.push(context, CustomPageRoute(child: const MainMenu()));
                 }),
             SizedBox(
               height: 24.h,
@@ -147,6 +146,7 @@ class RollInPage extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class RollCourseCard extends StatelessWidget {
   String text;
   RollCourseCard({super.key, required this.text});

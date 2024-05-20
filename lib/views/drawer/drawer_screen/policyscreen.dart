@@ -24,7 +24,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
   }
 
   void privacyPolicy() async {
-    var userdata = Provider.of<AuthenticationProvider>(context, listen: false);
+    Provider.of<AuthenticationProvider>(context, listen: false);
     var state = Provider.of<DrawerProvider>(context, listen: false);
     await state.getPrivacyPolicy();
   }

@@ -10,6 +10,7 @@ class AppUrls {
   static const String changepassword = "${mainUrl}change-password";
   static const String editprofile = "${mainUrl}profile-update";
   static const String geteditprofile = "${mainUrl}my-profile";
+  static const String coursedetails = "${mainUrl}course-details?id=";
 
   static const String logout = "${mainUrl}logout";
 

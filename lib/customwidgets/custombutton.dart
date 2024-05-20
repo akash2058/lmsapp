@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
@@ -11,7 +10,7 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? width;
 
-  CustomButton({
+  const CustomButton({
     Key? key,
     required this.text,
     required this.onTap,

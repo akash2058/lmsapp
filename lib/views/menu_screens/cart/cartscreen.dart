@@ -10,7 +10,6 @@ import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 
 import 'package:lmsapp/utilities/appimages.dart';
-import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
 import 'package:lmsapp/views/menu_screens/cart/paymentscreen/paymentview.dart';
 
@@ -102,7 +101,7 @@ class CartScreen extends StatelessWidget {
                       Navigator.push(
                           // ignore: prefer_const_constructors
                           context,
-                          CustomPageRoute(child: PaymentScreen()));
+                          CustomPageRoute(child: const PaymentScreen()));
                     })
               ],
             ),

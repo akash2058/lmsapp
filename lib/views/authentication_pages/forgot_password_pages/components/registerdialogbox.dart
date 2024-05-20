@@ -4,10 +4,9 @@ import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
-import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class RegisterSuccesfuldialog extends StatefulWidget {
   String name;
   String email;
@@ -25,6 +24,7 @@ class RegisterSuccesfuldialog extends StatefulWidget {
 }
 
 class _RegisterSuccesfuldialogState extends State<RegisterSuccesfuldialog> {
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const CircleAvatar(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CustomExpansionTile extends StatelessWidget {
   String lessontitle;
   String duration;

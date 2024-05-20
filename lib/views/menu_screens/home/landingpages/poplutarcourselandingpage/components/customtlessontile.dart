@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class CustomLessonTile extends StatelessWidget {
   String lessonno;
   String lessontitle;
@@ -18,7 +18,7 @@ class CustomLessonTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+        visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
         contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
         dense: true,
         title: Text(

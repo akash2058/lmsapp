@@ -113,7 +113,6 @@ class _LoginPageState extends State<LoginPage> {
                               value: auth.isRememberMe,
                               onChanged: (newValue) {
                                 auth.toggleRememberMe(newValue!);
-                                auth.saveLoginData();
                               },
                             ),
                           ),

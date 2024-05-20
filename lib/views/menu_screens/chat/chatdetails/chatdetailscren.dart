@@ -1,8 +1,5 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -28,27 +25,27 @@ class ChatDetailsScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ReceiverCard(),
+              const ReceiverCard(),
               SizedBox(
                 height: 32.h,
               ),
-              SenderCard(),
+              const SenderCard(),
               SizedBox(
                 height: 32.h,
               ),
-              ReceiverCard(),
+              const ReceiverCard(),
               SizedBox(
                 height: 32.h,
               ),
-              SenderCard(),
+              const SenderCard(),
               SizedBox(
                 height: 32.h,
               ),
-              ReceiverCard(),
+              const ReceiverCard(),
               SizedBox(
                 height: 32.h,
               ),
-              SenderCard(),
+              const SenderCard(),
             ],
           ),
         ),

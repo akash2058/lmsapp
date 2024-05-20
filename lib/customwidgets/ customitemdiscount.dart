@@ -1,6 +1,7 @@
-// ignore: file_names
-import 'package:flutter/cupertino.dart';
-import 'package:lmsapp/utilities/textstyle.dart';
+ // ignore_for_file: file_names
+
+ import 'package:flutter/cupertino.dart';
+ import 'package:lmsapp/utilities/textstyle.dart';
 
 // ignore: must_be_immutable
 class CustomItemDiscount extends StatelessWidget {

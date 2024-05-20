@@ -15,6 +15,13 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
   @override
+  void initState() {
+    super.initState();
+    var state = Provider.of<MenuProviders>(context, listen: false);
+    state.currenttab = 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, menu, child) {

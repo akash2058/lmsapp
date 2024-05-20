@@ -1,7 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
@@ -39,6 +37,7 @@ class PaymentScreen extends StatelessWidget {
                   onTap: () {
                     showDialog(
                         context: context,
+                        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                         builder: (BuildContext) {
                           return AlertDialog(
                             contentPadding: EdgeInsets.symmetric(
@@ -48,7 +47,7 @@ class PaymentScreen extends StatelessWidget {
                               width: 153.w,
                               // ignore: prefer_const_constructors
                               decoration: BoxDecoration(
-                                  image: DecorationImage(
+                                  image: const DecorationImage(
                                       fit: BoxFit.fitHeight,
                                       image:
                                           AssetImage(AppImages.successlogo))),
@@ -70,7 +69,7 @@ class PaymentScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 12.h,
                                 ),
-                                Divider(),
+                                const Divider(),
                                 SizedBox(
                                   height: 12.h,
                                 ),
@@ -223,11 +222,11 @@ class PaymentScreen extends StatelessWidget {
                       height: 12.h,
                     ),
                     DottedBorder(
-                      dashPattern: [8],
+                      dashPattern: const [8],
                       color: AppColors.primarybrown,
                       borderType: BorderType.RRect,
-                      radius: Radius.circular(12),
-                      padding: EdgeInsets.all(6),
+                      radius: const Radius.circular(12),
+                      padding: const EdgeInsets.all(6),
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(12.r)),
                         child: Container(
@@ -257,7 +256,7 @@ class PaymentScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Column(
               children: [
                 CustomItemsPrice(

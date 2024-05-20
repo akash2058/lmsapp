@@ -12,7 +12,7 @@ class CertificateScreen extends StatelessWidget {
       appBar: CustomAppbar(
           autoapply: true,
           actions: [
-            Icon(Icons.more_horiz),
+            const Icon(Icons.more_horiz),
             SizedBox(
               width: 20.w,
             )

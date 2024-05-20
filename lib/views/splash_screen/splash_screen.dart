@@ -2,16 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/defaultsize.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
-import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
-import 'package:lmsapp/views/board_screen/board_screen.dart';
-import 'package:lmsapp/views/menu_card/main_menu.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../utilities/utils.dart';
 
@@ -23,11 +18,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
- 
   @override
   void initState() {
-    moveToOnBoard();
     super.initState();
+    moveToOnBoard();
   }
 
   moveToOnBoard() async {

@@ -11,9 +11,8 @@ class Customlessontext extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,9 +31,12 @@ class Customlessontext extends StatelessWidget {
             width: 12.w,
           ),
           Flexible(
-            child: Text(
-              title,
-              style: Linethroughtbrowntyle,
+            child: GestureDetector(
+              onTap: () {},
+              child: Text(
+                title,
+                style: Linethroughtbrowntyle,
+              ),
             ),
           ),
         ],
@@ -51,7 +53,7 @@ class Customlessondetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration         (),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

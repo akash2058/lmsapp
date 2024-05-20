@@ -56,7 +56,7 @@ class PaymentHistoryCard extends StatelessWidget {
                     height: 4.h,
                   ),
                   Text(
-                    '${date} ${time}',
+                    '$date $time',
                     style: anotherjakratafont,
                   ),
                   SizedBox(

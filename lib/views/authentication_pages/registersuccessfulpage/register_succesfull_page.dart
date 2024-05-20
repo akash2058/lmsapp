@@ -27,7 +27,7 @@ class RegisterSuccessPage extends StatelessWidget {
                 width: 153.w,
                 // ignore: prefer_const_constructors
                 decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         fit: BoxFit.fitHeight,
                         image: AssetImage(AppImages.successlogo))),
               ),
@@ -46,13 +46,13 @@ class RegisterSuccessPage extends StatelessWidget {
                 'Your account has been register successfully',
                 style: aboutustyle,
               ),
-              Spacer(),
+              const Spacer(),
               CustomButton(
                   height: 53.h,
                   text: 'Confirm',
                   onTap: () {
                     Navigator.push(
-                        context, CustomPageRoute(child: RollInPage()));
+                        context, CustomPageRoute(child: const RollInPage()));
                   }),
               SizedBox(
                 height: 30.h,

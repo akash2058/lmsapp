@@ -57,3 +57,59 @@ String? validatename(String? value) {
 
   return null;
 }
+
+String? validatedob(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'date of birth required';
+  }
+
+  return null;
+}
+
+String? validatecountry(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'country required';
+  }
+
+  return null;
+}
+
+String? validatecity(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'city required';
+  }
+
+  return null;
+}
+
+String? validatestate(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'state required';
+  }
+
+  return null;
+}
+
+String? validateaddress(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'address required';
+  }
+
+  return null;
+}
+
+String? validatepostalcode(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'postalcode required';
+  }
+
+  return null;
+}
+
+String? validatephonenumber(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'phonenumber required';
+  }
+
+  return null;
+}

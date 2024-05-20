@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       minTextAdapt: true,
       ensureScreenSize: true,
+      // ignore: prefer_const_constructors
       designSize: Size(428, 926),
       child: MultiProvider(
         providers: getProviders(),

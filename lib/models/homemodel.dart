@@ -7,17 +7,17 @@ class HomeModel {
 
   HomeModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
-    data['message'] = this.message;
+    data['message'] = message;
     return data;
   }
 }
@@ -46,72 +46,72 @@ class Data {
     if (json['home_banner'] != null) {
       homeBanner = <HomeBanner>[];
       json['home_banner'].forEach((v) {
-        homeBanner!.add(new HomeBanner.fromJson(v));
+        homeBanner!.add(HomeBanner.fromJson(v));
       });
     }
     if (json['recently_added_course'] != null) {
       recentlyAddedCourse = <RecentlyAddedCourse>[];
       json['recently_added_course'].forEach((v) {
-        recentlyAddedCourse!.add(new RecentlyAddedCourse.fromJson(v));
+        recentlyAddedCourse!.add(RecentlyAddedCourse.fromJson(v));
       });
     }
     if (json['featured_course'] != null) {
       featuredCourse = <FeaturedCourse>[];
       json['featured_course'].forEach((v) {
-        featuredCourse!.add(new FeaturedCourse.fromJson(v));
+        featuredCourse!.add(FeaturedCourse.fromJson(v));
       });
     }
     if (json['popular_course'] != null) {
       popularCourse = <PopularCourse>[];
       json['popular_course'].forEach((v) {
-        popularCourse!.add(new PopularCourse.fromJson(v));
+        popularCourse!.add(PopularCourse.fromJson(v));
       });
     }
     if (json['category'] != null) {
       category = <Category>[];
       json['category'].forEach((v) {
-        category!.add(new Category.fromJson(v));
+        category!.add(Category.fromJson(v));
       });
     }
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews!.add(new Reviews.fromJson(v));
+        reviews!.add(Reviews.fromJson(v));
       });
     }
     socilaLink = json['socila_link'] != null
-        ? new SocilaLink.fromJson(json['socila_link'])
+        ? SocilaLink.fromJson(json['socila_link'])
         : null;
     baseUrl = json['base_url'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.homeBanner != null) {
-      data['home_banner'] = this.homeBanner!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (homeBanner != null) {
+      data['home_banner'] = homeBanner!.map((v) => v.toJson()).toList();
     }
-    if (this.recentlyAddedCourse != null) {
+    if (recentlyAddedCourse != null) {
       data['recently_added_course'] =
-          this.recentlyAddedCourse!.map((v) => v.toJson()).toList();
+          recentlyAddedCourse!.map((v) => v.toJson()).toList();
     }
-    if (this.featuredCourse != null) {
+    if (featuredCourse != null) {
       data['featured_course'] =
-          this.featuredCourse!.map((v) => v.toJson()).toList();
+          featuredCourse!.map((v) => v.toJson()).toList();
     }
-    if (this.popularCourse != null) {
+    if (popularCourse != null) {
       data['popular_course'] =
-          this.popularCourse!.map((v) => v.toJson()).toList();
+          popularCourse!.map((v) => v.toJson()).toList();
     }
-    if (this.category != null) {
-      data['category'] = this.category!.map((v) => v.toJson()).toList();
+    if (category != null) {
+      data['category'] = category!.map((v) => v.toJson()).toList();
     }
-    if (this.reviews != null) {
-      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
+    if (reviews != null) {
+      data['reviews'] = reviews!.map((v) => v.toJson()).toList();
     }
-    if (this.socilaLink != null) {
-      data['socila_link'] = this.socilaLink!.toJson();
+    if (socilaLink != null) {
+      data['socila_link'] = socilaLink!.toJson();
     }
-    data['base_url'] = this.baseUrl;
+    data['base_url'] = baseUrl;
     return data;
   }
 }
@@ -148,15 +148,15 @@ class HomeBanner {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['playlists_count'] = this.playlistsCount;
-    data['category'] = this.category;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['course_price'] = this.coursePrice;
-    data['sale_price'] = this.salePrice;
-    data['course_time'] = this.courseTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['playlists_count'] = playlistsCount;
+    data['category'] = category;
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['course_price'] = coursePrice;
+    data['sale_price'] = salePrice;
+    data['course_time'] = courseTime;
     return data;
   }
 }
@@ -173,9 +173,9 @@ class Category {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
     return data;
   }
 }
@@ -196,11 +196,11 @@ class Reviews {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['review'] = this.review;
-    data['stars'] = this.stars;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['review'] = review;
+    data['stars'] = stars;
+    data['created_at'] = createdAt;
     return data;
   }
 }
@@ -219,10 +219,10 @@ class SocilaLink {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['facebook'] = this.facebook;
-    data['youtube'] = this.youtube;
-    data['instagram'] = this.instagram;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['facebook'] = facebook;
+    data['youtube'] = youtube;
+    data['instagram'] = instagram;
     return data;
   }
 }
@@ -259,15 +259,15 @@ class RecentlyAddedCourse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['playlists_count'] = this.playlistsCount;
-    data['category'] = this.category;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['course_price'] = this.coursePrice;
-    data['sale_price'] = this.salePrice;
-    data['course_time'] = this.courseTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['playlists_count'] = playlistsCount;
+    data['category'] = category;
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['course_price'] = coursePrice;
+    data['sale_price'] = salePrice;
+    data['course_time'] = courseTime;
     return data;
   }
 }
@@ -304,15 +304,15 @@ class FeaturedCourse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['playlists_count'] = this.playlistsCount;
-    data['category'] = this.category;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['course_price'] = this.coursePrice;
-    data['sale_price'] = this.salePrice;
-    data['course_time'] = this.courseTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['playlists_count'] = playlistsCount;
+    data['category'] = category;
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['course_price'] = coursePrice;
+    data['sale_price'] = salePrice;
+    data['course_time'] = courseTime;
     return data;
   }
 }
@@ -349,15 +349,15 @@ class PopularCourse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['playlists_count'] = this.playlistsCount;
-    data['category'] = this.category;
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['image'] = this.image;
-    data['course_price'] = this.coursePrice;
-    data['sale_price'] = this.salePrice;
-    data['course_time'] = this.courseTime;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['playlists_count'] = playlistsCount;
+    data['category'] = category;
+    data['id'] = id;
+    data['title'] = title;
+    data['image'] = image;
+    data['course_price'] = coursePrice;
+    data['sale_price'] = salePrice;
+    data['course_time'] = courseTime;
     return data;
   }
 }

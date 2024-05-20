@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
+// ignore: must_be_immutable
 class WishListCard extends StatelessWidget {
   String title;
   String coursetitle;

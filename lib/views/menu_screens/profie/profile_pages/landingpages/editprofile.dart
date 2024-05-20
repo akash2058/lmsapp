@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/utilities/textvalidation.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 
@@ -20,25 +22,15 @@ class _EditProfilleState extends State<EditProfille> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      profiledata();
-    });
+    loaddata();
   }
 
-  profiledata() async {
+  void loaddata() {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    state.namecontroller.clear();
-    state.emailcontroller.clear();
-    state.countrycontroller.clear();
-    state.addresscontroller.clear();
-    state.phonenumbercontroller.clear();
-    state.provincecontroller.clear();
-    state.citycontroller.clear();
-    state.provincecontroller.clear();
-    state.postalcodecontroller.clear();
-    await state.getMyProfile();
+    state.loadeditprofileData();
   }
 
+  final formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
@@ -48,220 +40,343 @@ class _EditProfilleState extends State<EditProfille> {
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-              child: profile.loadinggetprofile == true
-                  ? const Center(
-                      child: LinearProgressIndicator(
-                      color: AppColors.primarybrown,
-                    ))
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child: Form(
+                key: formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         ProflleImage(
-                          img:
-                              '${profile.profile?.data?.baseurl}/${profile.profile?.data?.photo}',
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Text(
-                          'Basic Information*',
-                          style: titleStyle,
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        Text(
-                          'Full Name',
-                          style: reviewtitlestyle,
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        CustomFormField(
-                            controller: profile.namecontroller,
-                            hint: profile.profile?.data?.name.toString() ??
-                                'Enter Full Name'),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Phone Number',
-                          style: reviewtitlestyle,
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        CustomFormField(
-                            controller: profile.phonenumbercontroller,
-                            hint: profile.profile?.data?.phone.toString() ??
-                                'Enter Phone Number'),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Email',
-                          style: reviewtitlestyle,
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        CustomFormField(
-                            controller: profile.emailcontroller,
-                            hint: profile.profile?.data?.email.toString() ??
-                                'Enter Email'),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
+                            child: profile.selectedimage != null
+                                ? Image.file(
+                                    fit: BoxFit.cover, profile.selectedimage!)
+                                : Container(
+                                    height: 65.h,
+                                    width: 65.w,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                '${profile.profile?.data?.baseurl}/${profile.profile?.data?.photo}'))),
+                                    child: child,
+                                  )),
+                        Column(
                           children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Date Of Birth',
-                                    style: reviewtitlestyle,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  CustomFormField(
-                                      ontap: () {
-                                        profile.selectDate(context);
-                                      },
-                                      hint: profile.profile?.data?.dob
-                                              .toString() ??
-                                          '${profile.selectdate.year}-${profile.selectdate.month}-${profile.selectdate.day}'),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Country',
-                                    style: reviewtitlestyle,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  CustomFormField(
-                                      controller: profile.countrycontroller,
-                                      hint: profile.profile?.data?.country
-                                              .toString() ??
-                                          'Country')
-                                ],
-                              ),
-                            ),
+                            CustomSmallButton(
+                                textcolor: AppColors.primarywhite,
+                                backgroudcolor: AppColors.primarybrown,
+                                height: 40.h,
+                                text: 'Upload Photo',
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          actionsAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          title: Center(
+                                              child: Text(
+                                            'Choose One',
+                                            style: titlestyle,
+                                          )),
+                                          actions: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                profile
+                                                    .pickimageanduploadfromcamera(
+                                                        context);
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.camera,
+                                                    color:
+                                                        AppColors.primarybrown,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  Text(
+                                                    'Camera',
+                                                    style: titlestyle,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                profile
+                                                    .pickImageAndUploadfromGallery(
+                                                        context);
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.image,
+                                                    color:
+                                                        AppColors.primarybrown,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10.h,
+                                                  ),
+                                                  Text(
+                                                    'Image',
+                                                    style: titlestyle,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                })
                           ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          'Permanent Address',
-                          style: reviewtitlestyle,
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        CustomFormField(
-                            controller: profile.addresscontroller,
-                            hint: profile.profile?.data?.address.toString() ??
-                                'Enter Permanent Address'),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'City',
-                                    style: reviewtitlestyle,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  CustomFormField(
-                                      controller: profile.citycontroller,
-                                      hint: profile.profile?.data?.city
-                                              .toString() ??
-                                          'City')
-                                ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Text(
+                      'Basic Information*',
+                      style: titleStyle,
+                    ),
+                    SizedBox(
+                      height: 14.h,
+                    ),
+                    Text(
+                      'Full Name',
+                      style: reviewtitlestyle,
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    CustomFormField(
+                        validation: validatename,
+                        controller: profile.namecontroller,
+                        hint: 'Enter Full Name'),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      'Phone Number',
+                      style: reviewtitlestyle,
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    CustomFormField(
+                        validation: validatephonenumber,
+                        controller: profile.phonenumbercontroller,
+                        hint: 'Enter Phone Number'),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      'Email',
+                      style: reviewtitlestyle,
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    CustomFormField(
+                        validation: validateEmail,
+                        controller: profile.emailcontroller,
+                        hint: 'Enter Email'),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Date Of Birth',
+                                style: reviewtitlestyle,
                               ),
-                            ),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Province',
-                                    style: reviewtitlestyle,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  CustomFormField(
-                                      controller: profile.provincecontroller,
-                                      hint: profile.profile?.data?.state
-                                              .toString() ??
-                                          'province')
-                                ],
+                              SizedBox(
+                                height: 4.h,
                               ),
-                            ),
-                            SizedBox(
-                              width: 16.w,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Postal Code',
-                                    style: reviewtitlestyle,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
-                                  CustomFormField(
-                                      controller: profile.postalcodecontroller,
-                                      hint: profile.profile?.data?.postcode
-                                              .toString() ??
-                                          'postal code')
-                                ],
-                              ),
-                            ),
-                          ],
+                              CustomFormField(
+                                  controller: profile.dobcontroller,
+                                  validation: validatedob,
+                                  ontap: () {
+                                    profile.selectDate(context);
+                                  },
+                                  hint:
+                                      '${profile.selectdate.year}-${profile.selectdate.month}-${profile.selectdate.day}'),
+                            ],
+                          ),
                         ),
                         SizedBox(
-                          height: 25.h,
+                          width: 16.w,
                         ),
-                        CustomButton(
-                            height: 53.h,
-                            text: profile.loadingprofiledit == true
-                                ? 'Please Wait....'
-                                : 'Edit Profile',
-                            onTap: () {
-                              var state = Provider.of<AuthenticationProvider>(
-                                  context,
-                                  listen: false);
-                              profile.geteditprofile(context);
-                            }),
-                        SizedBox(
-                          height: 25.h,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Country',
+                                style: reviewtitlestyle,
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              CustomFormField(
+                                  validation: validatecountry,
+                                  controller: profile.countrycontroller,
+                                  hint: 'Country')
+                            ],
+                          ),
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Text(
+                      'Permanent Address',
+                      style: reviewtitlestyle,
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    GooglePlacesAutoCompleteTextFormField(
+                        validator: validateaddress,
+                        decoration: InputDecoration(
+                            hintStyle: hinttextstyle,
+                            errorStyle: paymentpricestyle,
+                            isDense: true,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 14.h),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: const BorderSide(
+                                  color: AppColors.primarylightgrey),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: const BorderSide(
+                                  color: AppColors.primarylightgrey),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: const BorderSide(
+                                  color: AppColors.primarylightgrey),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.r),
+                              borderSide: const BorderSide(
+                                  color: AppColors.primarylightgrey),
+                            ),
+                            hintText: 'Enter Your Permanent address'),
+                        style: formfieldstyle,
+                        textEditingController: profile.addresscontroller,
+                        googleAPIKey: "AIzaSyAldFf3OU4nVwg21S7bIVdwPExCf8sJsEg",
+                        debounceTime: 400, // Adjust debounce time as needed
+                        // Optional countries parameter
+
+                        isLatLngRequired: true,
+                        getPlaceDetailWithLatLng: (prediction) {},
+                        // Callback to handle user selection from suggestions
+                        itmClick: (prediction) {
+                          profile.addresscontroller.text =
+                              prediction.description.toString();
+                          profile.addresscontroller.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: prediction.description!.length));
+                        }),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'City',
+                                style: reviewtitlestyle,
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              CustomFormField(
+                                  validation: validatecity,
+                                  controller: profile.citycontroller,
+                                  hint: 'City')
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'State',
+                                style: reviewtitlestyle,
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              CustomFormField(
+                                  validation: validatestate,
+                                  controller: profile.provincecontroller,
+                                  hint: 'state')
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Postal Code',
+                                style: reviewtitlestyle,
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              CustomFormField(
+                                  validation: validatepostalcode,
+                                  controller: profile.postalcodecontroller,
+                                  hint: 'postal code')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    CustomButton(
+                        height: 53.h,
+                        text: profile.loadingprofiledit == true
+                            ? 'Please Wait....'
+                            : 'Save',
+                        onTap: () {
+                          if (formkey.currentState!.validate()) {
+                            profile.geteditprofile(context);
+                          }
+                        }),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         );
@@ -272,18 +387,17 @@ class _EditProfilleState extends State<EditProfille> {
 
 // ignore: must_be_immutable
 class ProflleImage extends StatelessWidget {
-  String img;
-  ProflleImage({super.key, required this.img});
+  Widget? child;
+  ProflleImage({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 65.h,
       width: 65.w,
-      decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(img)),
-          shape: BoxShape.circle,
-          color: AppColors.primarybrown),
+      decoration: const BoxDecoration(
+          shape: BoxShape.circle, color: AppColors.primarywhite),
+      child: child,
     );
   }
 }

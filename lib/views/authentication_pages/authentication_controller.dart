@@ -37,6 +37,11 @@ class AuthenticationProvider extends ChangeNotifier {
   RegisterModel? _registerModel;
   RegisterModel? get registers => _registerModel;
 
+//savingusercredintial
+  String token = '';
+  String name = '';
+  String email = '';
+
   TextEditingController namecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
@@ -64,59 +69,69 @@ class AuthenticationProvider extends ChangeNotifier {
 
   bool _isRememberMe = false;
   bool get isRememberMe => _isRememberMe;
-  void toggleRememberMe(bool value) {
+  Future<void> toggleRememberMe(bool value) async {
     _isRememberMe = value;
     notifyListeners();
-  }
 
-  Future<void> saveLoginData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (_isRememberMe == true) {
-      prefs.setBool('isRememberMe', _isRememberMe);
-    } else {
-      prefs.remove('isRememberMe');
-      prefs.remove('email');
-      prefs.remove('password');
-    }
+    await prefs.setBool('isRememberMe', value);
   }
 
   Future<void> loadLoginData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _isRememberMe = prefs.getBool('isRememberMe') ?? false;
     emailcontroller.text = prefs.getString('email') ?? '';
-    passwordcontroller.text = prefs.getString('password') ?? '';
+
+    email = prefs.getString('email') ?? '';
+    name = prefs.getString('name') ?? '';
+    token = prefs.getString('token') ?? '';
     notifyListeners();
   }
 
-  getLogin(context) async {
+  Future<void> getLogin(BuildContext context) async {
     try {
       loadinguser = true;
       notifyListeners();
-      await fetchLogin(
+
+      final userMap = await fetchLogin(
         emailcontroller.text,
         passwordcontroller.text,
-      ).then((userMap) {
-        _userModel = UserModel.fromJson(userMap);
-        if (userMap['success'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: AppColors.primarygreen,
-              content: Text(userMap['message'])));
+      );
 
-          Utils.saveToken(user!.data!.token.toString());
+      _userModel = UserModel.fromJson(userMap);
 
-          Navigator.pushAndRemoveUntil(context,
-              CustomPageRoute(child: const MainMenu()), (route) => false);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: AppColors.primaryred,
-              content: Text(userMap['message'])));
-        }
-        notifyListeners();
-        loadinguser = false;
-      });
-    } catch (e) {
-      notifyListeners();
+      if (userMap['success'] == true) {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: AppColors.primarygreen,
+          content: Text(userMap['message']),
+        ));
+        debugPrint(user!.data!.token.toString());
+        Utils.saveToken(user?.data?.token ?? '');
+        // Save token, name, and email to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('name', user?.data?.name ?? '');
+        await prefs.setString('email', user?.data?.email ?? '');
+
+        Navigator.pushAndRemoveUntil(
+          // ignore: use_build_context_synchronously
+          context,
+          CustomPageRoute(child: const MainMenu()),
+          (route) => false,
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: AppColors.primaryred,
+          content: Text(userMap['message']),
+        ));
+      }
+
       loadinguser = false;
+      notifyListeners();
+    } catch (e) {
+      loadinguser = false;
+      notifyListeners();
       throw {"error": e}; // Throw a map containing the error message
     }
   }
@@ -140,6 +155,7 @@ class AuthenticationProvider extends ChangeNotifier {
               .showSnackBar(SnackBar(content: Text(userMap['message'])));
         }
         notifyListeners();
+        print(userMap);
         loadingregister = false;
       });
     } catch (e) {
@@ -163,11 +179,11 @@ class AuthenticationProvider extends ChangeNotifier {
 
       if (userMap['success'] == true) {
         _userModel = UserModel.fromJson(userMap);
+        Utils.saveToken(user?.data?.token ?? '');
         Navigator.pushAndRemoveUntil(context,
             CustomPageRoute(child: const MainMenu()), (route) => false);
-        // OTP is not valid, show message
+        print(userMap);
       } else {
-        // API call was not successful, show message from API response
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: AppColors.primaryred,
@@ -194,6 +210,7 @@ class AuthenticationProvider extends ChangeNotifier {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primarygreen,
               content: Text(forgot['message'])));
+          Navigator.push(context, CustomPageRoute(child: const LoginPage()));
         } else if (forgot['success'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primaryred,
@@ -201,6 +218,7 @@ class AuthenticationProvider extends ChangeNotifier {
         }
         notifyListeners();
         loadingforgotpassword = false;
+        print(forgot);
       });
     } catch (e) {
       notifyListeners();
@@ -209,11 +227,14 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  logout(token, context) async {
+  logout(context) async {
+    var tokken = await Utils.getToken();
+
     try {
       loadinglogout = true;
       notifyListeners();
-      await fetchlogout(token).then((forgot) {
+      await Utils.deleteToken();
+      await fetchlogout(tokken).then((forgot) {
         if (forgot['success'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primarygreen,
@@ -235,8 +256,10 @@ class AuthenticationProvider extends ChangeNotifier {
     }
   }
 
-  getchangepassword(context, ) async {
-        var tokken = await Utils.getToken();
+  getchangepassword(
+    context,
+  ) async {
+    var tokken = await Utils.getToken();
 
     try {
       loadingchangepassword = true;
@@ -251,12 +274,13 @@ class AuthenticationProvider extends ChangeNotifier {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primarygreen,
               content: Text(forgot['message'])));
+          Navigator.pushAndRemoveUntil(context,
+              CustomPageRoute(child: const MainMenu()), (route) => false);
         } else if (forgot['success'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: AppColors.primaryred,
               content: Text(forgot['message'])));
         }
-        print(forgot);
         notifyListeners();
         loadingchangepassword = false;
       });
