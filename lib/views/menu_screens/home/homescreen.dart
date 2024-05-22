@@ -122,8 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             CustomSearchField(
                               onTap: () {
-                                Navigator.push(context,
-                                    CustomPageRoute(child: const MySearchScreen()));
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: const MySearchScreen()));
                               },
                               prefix: SvgPicture.asset(
                                 SvgImages.search,
@@ -136,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                showBottomSheet(
+                                showModalBottomSheet(
                                     context: context,
                                     builder: (context) {
                                       return const LmsBottomSheet();

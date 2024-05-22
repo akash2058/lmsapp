@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
@@ -114,11 +113,6 @@ class CourseCard extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            Image.asset(
-                              AppImages.dollarsign,
-                              height: 16.h,
-                              color: AppColors.primarybrown,
-                            ),
                             Text(
                               price,
                               style: pricestyle,

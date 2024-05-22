@@ -4,6 +4,7 @@ import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customexpansiontile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
@@ -41,6 +42,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, get, child) {
+        var state = Provider.of<CartProvider>(context, listen: false);
         String convertMinutesToHours(int minutes) {
           int hours = minutes ~/ 60;
           int remainingMinutes = minutes % 60;
@@ -65,7 +67,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
             child: Row(
               children: [
                 Text(
-                  '\$${get.course?.data?.course?.coursePrice}',
+                  '₹${get.course?.data?.course?.coursePrice ?? ''}',
                   style: titlestyle,
                 ),
                 SizedBox(
@@ -73,7 +75,13 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                 ),
                 Expanded(
                     child: CustomButton(
-                        height: 53.h, text: 'Add to Cart', onTap: () {}))
+                        height: 53.h,
+                        text: state.loadingaddtocart == true
+                            ? 'Adding...'
+                            : 'Add to Cart',
+                        onTap: () {
+                          state.getaddcart(widget.id, context);
+                        }))
               ],
             ),
           ),
@@ -101,17 +109,14 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CourseDetailCard(
-                              coursetitle: get.course?.data?.course?.metaTitle
-                                      .toString() ??
-                                  '',
+                              coursetitle:
+                                  get.course?.data?.course?.metaTitle ?? '',
                               title: 'Expert Wireframing for Mobile Design',
                               duration:
                                   convertMinutesToHours(minutes?.toInt() ?? 0),
                               lessons:
                                   '${get.course?.data?.course?.playlistCount} lessons',
-                              name: get.course?.data?.course?.userName
-                                      .toString() ??
-                                  '',
+                              name: get.course?.data?.course?.userName ?? '',
                               ratings: '5',
                               img:
                                   '${get.course?.data?.userProfileUrl}/${get.course?.data?.course?.userImage}',
@@ -120,9 +125,8 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                               height: 16.h,
                             ),
                             AboutCourseCard(
-                              description: get.course?.data?.course?.description
-                                      .toString() ??
-                                  '',
+                              description:
+                                  get.course?.data?.course?.description ?? '',
                             ),
                             SizedBox(
                               height: 16.h,
@@ -148,14 +152,14 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                                 var data = get.course?.data?.playlist?[index];
                                 return CustomExpansionTile(
                                     lessonnum: index.bitLength.toString(),
-                                    duration: data?.createdAt.toString() ?? '',
-                                    lessontitle: data?.title.toString() ?? '',
+                                    duration: data?.createdAt ?? '',
+                                    lessontitle: data?.title ?? '',
                                     children: List.generate(
                                         data?.videoContent?.length ?? 0,
                                         (index) {
                                       var getdata = data?.videoContent?[index];
                                       return Customlessontext(
-                                          title: '${getdata?.title}');
+                                          title: getdata?.title ?? '');
                                     }));
                               }),
                             ),

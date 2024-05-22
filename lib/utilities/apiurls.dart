@@ -11,6 +11,13 @@ class AppUrls {
   static const String editprofile = "${mainUrl}profile-update";
   static const String geteditprofile = "${mainUrl}my-profile";
   static const String coursedetails = "${mainUrl}course-details?id=";
+  static const String gategory = "${mainUrl}get-category";
+  static const String searchcourse = "${mainUrl}filter";
+  static const String getcartitems = "${mainUrl}my-cart";
+  static const String addcart = "${mainUrl}add-cart";
+  static const String removecart = "${mainUrl}remove-cart-item";
+
+  static const String getwishlists = "${mainUrl}my-wishlist";
 
   static const String logout = "${mainUrl}logout";
 

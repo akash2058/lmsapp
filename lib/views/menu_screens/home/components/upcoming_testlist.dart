@@ -59,7 +59,7 @@ class FeaturedCourse extends StatelessWidget {
                 discount: 'off$discountpercent',
                 discountprice: '${data?.salePrice}',
                 price:
-                    'INR ${main.home?.data?.featuredCourse?[index].coursePrice}',
+                    '₹${main.home?.data?.featuredCourse?[index].coursePrice}',
                 onTap: () {
                   Navigator.push(
                       context,

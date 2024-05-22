@@ -39,6 +39,7 @@ class AddedCourseList extends StatelessWidget {
 
             if (minutes != null) {
             } else {}
+
             return Column(
               children: [
                 CourseCard(
@@ -50,17 +51,11 @@ class AddedCourseList extends StatelessWidget {
                           id: data?.id.toString() ?? '',
                         )));
                   },
-                  title: main.home?.data?.recentlyAddedCourse?[index].title
-                          .toString() ??
-                      '',
-                  lessons:
-                      '${main.home?.data?.recentlyAddedCourse?[index].playlistsCount} Lessons',
+                  title: data?.title ?? '',
+                  lessons: '${data?.playlistsCount ?? '0'} Lessons',
                   duration: convertMinutesToHours(minutes!.toInt()),
                   name: 'Courtney Henry',
-                  price: main
-                          .home?.data?.recentlyAddedCourse?[index].coursePrice
-                          .toString() ??
-                      '',
+                  price: '₹${data?.coursePrice ?? ''}',
                   img:
                       '${main.home?.data?.baseUrl}/${main.home?.data?.recentlyAddedCourse?[index].image ?? ''}',
                 ),

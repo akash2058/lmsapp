@@ -53,7 +53,7 @@ class PopularCourseList extends StatelessWidget {
                 discount: 'off $onlypercent',
                 discountprice: '5000',
                 price:
-                    'INR${main.home?.data?.popularCourse?[index].coursePrice ?? ''}',
+                    '₹${main.home?.data?.popularCourse?[index].coursePrice ?? ''}',
                 title: main.home?.data?.popularCourse?[index].title ?? '',
                 onTap: () {
                   Navigator.push(
