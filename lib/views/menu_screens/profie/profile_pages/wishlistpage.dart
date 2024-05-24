@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
@@ -51,66 +50,70 @@ class _WishListPageState extends State<WishListPage> {
             style: appbartitlestyle,
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
-          child: Column(
-            children: [
-              Column(
-                children: List.generate(
-                    get.wishlist?.data?.wishlistItems?.length ?? 0, (index) {
-                  var data = get.wishlist?.data?.wishlistItems?[index];
-                  String convertMinutesToHours(int minutes) {
-                    int hours = minutes ~/ 60;
-                    int remainingMinutes = minutes % 60;
-                    String result = '$hours hrs';
-                    if (remainingMinutes > 0) {
-                      result += ' $remainingMinutes min';
-                    }
-                    return result;
-                  }
+        body: get.loadinggetwishlist == true
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
+                child: Column(
+                  children: [
+                    Column(
+                      children: List.generate(
+                          get.wishlist?.data?.wishlistItems?.length ?? 0,
+                          (index) {
+                        var data = get.wishlist?.data?.wishlistItems?[index];
+                        String convertMinutesToHours(int minutes) {
+                          int hours = minutes ~/ 60;
+                          int remainingMinutes = minutes % 60;
+                          String result = '$hours hrs';
+                          if (remainingMinutes > 0) {
+                            result += ' $remainingMinutes min';
+                          }
+                          return result;
+                        }
 
-                  String? courseTime =
-                      get.wishlist?.data?.wishlistItems?[index].courseTime ??
-                          '';
+                        String? courseTime = get.wishlist?.data
+                                ?.wishlistItems?[index].courseTime ??
+                            '';
 
-                  // Parse courseTime to int using int.tryParse()
-                  int? minutes = int.tryParse(courseTime);
+                        // Parse courseTime to int using int.tryParse()
+                        int? minutes = int.tryParse(courseTime);
 
-                  if (minutes != null) {
-                    convertMinutesToHours(minutes);
-                  } else {}
-                  return Column(
-                    children: [
-                      WishListCard(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CustomPageRoute(
-                                  child: PopularCourseLandingPage(
-                                id: data?.id.toString() ?? '',
-                              )));
-                        },
-                        title: data?.categoryTitle ?? '',
-                        coursetitle: data?.categoryTitle ?? '',
-                        lesson: '${data?.totalPlaylists ?? ''} Lessons',
-                        duration: convertMinutesToHours(minutes?.toInt() ?? 0),
-                        img:
-                            '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
-                      ),
-                      SizedBox(
-                        height: 12.h,
-                      ),
-                    ],
-                  );
-                }),
+                        if (minutes != null) {
+                          convertMinutesToHours(minutes);
+                        } else {}
+                        return Column(
+                          children: [
+                            WishListCard(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: PopularCourseLandingPage(
+                                      id: data?.id.toString() ?? '',
+                                    )));
+                              },
+                              title: data?.categoryTitle ?? '',
+                              coursetitle: data?.categoryTitle ?? '',
+                              lesson: '${data?.totalPlaylists ?? ''} Lessons',
+                              duration:
+                                  convertMinutesToHours(minutes?.toInt() ?? 0),
+                              img:
+                                  '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                          ],
+                        );
+                      }),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      height: 16.h,
+                    )
+                  ],
+                ),
               ),
-              const Spacer(),
-              SizedBox(
-                height: 16.h,
-              )
-            ],
-          ),
-        ),
       );
     });
   }

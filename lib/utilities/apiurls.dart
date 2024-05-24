@@ -19,10 +19,11 @@ class AppUrls {
 
   static const String getwishlists = "${mainUrl}my-wishlist";
   static const String addwishlists = "${mainUrl}add-to-wishlist";
-  static const String removewishlists = "${mainUrl}my-wishlist";
-
+  static const String removewishlists = "${mainUrl}remove-wishlist-item";
+  static const String sendmessage = "${mainUrl}send-message";
+  static const String chatroom = "${mainUrl}chat-rooms";
+  static const String getmessage = "${mainUrl}chat-message?chatid=";
   static const String logout = "${mainUrl}logout";
-
   static const String imagepath =
       "https://lms.hirephpdeveloperindia.com/public/uploads/course";
 }

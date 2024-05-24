@@ -26,7 +26,6 @@ Future<Map<String, dynamic>> fetchWishlistdata(token) async {
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
-  print('print$responseData');
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }

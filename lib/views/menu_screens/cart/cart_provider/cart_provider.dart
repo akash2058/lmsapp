@@ -15,7 +15,6 @@ class CartProvider extends ChangeNotifier {
   bool loadinggetwishlist = false;
   bool loadingaddtocart = false;
   bool loadingremovecart = false;
-  
 
   getCartData() async {
     var tokken = await Utils.getToken();

@@ -1,5 +1,6 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -7,50 +8,75 @@ import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
+import 'package:provider/provider.dart';
 
-class ChatDetailsScreen extends StatelessWidget {
-  const ChatDetailsScreen({super.key});
+// ignore: must_be_immutable
+class ChatDetailsScreen extends StatefulWidget {
+  String id;
+
+  ChatDetailsScreen({
+    super.key,
+    required this.id,
+  });
+
+  @override
+  State<ChatDetailsScreen> createState() => _ChatDetailsScreenState();
+}
+
+class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getmessagedata();
+  }
+
+  Future<void> getmessagedata() async {
+    var state = Provider.of<ChatProvider>(context, listen: false);
+    await state.getMessage(widget.id, context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
-        elevation: 3,
-        child: const MessageBox(),
-      ),
-      appBar: CustomAppbar(title: 'Shane Martinez', autoapply: true,),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const ReceiverCard(),
-              SizedBox(
-                height: 32.h,
-              ),
-              const SenderCard(),
-              SizedBox(
-                height: 32.h,
-              ),
-              const ReceiverCard(),
-              SizedBox(
-                height: 32.h,
-              ),
-              const SenderCard(),
-              SizedBox(
-                height: 32.h,
-              ),
-              const ReceiverCard(),
-              SizedBox(
-                height: 32.h,
-              ),
-              const SenderCard(),
-            ],
+    return Consumer<ChatProvider>(builder: (context, get, child) {
+      return Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
+          elevation: 3,
+          child: const MessageBox(),
+        ),
+        appBar: CustomAppbar(
+          title: 'Shane Martinez',
+          autoapply: true,
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+          child: SingleChildScrollView(
+            reverse: true,
+            child: Column(
+              children: [
+                Column(
+                  children: List.generate(5, (index) {
+                    return Column(
+                      children: [
+                        const ReceiverCard(),
+                        SizedBox(
+                          height: 32.h,
+                        ),
+                        const SenderCard(),
+                        SizedBox(
+                          height: 32.h,
+                        ),
+                      ],
+                    );
+                  }),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -139,26 +165,17 @@ class MessageBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(
-          Icons.mic,
-          color: AppColors.primarybrown,
-        ),
-        SizedBox(
-          width: 11.w,
-        ),
-        const Icon(
-          Icons.image,
-          color: AppColors.primarybrown,
-        ),
-        SizedBox(
-          width: 11.w,
-        ),
         Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15.r),
+                border: Border.all(color: AppColors.primarylowlightdark)),
             child: CustomFormField(
-          fillcolor: AppColors.primarywhite,
-          hint: 'Write message',
-          suffix: const Icon(Icons.emoji_emotions_outlined),
-        )),
+              fillcolor: AppColors.primarywhite,
+              hint: 'Write message',
+            ),
+          ),
+        ),
         SizedBox(
           width: 16.w,
         ),

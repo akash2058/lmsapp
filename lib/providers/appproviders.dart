@@ -3,6 +3,7 @@ import 'package:lmsapp/views/bottom_sheet/provider/bottomsheetprovider.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/controller/drawercontroller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
+import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -27,6 +28,10 @@ List<SingleChildWidget> getProviders() {
     ChangeNotifierProvider(
       lazy: false,
       create: (context) => CartProvider(),
+    ),
+    ChangeNotifierProvider(
+      lazy: false,
+      create: (context) => ChatProvider(),
     ),
   ];
 }

@@ -295,15 +295,48 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
-  getaddwishlist(id) async {
+  getaddwishlist(id, context) async {
     var tokken = await Utils.getToken();
     try {
       loadingaddwishlist = true;
       notifyListeners();
       await fetchaddwishlist(tokken, id).then((course) {
+        if (course['status'] == true) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(course['message']),
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(course['message']),
+          ));
+        }
         loadingaddwishlist = false;
         notifyListeners();
-        print('course $course');
+      });
+    } catch (e) {
+      loadingaddwishlist = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getRemoveWishlist(id, context) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingaddwishlist = true;
+      notifyListeners();
+      await fetchremoveaddwishlist(tokken, id).then((course) {
+        if (course['status'] == true) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(course['message']),
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(course['message']),
+          ));
+        }
+        loadingaddwishlist = false;
+        notifyListeners();
       });
     } catch (e) {
       loadingaddwishlist = false;
