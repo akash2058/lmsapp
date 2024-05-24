@@ -11,18 +11,11 @@ class CartProvider extends ChangeNotifier {
   WishlistModel? _wishlistModel;
   WishlistModel? get wishlist => _wishlistModel;
 
-
   bool loadinggetcart = false;
   bool loadinggetwishlist = false;
   bool loadingaddtocart = false;
-  bool addwishlist = false;
-
-
-
-  addtocart() {
-    addwishlist = !addwishlist;
-    notifyListeners();
-  }
+  bool loadingremovecart = false;
+  
 
   getCartData() async {
     var tokken = await Utils.getToken();
@@ -60,6 +53,29 @@ class CartProvider extends ChangeNotifier {
       });
     } catch (e) {
       loadingaddtocart = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getremovecart(id, context) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingremovecart = true;
+      notifyListeners();
+      await fetchRemoveCart(tokken, id).then((policy) {
+        if (policy['status'] == true) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(policy['message'])));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(policy['message'])));
+        }
+        loadingremovecart = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingremovecart = false;
       notifyListeners();
       rethrow;
     }

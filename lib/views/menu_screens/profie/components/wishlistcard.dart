@@ -42,7 +42,7 @@ class WishListCard extends StatelessWidget {
               width: 80.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
-                  image: DecorationImage(image: AssetImage(img))),
+                  image: DecorationImage(image: NetworkImage(img))),
             ),
             SizedBox(
               width: 12.w,

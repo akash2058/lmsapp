@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
-
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
-
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:provider/provider.dart';
@@ -32,9 +32,9 @@ class FeaturedCourse extends StatelessWidget {
             String convertMinutesToHours(int minutes) {
               int hours = minutes ~/ 60;
               int remainingMinutes = minutes % 60;
-              String result = '$hours hours';
+              String result = '$hours hrs';
               if (remainingMinutes > 0) {
-                result += ' $remainingMinutes minutes';
+                result += ' $remainingMinutes min';
               }
               return result;
             }
@@ -68,7 +68,24 @@ class FeaturedCourse extends StatelessWidget {
                         id: data?.id.toString() ?? '',
                       )));
                 },
-                title: '${data?.title}');
+                title: '${data?.title}',
+                child: GestureDetector(
+                  onTap: () {
+                    main.addToWishlistfeatured();
+                    if (main.addwishlistfeatured == true) {
+                      main.getaddwishlist(data?.id.toString() ?? '');
+                    }
+                  },
+                  child: Icon(
+                    main.addwishlistfeatured == true
+                        ? Icons.favorite
+                        : Icons.favorite_outline,
+                    size: 24.h,
+                    color: main.addwishlistfeatured == true
+                        ? AppColors.primaryred
+                        : AppColors.primaryblack,
+                  ),
+                ));
           }),
         );
       },

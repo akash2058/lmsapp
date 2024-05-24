@@ -121,3 +121,37 @@ Future<Map<String, dynamic>> fetchcoursedata(token, id) async {
   }
   return responseData;
 }
+
+Future<Map<String, dynamic>> fetchaddwishlist(token, id) async {
+  var body = {'course_id': id};
+  final response = await http.post(
+    Uri.parse(AppUrls.addwishlists),
+    body: body,
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
+Future<Map<String, dynamic>> fetchremoveaddwishlist(token, id) async {
+  final response = await http.post(
+    Uri.parse('${AppUrls.coursedetails}$id'),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}

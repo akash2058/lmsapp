@@ -24,6 +24,8 @@ class MenuProviders extends ChangeNotifier {
   int currentslide = 0;
 
   bool loadingprofiledit = false;
+  bool loadingaddwishlist = false;
+
   bool loadinggetprofile = false;
   bool loadingcoursedetails = false;
   HomeModel? _homeModel;
@@ -44,6 +46,19 @@ class MenuProviders extends ChangeNotifier {
   TextEditingController provincecontroller = TextEditingController();
   TextEditingController postalcodecontroller = TextEditingController();
   TextEditingController countrycontroller = TextEditingController();
+
+  bool addwishlistpopular = false;
+  bool addwishlistfeatured = false;
+
+  addToWishlistPopular() {
+    addwishlistpopular = !addwishlistpopular;
+    notifyListeners();
+  }
+
+  addToWishlistfeatured() {
+    addwishlistfeatured = !addwishlistfeatured;
+    notifyListeners();
+  }
 
   Future<void> loadeditprofileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -275,6 +290,23 @@ class MenuProviders extends ChangeNotifier {
       });
     } catch (e) {
       loadingcoursedetails = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getaddwishlist(id) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingaddwishlist = true;
+      notifyListeners();
+      await fetchaddwishlist(tokken, id).then((course) {
+        loadingaddwishlist = false;
+        notifyListeners();
+        print('course $course');
+      });
+    } catch (e) {
+      loadingaddwishlist = false;
       notifyListeners();
       rethrow;
     }

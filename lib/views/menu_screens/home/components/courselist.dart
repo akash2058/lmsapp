@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
@@ -28,9 +30,9 @@ class PopularCourseList extends StatelessWidget {
               String convertMinutesToHours(int minutes) {
                 int hours = minutes ~/ 60;
                 int remainingMinutes = minutes % 60;
-                String result = '$hours hours';
+                String result = '$hours hrs';
                 if (remainingMinutes > 0) {
-                  result += ' $remainingMinutes minutes';
+                  result += ' $remainingMinutes min';
                 }
                 return result;
               }
@@ -63,6 +65,23 @@ class PopularCourseList extends StatelessWidget {
                         id: data?.id.toString() ?? '',
                       )));
                 },
+                child: GestureDetector(
+                  onTap: () {
+                    main.addToWishlistPopular();
+                    if (main.addwishlistpopular == true) {
+                      main.getaddwishlist(data?.id.toString() ?? '');
+                    }
+                  },
+                  child: Icon(
+                    main.addwishlistpopular == true
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    size: 22.h,
+                    color: main.addwishlistpopular == true
+                        ? AppColors.primaryred
+                        : AppColors.primaryblack,
+                  ),
+                ),
               );
             }),
           ),

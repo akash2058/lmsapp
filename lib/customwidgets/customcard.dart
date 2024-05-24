@@ -8,6 +8,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 // ignore: must_be_immutable
 class CoursesCard extends StatelessWidget {
   String img;
+  Widget? child;
   String coursetitle;
   String lessons;
   String duration;
@@ -19,6 +20,7 @@ class CoursesCard extends StatelessWidget {
   CoursesCard(
       {super.key,
       required this.img,
+      this.child,
       required this.coursetitle,
       required this.lessons,
       required this.duration,
@@ -56,16 +58,12 @@ class CoursesCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
-                      height: 30.h,
-                      width: 30.w,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.primarywhite),
-                      child: Icon(
-                        Icons.favorite_border,
-                        size: 18.h,
-                      ),
-                    ),
+                        height: 30.h,
+                        width: 30.w,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.primarywhite),
+                        child: child),
                   ],
                 ),
               ),

@@ -5,7 +5,6 @@ import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/wishlistcard.dart';
@@ -21,7 +20,6 @@ class WishListPage extends StatefulWidget {
 class _WishListPageState extends State<WishListPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loadWishlist();
@@ -61,6 +59,26 @@ class _WishListPageState extends State<WishListPage> {
                 children: List.generate(
                     get.wishlist?.data?.wishlistItems?.length ?? 0, (index) {
                   var data = get.wishlist?.data?.wishlistItems?[index];
+                  String convertMinutesToHours(int minutes) {
+                    int hours = minutes ~/ 60;
+                    int remainingMinutes = minutes % 60;
+                    String result = '$hours hrs';
+                    if (remainingMinutes > 0) {
+                      result += ' $remainingMinutes min';
+                    }
+                    return result;
+                  }
+
+                  String? courseTime =
+                      get.wishlist?.data?.wishlistItems?[index].courseTime ??
+                          '';
+
+                  // Parse courseTime to int using int.tryParse()
+                  int? minutes = int.tryParse(courseTime);
+
+                  if (minutes != null) {
+                    convertMinutesToHours(minutes);
+                  } else {}
                   return Column(
                     children: [
                       WishListCard(
@@ -69,14 +87,15 @@ class _WishListPageState extends State<WishListPage> {
                               context,
                               CustomPageRoute(
                                   child: PopularCourseLandingPage(
-                                id: '',
+                                id: data?.id.toString() ?? '',
                               )));
                         },
-                        title: 'Expert Wireframing for Mobile...',
-                        coursetitle: 'Graphic Design',
-                        lesson: '9 Lessons',
-                        duration: '78 hrs 30 mins',
-                        img: AppImages.imgone,
+                        title: data?.categoryTitle ?? '',
+                        coursetitle: data?.categoryTitle ?? '',
+                        lesson: '${data?.totalPlaylists ?? ''} Lessons',
+                        duration: convertMinutesToHours(minutes?.toInt() ?? 0),
+                        img:
+                            '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
                       ),
                       SizedBox(
                         height: 12.h,

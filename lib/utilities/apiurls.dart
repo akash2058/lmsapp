@@ -18,6 +18,8 @@ class AppUrls {
   static const String removecart = "${mainUrl}remove-cart-item";
 
   static const String getwishlists = "${mainUrl}my-wishlist";
+  static const String addwishlists = "${mainUrl}add-to-wishlist";
+  static const String removewishlists = "${mainUrl}my-wishlist";
 
   static const String logout = "${mainUrl}logout";
 

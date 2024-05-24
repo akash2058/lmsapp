@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -12,11 +13,13 @@ class CartCard extends StatelessWidget {
   String price;
   String img;
   VoidCallback? ontap;
+  VoidCallback? ontapicon;
   CartCard(
       {super.key,
       required this.coursetitle,
       required this.price,
       this.ontap,
+      this.ontapicon,
       required this.title,
       required this.img});
 
@@ -71,16 +74,19 @@ class CartCard extends StatelessWidget {
                             price,
                             style: titleStyle,
                           ),
-                          Container(
-                              decoration: const BoxDecoration(
-                                  color: AppColors.primaryred,
-                                  shape: BoxShape.circle),
-                              padding: EdgeInsets.all(6.5.sp),
-                              child: Icon(
-                                CupertinoIcons.delete,
-                                color: AppColors.primarywhite,
-                                size: 18.h,
-                              ))
+                          GestureDetector(
+                            onTap: ontapicon,
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                    color: AppColors.primaryred,
+                                    shape: BoxShape.circle),
+                                padding: EdgeInsets.all(6.5.sp),
+                                child: Icon(
+                                  CupertinoIcons.delete,
+                                  color: AppColors.primarywhite,
+                                  size: 18.h,
+                                )),
+                          )
                         ],
                       )
                     ],
