@@ -41,6 +41,7 @@ class AuthenticationProvider extends ChangeNotifier {
   String token = '';
   String name = '';
   String email = '';
+  String userid = '';
 
   TextEditingController namecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
@@ -85,6 +86,7 @@ class AuthenticationProvider extends ChangeNotifier {
     email = prefs.getString('email') ?? '';
     name = prefs.getString('name') ?? '';
     token = prefs.getString('token') ?? '';
+    userid = prefs.getString('userid') ?? '';
     notifyListeners();
   }
 
@@ -112,6 +114,7 @@ class AuthenticationProvider extends ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('name', user?.data?.name ?? '');
         await prefs.setString('email', user?.data?.email ?? '');
+        await prefs.setString('userid', user?.data?.id.toString() ?? '');
 
         Navigator.pushAndRemoveUntil(
           // ignore: use_build_context_synchronously

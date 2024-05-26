@@ -8,6 +8,7 @@ import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -33,62 +34,69 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
 
   Future<void> getmessagedata() async {
     var state = Provider.of<ChatProvider>(context, listen: false);
-    await state.getMessage(widget.id, context);
+    await state.getMessage(context, widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ChatProvider>(builder: (context, get, child) {
+      var auth = Provider.of<AuthenticationProvider>(context, listen: false);
       return Scaffold(
         bottomNavigationBar: BottomAppBar(
           padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
           elevation: 3,
-          child: const MessageBox(),
+          child: MessageBox(
+            id: widget.id,
+          ),
         ),
         appBar: CustomAppbar(
           title: 'Shane Martinez',
           autoapply: true,
         ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-          child: SingleChildScrollView(
-            reverse: true,
-            child: Column(
-              children: [
-                Column(
-                  children: List.generate(5, (index) {
-                    return Column(
-                      children: [
-                        const ReceiverCard(),
-                        SizedBox(
-                          height: 32.h,
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+            child: RefreshIndicator(
+              onRefresh: getmessagedata,
+              child: ListView(
+                children: List.generate(get.message?.data?.chats?.length ?? 0,
+                    (index) {
+                  var data = get.message?.data?.chats?[index];
+                  return Column(
+                    children: [
+                      if (data?.receiverId == auth.user?.data?.id)
+                        ReceiverCard(
+                          img:
+                              '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
+                          message: data?.message ?? '',
                         ),
-                        const SenderCard(),
-                        SizedBox(
-                          height: 32.h,
+
+                      // ignore: unrelated_type_equality_checks
+                      if (data?.senderId == auth.user?.data?.id)
+                        SenderCard(
+                          message: data?.message ?? '',
                         ),
-                      ],
-                    );
-                  }),
-                ),
-              ],
-            ),
-          ),
-        ),
+                      SizedBox(
+                        height: 22.h,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            )),
       );
     });
   }
 }
 
 class SenderCard extends StatelessWidget {
-  const SenderCard({
-    super.key,
-  });
+  final String message;
+  const SenderCard({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
             width: 104.w,
@@ -103,7 +111,7 @@ class SenderCard extends StatelessWidget {
                       bottomLeft: Radius.circular(10.r)),
                   color: AppColors.secondarybrown),
               child: Text(
-                'Sure, that sounds good. I need to take a break from staring at my computer screen all day.',
+                message,
                 style: anotherormaltextStylewhite,
               ),
             ),
@@ -115,9 +123,9 @@ class SenderCard extends StatelessWidget {
 }
 
 class ReceiverCard extends StatelessWidget {
-  const ReceiverCard({
-    super.key,
-  });
+  final String message;
+  final String img;
+  const ReceiverCard({super.key, required this.message, required this.img});
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +136,9 @@ class ReceiverCard extends StatelessWidget {
           Container(
             height: 36.h,
             width: 36.w,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                image: DecorationImage(image: AssetImage(AppImages.imgone))),
+                image: DecorationImage(image: NetworkImage(img))),
           ),
           SizedBox(
             width: 9.w,
@@ -145,7 +153,7 @@ class ReceiverCard extends StatelessWidget {
                       topRight: Radius.circular(10.r)),
                   color: AppColors.formfillcolor),
               child: Text(
-                'Not too bad, just trying to catch up on some work. How about you?',
+                message,
                 style: anotherormaltextblackstyle,
               ),
             ),
@@ -157,39 +165,53 @@ class ReceiverCard extends StatelessWidget {
 }
 
 class MessageBox extends StatelessWidget {
+  final String id;
   const MessageBox({
     super.key,
+    required this.id,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.r),
-                border: Border.all(color: AppColors.primarylowlightdark)),
-            child: CustomFormField(
-              fillcolor: AppColors.primarywhite,
-              hint: 'Write message',
+    return Consumer<ChatProvider>(builder: (context, get, child) {
+      return Row(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.r),
+                  border: Border.all(color: AppColors.primarylowlightdark)),
+              child: CustomFormField(
+                controller: get.messagecontroller,
+                fillcolor: AppColors.primarywhite,
+                hint: 'Write message',
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          width: 16.w,
-        ),
-        CircleAvatar(
-            backgroundColor: AppColors.primarywhite,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Icon(
-                Icons.send,
-                size: 24.h,
-                color: AppColors.primarybrown,
-              ),
-            ))
-      ],
-    );
+          SizedBox(
+            width: 16.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              get.sendMessage(context, id);
+            },
+            child: CircleAvatar(
+                backgroundColor: AppColors.primarywhite,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: get.loadingsendingmessage == true
+                      ? const CircularProgressIndicator(
+                          color: AppColors.primarybrown,
+                        )
+                      : Icon(
+                          Icons.send,
+                          size: 24.h,
+                          color: AppColors.primarybrown,
+                        ),
+                )),
+          )
+        ],
+      );
+    });
   }
 }

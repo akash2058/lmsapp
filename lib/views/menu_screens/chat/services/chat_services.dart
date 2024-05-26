@@ -37,3 +37,26 @@ Future<Map<String, dynamic>> fetchgetMessage(token, id) async {
   }
   return responseData;
 }
+
+Future<Map<String, dynamic>> fetchSendMessage(token, message, chatid) async {
+  var body = {
+    'message': message,
+    'chatid': chatid,
+  };
+  final response = await http.post(
+    Uri.parse(AppUrls.sendmessage),
+    body: body,
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}

@@ -8,13 +8,14 @@ import 'package:lmsapp/views/menu_screens/chat/services/chat_services.dart';
 class ChatProvider extends ChangeNotifier {
   bool loadingchatroom = false;
   bool loadingmessage = false;
+  bool loadingsendingmessage = false;
 
   ChatRoomModel? chatRoomModel;
   ChatRoomModel? get chat => chatRoomModel;
 
   MessageModel? messageModel;
   MessageModel? get message => messageModel;
-
+  TextEditingController messagecontroller = TextEditingController();
   getChatRoom(context) async {
     var tokken = await Utils.getToken();
     try {
@@ -46,6 +47,23 @@ class ChatProvider extends ChangeNotifier {
       });
     } catch (e) {
       loadingmessage = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  sendMessage(context, id) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingsendingmessage = true;
+      notifyListeners();
+      await fetchSendMessage(tokken, messagecontroller.text, id).then((policy) {
+        loadingsendingmessage = false;
+        notifyListeners();
+        print('message$policy');
+      });
+    } catch (e) {
+      loadingsendingmessage = false;
       notifyListeners();
       rethrow;
     }
