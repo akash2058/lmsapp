@@ -52,7 +52,6 @@ Future<Map<String, dynamic>> fetchAddCart(token, id) async {
 
 Future<Map<String, dynamic>> fetchRemoveCart(token, id) async {
   var body = {'cart_id': id};
-  print('object $token');
   final response = await http.post(
     Uri.parse(AppUrls.removecart),
     body: body,

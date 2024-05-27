@@ -64,6 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           context,
                           CustomPageRoute(
                               child: ChatDetailsScreen(
+                            title: data?.user1Name ?? '',
                             id: data?.chatId.toString() ?? '',
                           )));
                     },

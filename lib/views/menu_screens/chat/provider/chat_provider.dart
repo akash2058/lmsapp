@@ -24,8 +24,6 @@ class ChatProvider extends ChangeNotifier {
       await fetchChatroom(tokken).then((policy) {
         chatRoomModel = ChatRoomModel.fromJson(policy);
         loadingchatroom = false;
-        notifyListeners();
-        print('chats${policy}');
       });
     } catch (e) {
       loadingchatroom = false;
@@ -43,7 +41,6 @@ class ChatProvider extends ChangeNotifier {
         messageModel = MessageModel.fromJson(policy);
         loadingmessage = false;
         notifyListeners();
-        print('message$policy');
       });
     } catch (e) {
       loadingmessage = false;
@@ -60,7 +57,6 @@ class ChatProvider extends ChangeNotifier {
       await fetchSendMessage(tokken, messagecontroller.text, id).then((policy) {
         loadingsendingmessage = false;
         notifyListeners();
-        print('message$policy');
       });
     } catch (e) {
       loadingsendingmessage = false;

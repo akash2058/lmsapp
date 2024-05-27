@@ -141,7 +141,7 @@ Future<Map<String, dynamic>> fetchaddwishlist(token, id) async {
 }
 
 Future<Map<String, dynamic>> fetchremoveaddwishlist(token, id) async {
-  var body = {'course_id': id};
+  var body = {'wishlist_id': id};
   final response = await http.post(
     Uri.parse(AppUrls.removewishlists),
     body: body,

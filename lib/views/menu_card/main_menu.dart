@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 class MainMenu extends StatefulWidget {
@@ -23,11 +25,12 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
+    var cart = Provider.of<CartProvider>(context);
     return Consumer<MenuProviders>(
       builder: (context, menu, child) {
         return Scaffold(
             bottomNavigationBar: BottomAppBar(
-              height: 73.h,
+              height: 80.h,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 29.w),
                 child: Row(
@@ -41,7 +44,7 @@ class _MainMenuState extends State<MainMenu> {
                       },
                       child: SvgPicture.asset(
                         SvgImages.home,
-                        height: 24.h,
+                        height: 30.h,
                         // ignore: deprecated_member_use
                         color: menu.currenttab == 0
                             ? AppColors.primarybrown
@@ -56,7 +59,7 @@ class _MainMenuState extends State<MainMenu> {
                       },
                       child: SvgPicture.asset(
                         SvgImages.chat,
-                        height: 24.h,
+                        height: 30.h,
                         // ignore: deprecated_member_use
                         color: menu.currenttab == 1
                             ? AppColors.primarybrown
@@ -69,13 +72,20 @@ class _MainMenuState extends State<MainMenu> {
                           menu.currenttab = 2;
                         });
                       },
-                      child: SvgPicture.asset(
-                        SvgImages.cart,
-                        height: 24.h,
-                        // ignore: deprecated_member_use
-                        color: menu.currenttab == 2
-                            ? AppColors.primarybrown
-                            : AppColors.primarygrey,
+                      child: Badge(
+                        backgroundColor: AppColors.primarybrown,
+                        label: Text(
+                            cart.cart?.data?.cartItems?.length.toString() ??
+                                '0',
+                            style: buttonstyle),
+                        child: SvgPicture.asset(
+                          SvgImages.cart,
+                          height: 30.h,
+                          // ignore: deprecated_member_use
+                          color: menu.currenttab == 2
+                              ? AppColors.primarybrown
+                              : AppColors.primarygrey,
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -86,7 +96,7 @@ class _MainMenuState extends State<MainMenu> {
                       },
                       child: SvgPicture.asset(
                         SvgImages.profile,
-                        height: 24.h,
+                        height: 30.h,
                         // ignore: deprecated_member_use
                         color: menu.currenttab == 3
                             ? AppColors.primarybrown

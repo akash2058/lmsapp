@@ -14,12 +14,10 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ChatDetailsScreen extends StatefulWidget {
+  String title;
   String id;
 
-  ChatDetailsScreen({
-    super.key,
-    required this.id,
-  });
+  ChatDetailsScreen({super.key, required this.id, required this.title});
 
   @override
   State<ChatDetailsScreen> createState() => _ChatDetailsScreenState();
@@ -50,39 +48,41 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
           ),
         ),
         appBar: CustomAppbar(
-          title: 'Shane Martinez',
+          title: widget.title,
           autoapply: true,
         ),
-        body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-            child: RefreshIndicator(
-              onRefresh: getmessagedata,
-              child: ListView(
-                children: List.generate(get.message?.data?.chats?.length ?? 0,
-                    (index) {
-                  var data = get.message?.data?.chats?[index];
-                  return Column(
-                    children: [
-                      if (data?.receiverId == auth.user?.data?.id)
-                        ReceiverCard(
-                          img:
-                              '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
-                          message: data?.message ?? '',
-                        ),
-
-                      // ignore: unrelated_type_equality_checks
-                      if (data?.senderId == auth.user?.data?.id)
-                        SenderCard(
-                          message: data?.message ?? '',
-                        ),
-                      SizedBox(
-                        height: 22.h,
-                      ),
-                    ],
-                  );
-                }),
-              ),
-            )),
+        body: get.loadingsendingmessage == true
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+                child: RefreshIndicator(
+                  onRefresh: getmessagedata,
+                  child: ListView(
+                    children: List.generate(
+                        get.message?.data?.chats?.length ?? 0, (index) {
+                      var data = get.message?.data?.chats?[index];
+                      return Column(
+                        children: [
+                          if (data?.receiverId == auth.user?.data?.id)
+                            ReceiverCard(
+                              img:
+                                  '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
+                              message: data?.message ?? '',
+                            ),
+                          if (data?.senderId == auth.user?.data?.id)
+                            SenderCard(
+                              message: data?.message ?? '',
+                            ),
+                          SizedBox(
+                            height: 22.h,
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                )),
       );
     });
   }

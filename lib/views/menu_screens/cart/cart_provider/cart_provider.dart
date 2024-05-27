@@ -5,9 +5,6 @@ import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 
 class CartProvider extends ChangeNotifier {
-  CartModel? _cartModel;
-  CartModel? get cart => _cartModel;
-
   WishlistModel? _wishlistModel;
   WishlistModel? get wishlist => _wishlistModel;
 
@@ -16,6 +13,8 @@ class CartProvider extends ChangeNotifier {
   bool loadingaddtocart = false;
   bool loadingremovecart = false;
 
+  CartModel? _cartModel;
+  CartModel? get cart => _cartModel;
   getCartData() async {
     var tokken = await Utils.getToken();
     try {
@@ -48,7 +47,6 @@ class CartProvider extends ChangeNotifier {
         }
         loadingaddtocart = false;
         notifyListeners();
-        print(policy);
       });
     } catch (e) {
       loadingaddtocart = false;
