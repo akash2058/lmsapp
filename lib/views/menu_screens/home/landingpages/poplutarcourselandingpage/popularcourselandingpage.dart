@@ -41,12 +41,13 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
   void coursedetails() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     var cart = Provider.of<CartProvider>(context, listen: false);
+
     await state.getCourseDetails(widget.id);
+    await cart.getCartData();
   }
 
   @override
   Widget build(BuildContext context) {
-    var cart = Provider.of<CartProvider>(context, listen: false);
     return Consumer<MenuProviders>(
       builder: (context, get, child) {
         var state = Provider.of<CartProvider>(context, listen: false);
@@ -98,19 +99,19 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                 Navigator.push(
                     context, CustomPageRoute(child: const CartScreen()));
               },
-              child: Badge(
-                largeSize: 20,
-                backgroundColor: AppColors.primarybrown,
-                label: Text(
-                    cart.cart?.data?.cartItems?.length.toString() ?? '0',
-                    style: buttonstyle),
-                child: SvgPicture.asset(
-                  SvgImages.cart,
-                  height: 35.h,
-                  // ignore: deprecated_member_use
-                  color: AppColors.primarygrey,
-                ),
-              ),
+              child: Consumer<CartProvider>(builder: (context, get, child) {
+                return Badge(
+                  largeSize: 20,
+                  backgroundColor: AppColors.primarybrown,
+                  label: Text(get.cartItems.toString(), style: buttonstyle),
+                  child: SvgPicture.asset(
+                    SvgImages.cart,
+                    height: 35.h,
+                    // ignore: deprecated_member_use
+                    color: AppColors.primarygrey,
+                  ),
+                );
+              }),
             ),
             SizedBox(
               width: 20.w,

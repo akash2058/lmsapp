@@ -28,7 +28,6 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    var cart = Provider.of<CartProvider>(context);
     return Consumer<MenuProviders>(
       builder: (context, menu, child) {
         return Scaffold(
@@ -69,7 +68,6 @@ class _MainMenuState extends State<MainMenu> {
                             : AppColors.primarygrey,
                       ),
                     ),
-                    
                     GestureDetector(
                       onTap: () {
                         setState(() {
@@ -77,10 +75,25 @@ class _MainMenuState extends State<MainMenu> {
                         });
                       },
                       child: SvgPicture.asset(
-                        SvgImages.profile,
+                        SvgImages.heart,
                         height: 30.h,
                         // ignore: deprecated_member_use
                         color: menu.currenttab == 2
+                            ? AppColors.primarybrown
+                            : AppColors.primarygrey,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          menu.currenttab = 3;
+                        });
+                      },
+                      child: SvgPicture.asset(
+                        SvgImages.profile,
+                        height: 30.h,
+                        // ignore: deprecated_member_use
+                        color: menu.currenttab == 3
                             ? AppColors.primarybrown
                             : AppColors.primarygrey,
                       ),

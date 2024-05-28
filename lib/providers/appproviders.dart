@@ -30,8 +30,7 @@ List<SingleChildWidget> getProviders() {
       create: (context) => CartProvider(),
     ),
     ChangeNotifierProvider(
-      lazy: false,
-      create: (context) => ChatProvider(),
+      create: (_) => ChatProvider(),
     ),
   ];
 }

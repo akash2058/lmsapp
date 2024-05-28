@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/wishlistcard.dart';
 import 'package:provider/provider.dart';
@@ -26,22 +27,14 @@ class _WishListPageState extends State<WishListPage> {
   }
 
   void loadWishlist() async {
-    var state = Provider.of<CartProvider>(context, listen: false);
+    var state = Provider.of<MenuProviders>(context, listen: false);
     state.getWishlistData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CartProvider>(builder: (context, get, child) {
+    return Consumer<MenuProviders>(builder: (context, get, child) {
       return Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 28.w),
-          child: CustomButton(
-            height: 53.h,
-            text: 'Back To HomePage',
-            onTap: () {},
-          ),
-        ),
         backgroundColor: AppColors.secondarylight,
         appBar: AppBar(
           centerTitle: true,
@@ -57,9 +50,7 @@ class _WishListPageState extends State<WishListPage> {
                 child: Column(
                   children: [
                     Column(
-                      children: List.generate(
-                          get.wishlist?.data?.wishlistItems?.length ?? 0,
-                          (index) {
+                      children: List.generate(get.wishlistitems, (index) {
                         var data = get.wishlist?.data?.wishlistItems?[index];
                         String convertMinutesToHours(int minutes) {
                           int hours = minutes ~/ 60;
@@ -84,6 +75,10 @@ class _WishListPageState extends State<WishListPage> {
                         return Column(
                           children: [
                             WishListCard(
+                              remove: () {
+                                get.getRemoveWishlist(
+                                    data?.id.toString() ?? '', context, index);
+                              },
                               onTap: () {
                                 Navigator.push(
                                     context,

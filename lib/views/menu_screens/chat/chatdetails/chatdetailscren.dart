@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
+import 'package:lmsapp/models/messagemodel.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -42,46 +43,50 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     return Consumer<ChatProvider>(builder: (context, get, child) {
       var auth = Provider.of<AuthenticationProvider>(context, listen: false);
       return Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
-          elevation: 3,
-          child: MessageBox(
-            id: widget.id,
+          bottomNavigationBar: BottomAppBar(
+            padding: EdgeInsets.symmetric(horizontal: 26.25.w, vertical: 20.h),
+            elevation: 3,
+            child: MessageBox(
+              id: widget.id,
+              userId: auth.userid.toString(),
+            ),
           ),
-        ),
-        appBar: CustomAppbar(
-          title: widget.title,
-          autoapply: true,
-        ),
-        body: Padding(
+          appBar: CustomAppbar(
+            title: widget.title,
+            autoapply: true,
+          ),
+          body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
             child: RefreshIndicator(
               onRefresh: getmessagedata,
-              child: ListView(
-                children: List.generate(get.message?.data?.chats?.length ?? 0,
-                    (index) {
-                  var data = get.message?.data?.chats?[index];
-                  return Column(
-                    children: [
-                      if (data?.receiverId.toString() == auth.userid.toString())
-                        ReceiverCard(
-                          img:
-                              '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
-                          message: data?.message ?? '',
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  reverse: false,
+                  itemCount: get.message?.data?.chats?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    var data = get.message?.data?.chats?[index];
+
+                    return Column(
+                      children: [
+                        if (data?.receiverId.toString() ==
+                            auth.userid.toString())
+                          ReceiverCard(
+                            img:
+                                '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
+                            message: data?.message ?? '',
+                          ),
+                        if (data?.senderId.toString() == auth.userid.toString())
+                          SenderCard(
+                            message: data?.message ?? '',
+                          ),
+                        SizedBox(
+                          height: 22.h,
                         ),
-                      if (data?.senderId.toString() == auth.userid.toString())
-                        SenderCard(
-                          message: data?.message ?? '',
-                        ),
-                      SizedBox(
-                        height: 22.h,
-                      ),
-                    ],
-                  );
-                }),
-              ),
-            )),
-      );
+                      ],
+                    );
+                  }),
+            ),
+          ));
     });
   }
 }
@@ -164,9 +169,11 @@ class ReceiverCard extends StatelessWidget {
 
 class MessageBox extends StatelessWidget {
   final String id;
+  final String userId;
   const MessageBox({
     super.key,
     required this.id,
+    required this.userId,
   });
 
   @override
@@ -191,7 +198,8 @@ class MessageBox extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              get.sendMessage(context, id);
+              Provider.of<ChatProvider>(context, listen: false)
+                  .sendMessage(context, id, userId);
             },
             child: CircleAvatar(
                 backgroundColor: AppColors.primarywhite,

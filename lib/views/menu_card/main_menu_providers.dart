@@ -7,13 +7,16 @@ import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/models/course_details_model.dart';
 import 'package:lmsapp/models/homemodel.dart';
 import 'package:lmsapp/models/profile_model.dart';
+import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
+import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/feature_screen.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/profile_screen.dart';
+import 'package:lmsapp/views/menu_screens/profie/profile_pages/wishlistpage.dart';
 import 'package:lmsapp/views/menu_screens/service/main_screen_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +28,7 @@ class MenuProviders extends ChangeNotifier {
 
   bool loadingprofiledit = false;
   bool loadingaddwishlist = false;
-
+  bool loadinggetwishlist = false;
   bool loadinggetprofile = false;
   bool loadingcoursedetails = false;
   HomeModel? _homeModel;
@@ -252,7 +255,7 @@ class MenuProviders extends ChangeNotifier {
   List<Widget> screens = [
     const HomeScreen(),
     const ChatScreen(),
-    const CartScreen(),
+    const WishListPage(),
     const FeatureScreen(),
   ];
   List<String> socialimges = [
@@ -276,6 +279,16 @@ class MenuProviders extends ChangeNotifier {
     'Always keep in touch with your tutor & friend. Let’s get connected!',
     'Anywhere, anytime. The time is at your discretion so study whenever.',
   ];
+  int wishlistitems = 0;
+  void increasecartitems() {
+    wishlistitems++;
+    notifyListeners();
+  }
+
+  void decreasecartitems() {
+    wishlistitems--;
+    notifyListeners();
+  }
 
   getCourseDetails(id) async {
     var tokken = await Utils.getToken();
@@ -295,13 +308,34 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
+  WishlistModel? _wishlistModel;
+  WishlistModel? get wishlist => _wishlistModel;
+  getWishlistData() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadinggetwishlist = true;
+      notifyListeners();
+      await fetchWishlistdata(tokken).then((policy) {
+        _wishlistModel = WishlistModel.fromJson(policy);
+        wishlistitems = _wishlistModel!.data!.wishlistItems!.length;
+        loadinggetwishlist = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      loadinggetwishlist = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
   getaddwishlist(id, context) async {
     var tokken = await Utils.getToken();
     try {
       loadingaddwishlist = true;
       notifyListeners();
       await fetchaddwishlist(tokken, id).then((course) {
-        if (course['status'] == true) {
+        if (course['success'] == true) {
+          increasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
           ));
@@ -320,16 +354,18 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
-  getRemoveWishlist(id, context) async {
+  getRemoveWishlist(id, context, int index) async {
     var tokken = await Utils.getToken();
     try {
       loadingaddwishlist = true;
       notifyListeners();
       await fetchremoveaddwishlist(tokken, id).then((course) {
-        if (course['status'] == true) {
+        if (course['success'] == true) {
+          decreasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
           ));
+          wishlist?.data?.wishlistItems?.removeAt(index);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),

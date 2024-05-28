@@ -76,7 +76,7 @@ class FeaturedCourse extends StatelessWidget {
                       main.getaddwishlist(data?.id.toString() ?? '', context);
                     } else {
                       main.getRemoveWishlist(
-                          data?.id.toString() ?? '', context);
+                          data?.id.toString() ?? '', context, index);
                     }
                   },
                   child: Icon(

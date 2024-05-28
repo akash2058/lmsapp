@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -13,6 +14,8 @@ class WishListCard extends StatelessWidget {
   String duration;
   String img;
   VoidCallback? onTap;
+  VoidCallback? remove;
+
   WishListCard(
       {super.key,
       required this.title,
@@ -20,6 +23,7 @@ class WishListCard extends StatelessWidget {
       required this.lesson,
       required this.duration,
       required this.img,
+      this.remove,
       this.onTap});
 
   @override
@@ -102,16 +106,19 @@ class WishListCard extends StatelessWidget {
                           coursetitle,
                           style: coursetitlefont,
                         ),
-                        Container(
-                            decoration: const BoxDecoration(
-                                color: AppColors.primaryred,
-                                shape: BoxShape.circle),
-                            padding: EdgeInsets.all(6.5.sp),
-                            child: Icon(
-                              CupertinoIcons.delete,
-                              color: AppColors.primarywhite,
-                              size: 18.h,
-                            ))
+                        GestureDetector(
+                          onTap: remove,
+                          child: Container(
+                              decoration: const BoxDecoration(
+                                  color: AppColors.primaryred,
+                                  shape: BoxShape.circle),
+                              padding: EdgeInsets.all(6.5.sp),
+                              child: Icon(
+                                CupertinoIcons.delete,
+                                color: AppColors.primarywhite,
+                                size: 18.h,
+                              )),
+                        )
                       ],
                     ),
                   ),

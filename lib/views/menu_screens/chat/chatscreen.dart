@@ -27,9 +27,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> getchatdata() async {
     var state = Provider.of<ChatProvider>(context, listen: false);
-    state.getChatRoom(context);
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-
+    await state.getChatRoom(context);
     await auth.loadLoginData();
   }
 

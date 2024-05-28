@@ -24,6 +24,7 @@ class ChatProvider extends ChangeNotifier {
       await fetchChatroom(tokken).then((policy) {
         chatRoomModel = ChatRoomModel.fromJson(policy);
         loadingchatroom = false;
+        notifyListeners();
       });
     } catch (e) {
       loadingchatroom = false;
@@ -49,13 +50,19 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  sendMessage(context, id) async {
+  sendMessage(context, id, String uiserId) async {
     var tokken = await Utils.getToken();
     try {
       loadingsendingmessage = true;
       notifyListeners();
+      message!.data!.chats!.add(Chats(
+        message: messagecontroller.text,
+        senderId: int.parse(uiserId),
+      ));
+      notifyListeners();
       await fetchSendMessage(tokken, messagecontroller.text, id).then((policy) {
         loadingsendingmessage = false;
+
         notifyListeners();
       });
     } catch (e) {

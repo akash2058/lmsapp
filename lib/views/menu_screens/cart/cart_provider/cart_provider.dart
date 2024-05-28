@@ -5,16 +5,26 @@ import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 
 class CartProvider extends ChangeNotifier {
-  WishlistModel? _wishlistModel;
-  WishlistModel? get wishlist => _wishlistModel;
+  
 
   bool loadinggetcart = false;
-  bool loadinggetwishlist = false;
+ 
   bool loadingaddtocart = false;
   bool loadingremovecart = false;
-
+  int cartItems = 0;
   CartModel? _cartModel;
   CartModel? get cart => _cartModel;
+
+  increaseCartItems() {
+    cartItems++;
+    notifyListeners();
+  }
+
+  decreaseCartItems() {
+    cartItems--;
+    notifyListeners();
+  }
+
   getCartData() async {
     var tokken = await Utils.getToken();
     try {
@@ -22,6 +32,7 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
       await fetchCartdata(tokken).then((policy) {
         _cartModel = CartModel.fromJson(policy);
+        cartItems = _cartModel!.data!.cartItems!.length;
         loadinggetcart = false;
         notifyListeners();
       });
@@ -38,7 +49,8 @@ class CartProvider extends ChangeNotifier {
       loadingaddtocart = true;
       notifyListeners();
       await fetchAddCart(tokken, id).then((policy) {
-        if (policy['status'] == true) {
+        if (policy['success'] == true) {
+          increaseCartItems();
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(policy['message'])));
         } else {
@@ -55,22 +67,23 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  getremovecart(id, context) async {
+  getremovecart(id, context, index) async {
     var tokken = await Utils.getToken();
     try {
       loadingremovecart = true;
       notifyListeners();
-      await fetchRemoveCart(tokken, id).then((policy) {
-        if (policy['status'] == true) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(policy['message'])));
-        } else {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(policy['message'])));
-        }
-        loadingremovecart = false;
-        notifyListeners();
-      });
+      var policy = await fetchRemoveCart(tokken, id);
+      if (policy['success'] == true) {
+        decreaseCartItems();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(policy['message'])));
+        cart!.data!.cartItems!.removeAt(index);
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(policy['message'])));
+      }
+      loadingremovecart = false;
+      notifyListeners();
     } catch (e) {
       loadingremovecart = false;
       notifyListeners();
@@ -78,20 +91,5 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  getWishlistData() async {
-    var tokken = await Utils.getToken();
-    try {
-      loadinggetwishlist = true;
-      notifyListeners();
-      await fetchWishlistdata(tokken).then((policy) {
-        _wishlistModel = WishlistModel.fromJson(policy);
-        loadinggetwishlist = false;
-        notifyListeners();
-      });
-    } catch (e) {
-      loadinggetcart = false;
-      notifyListeners();
-      rethrow;
-    }
-  }
+ 
 }

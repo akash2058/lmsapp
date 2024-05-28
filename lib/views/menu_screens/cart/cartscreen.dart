@@ -111,7 +111,7 @@ class _CartScreenState extends State<CartScreen> {
                                                         cart.getremovecart(
                                                             data?.id.toString() ??
                                                                 '',
-                                                            dialogContext);
+                                                            dialogContext,index);
                                                       },
                                                     ),
                                                   ],
