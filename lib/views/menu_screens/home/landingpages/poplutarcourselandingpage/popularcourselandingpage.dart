@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customexpansiontile.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
+import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
@@ -35,11 +40,13 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
 
   void coursedetails() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
+    var cart = Provider.of<CartProvider>(context, listen: false);
     await state.getCourseDetails(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    var cart = Provider.of<CartProvider>(context, listen: false);
     return Consumer<MenuProviders>(
       builder: (context, get, child) {
         var state = Provider.of<CartProvider>(context, listen: false);
@@ -85,9 +92,30 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
               ],
             ),
           ),
-          appBar: AppBar(
-            title: Text('Course Detail', style: appbartitlestyle),
-          ),
+          appBar: CustomAppbar(actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, CustomPageRoute(child: const CartScreen()));
+              },
+              child: Badge(
+                largeSize: 20,
+                backgroundColor: AppColors.primarybrown,
+                label: Text(
+                    cart.cart?.data?.cartItems?.length.toString() ?? '0',
+                    style: buttonstyle),
+                child: SvgPicture.asset(
+                  SvgImages.cart,
+                  height: 35.h,
+                  // ignore: deprecated_member_use
+                  color: AppColors.primarygrey,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 20.w,
+            )
+          ], autoapply: true, title: 'Course Details'),
           body: get.loadingcoursedetails == true
               // ignore: prefer_const_constructors
               ? LinearProgressIndicator(

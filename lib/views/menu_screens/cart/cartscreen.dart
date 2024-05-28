@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
@@ -6,7 +8,9 @@ import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
 import 'package:lmsapp/customwidgets/custompaymentcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
 import 'package:lmsapp/views/menu_screens/cart/paymentscreen/paymentview.dart';
@@ -21,6 +25,9 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   void initState() {
     super.initState();
@@ -39,8 +46,9 @@ class _CartScreenState extends State<CartScreen> {
     return Consumer<CartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
+          key: _scaffoldKey,
           appBar: CustomAppbar(
-            autoapply: false,
+            autoapply: true,
             title: 'Cart',
             actions: [
               Icon(
@@ -53,116 +61,151 @@ class _CartScreenState extends State<CartScreen> {
             ],
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w),
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),
             child: cart.loadinggetcart == true
                 ? const Center(child: CircularProgressIndicator())
-                : RefreshIndicator(
-                    onRefresh: getcartdata,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            height: 360.h,
-                            child: ListView.builder(
-                                itemCount:
-                                    cart.cart?.data?.cartItems?.length ?? 0,
-                                itemBuilder: (context, index) {
-                                  var data = cart.cart?.data?.cartItems?[index];
-                                  return Column(
-                                    children: [
-                                      CartCard(
+                : Column(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 360.h,
+                          child: cart.cart?.data?.cartItems?.isEmpty ?? true
+                              ? Center(
+                                  child: Text(
+                                  'No Cart Items !!!',
+                                  style: pricestyle,
+                                ))
+                              : ListView.builder(
+                                  itemCount:
+                                      cart.cart?.data?.cartItems?.length ?? 0,
+                                  itemBuilder: (context, index) {
+                                    var data =
+                                        cart.cart?.data?.cartItems?[index];
+                                    return Column(
+                                      children: [
+                                        CartCard(
                                           ontapicon: () async {
-                                            await cart.getremovecart(
-                                                data?.id?.toString() ?? '',
-                                                context);
+                                            // Save the context
+                                            BuildContext dialogContext =
+                                                context;
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                    'Are You Sure Do You Want Delete ?',
+                                                    style: titlestyle,
+                                                  ),
+                                                  actions: [
+                                                    CustomSmallButton(
+                                                      text: 'No',
+                                                      onTap: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                    CustomSmallButton(
+                                                      text: 'Yes',
+                                                      onTap: () {
+                                                        Navigator.pop(
+                                                            dialogContext);
+                                                        cart.getremovecart(
+                                                            data?.id.toString() ??
+                                                                '',
+                                                            dialogContext);
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           },
                                           ontap: () {
                                             Navigator.push(
-                                                context,
-                                                CustomPageRoute(
-                                                    child:
-                                                        PopularCourseLandingPage(
-                                                            id: data?.id
-                                                                    .toString() ??
-                                                                '')));
+                                              context,
+                                              CustomPageRoute(
+                                                child: PopularCourseLandingPage(
+                                                  id: data?.id.toString() ?? '',
+                                                ),
+                                              ),
+                                            );
                                           },
                                           coursetitle: data?.courseTitle ?? '',
                                           price: '₹${data?.coursePrice}',
                                           title: data?.courseTitle ?? '',
                                           img:
-                                              '${cart.cart?.data?.imageBaseUrl}/${data?.courseImage}'),
-                                      SizedBox(
-                                        height: 20.h,
-                                      )
-                                    ],
-                                  );
-                                }),
+                                              '${cart.cart?.data?.imageBaseUrl}/${data?.courseImage}',
+                                        ),
+                                        SizedBox(
+                                          height: 20.h,
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.h,
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomFormField(hint: 'Coupon Code'),
+                              ),
+                              SizedBox(
+                                width: 12.w,
+                              ),
+                              Expanded(
+                                  child: CustomButton(
+                                      height: 53.h,
+                                      text: 'Apply',
+                                      onTap: () {}))
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          height: 50.h,
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomFormField(hint: 'Coupon Code'),
-                                ),
-                                SizedBox(
-                                  width: 12.w,
-                                ),
-                                Expanded(
-                                    child: CustomButton(
-                                        height: 53.h,
-                                        text: 'Apply',
-                                        onTap: () {}))
-                              ],
-                            ),
-                            SizedBox(
-                              height: 32.h,
-                            ),
-                            CustomItemsPrice(
-                                amount:
-                                    '${cart.cart?.data?.cartItems?.length.toString()}',
-                                items: 'items'),
-                            SizedBox(
-                              height: 12.h,
-                            ),
-                            CustomItemDiscount(
-                                discount: 'Discount Price ',
-                                discountpercent:
-                                    '₹${cart.cart?.data?.afterDiscountPrice ?? ''}')
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Column(
-                          children: [
-                            CustomPaymentCard(
-                                amount:
-                                    '₹${cart.cart?.data?.totalPrice ?? ''}'),
-                            SizedBox(
-                              height: 13.h,
-                            ),
-                            CustomButton(
-                                height: 53.h,
-                                text: 'CheckOut',
-                                onTap: () {
-                                  Navigator.push(
-                                      // ignore: prefer_const_constructors
-                                      context,
-                                      CustomPageRoute(
-                                          child: const PaymentScreen()));
-                                })
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        )
-                      ],
-                    ),
+                          SizedBox(
+                            height: 32.h,
+                          ),
+                          CustomItemsPrice(
+                              amount:
+                                  '${cart.cart?.data?.cartItems?.length.toString()}',
+                              items: 'items'),
+                          SizedBox(
+                            height: 12.h,
+                          ),
+                          CustomItemDiscount(
+                              discount: 'Discount Price ',
+                              discountpercent:
+                                  '₹${cart.cart?.data?.afterDiscountPrice ?? ''}')
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Column(
+                        children: [
+                          CustomPaymentCard(
+                              amount: '₹${cart.cart?.data?.totalPrice ?? ''}'),
+                          SizedBox(
+                            height: 13.h,
+                          ),
+                          CustomButton(
+                              height: 53.h,
+                              text: 'CheckOut',
+                              onTap: () {
+                                Navigator.push(
+                                    // ignore: prefer_const_constructors
+                                    context,
+                                    CustomPageRoute(
+                                        child: const PaymentScreen()));
+                              })
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      )
+                    ],
                   ),
           ),
         );

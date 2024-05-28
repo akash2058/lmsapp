@@ -106,9 +106,10 @@ class _LoginPageState extends State<LoginPage> {
                             child: Checkbox(
                               semanticLabel: 'Remember me',
                               activeColor: AppColors.primarybrown,
+                              // ignore: prefer_const_constructors
                               visualDensity: VisualDensity(
-                                horizontal: -4.w,
-                                vertical: -4.h,
+                                horizontal: -4,
+                                vertical: -4,
                               ),
                               value: auth.isRememberMe,
                               onChanged: (newValue) {

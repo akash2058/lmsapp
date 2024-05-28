@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,9 @@ class _MainMenuState extends State<MainMenu> {
   void initState() {
     super.initState();
     var state = Provider.of<MenuProviders>(context, listen: false);
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     state.currenttab = 0;
+    auth.loadLoginData();
   }
 
   @override
@@ -66,39 +69,18 @@ class _MainMenuState extends State<MainMenu> {
                             : AppColors.primarygrey,
                       ),
                     ),
+                    
                     GestureDetector(
                       onTap: () {
                         setState(() {
                           menu.currenttab = 2;
                         });
                       },
-                      child: Badge(
-                        backgroundColor: AppColors.primarybrown,
-                        label: Text(
-                            cart.cart?.data?.cartItems?.length.toString() ??
-                                '0',
-                            style: buttonstyle),
-                        child: SvgPicture.asset(
-                          SvgImages.cart,
-                          height: 30.h,
-                          // ignore: deprecated_member_use
-                          color: menu.currenttab == 2
-                              ? AppColors.primarybrown
-                              : AppColors.primarygrey,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          menu.currenttab = 3;
-                        });
-                      },
                       child: SvgPicture.asset(
                         SvgImages.profile,
                         height: 30.h,
                         // ignore: deprecated_member_use
-                        color: menu.currenttab == 3
+                        color: menu.currenttab == 2
                             ? AppColors.primarybrown
                             : AppColors.primarygrey,
                       ),

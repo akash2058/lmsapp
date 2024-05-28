@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/utilities/appimages.dart';
+
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
@@ -27,12 +25,16 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    getmessagedata();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getmessagedata();
+    });
   }
 
   Future<void> getmessagedata() async {
     var state = Provider.of<ChatProvider>(context, listen: false);
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     await state.getMessage(context, widget.id);
+    await auth.loadLoginData();
   }
 
   @override
@@ -51,38 +53,34 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
           title: widget.title,
           autoapply: true,
         ),
-        body: get.loadingsendingmessage == true
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-                child: RefreshIndicator(
-                  onRefresh: getmessagedata,
-                  child: ListView(
-                    children: List.generate(
-                        get.message?.data?.chats?.length ?? 0, (index) {
-                      var data = get.message?.data?.chats?[index];
-                      return Column(
-                        children: [
-                          if (data?.receiverId == auth.user?.data?.id)
-                            ReceiverCard(
-                              img:
-                                  '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
-                              message: data?.message ?? '',
-                            ),
-                          if (data?.senderId == auth.user?.data?.id)
-                            SenderCard(
-                              message: data?.message ?? '',
-                            ),
-                          SizedBox(
-                            height: 22.h,
-                          ),
-                        ],
-                      );
-                    }),
-                  ),
-                )),
+        body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+            child: RefreshIndicator(
+              onRefresh: getmessagedata,
+              child: ListView(
+                children: List.generate(get.message?.data?.chats?.length ?? 0,
+                    (index) {
+                  var data = get.message?.data?.chats?[index];
+                  return Column(
+                    children: [
+                      if (data?.receiverId.toString() == auth.userid.toString())
+                        ReceiverCard(
+                          img:
+                              '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
+                          message: data?.message ?? '',
+                        ),
+                      if (data?.senderId.toString() == auth.userid.toString())
+                        SenderCard(
+                          message: data?.message ?? '',
+                        ),
+                      SizedBox(
+                        height: 22.h,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            )),
       );
     });
   }

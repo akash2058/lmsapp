@@ -4,6 +4,7 @@ import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatdetails/chatdetailscren.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,9 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> getchatdata() async {
     var state = Provider.of<ChatProvider>(context, listen: false);
     state.getChatRoom(context);
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
+
+    await auth.loadLoginData();
   }
 
   @override
@@ -48,43 +52,49 @@ class _ChatScreenState extends State<ChatScreen> {
             autoapply: false,
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 34.h),
-            child: Column(
-                children: List.generate(chat.chat?.data?.chatRoom?.length ?? 0,
-                    (index) {
-              var data = chat.chat?.data?.chatRoom?[index];
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  ChatCard(
-                    ontap: () {
-                      Navigator.push(
-                          context,
-                          CustomPageRoute(
-                              child: ChatDetailsScreen(
-                            title: data?.user1Name ?? '',
-                            id: data?.chatId.toString() ?? '',
-                          )));
-                    },
-                    name: data?.user1Name ?? '',
-                    message:
-                        '${data?.user2Name ?? ''} : ${data?.lastMessage ?? ''}',
-                    img:
-                        '${chat.chat?.data?.userProfileBaseUrl}/${data?.otherUserPhoto ?? ''}',
-                    time: data?.lastMessageTime ?? '',
-                    messageindication:
-                        chat.message?.data?.chats?.length.toString() ?? '',
-                  ),
-                  Divider(
-                    thickness: 1.h,
-                    color: AppColors.bordercolor,
-                  )
-                ],
-              );
-            })),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 34.h),
+              child: RefreshIndicator(
+                onRefresh: getchatdata,
+                child: ListView(
+                  children: List.generate(
+                      chat.chat?.data?.chatRoom?.length ?? 0, (index) {
+                    var data = chat.chat?.data?.chatRoom?[index];
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        ChatCard(
+                          ontap: () {
+                            chat.getMessage(
+                                context, data?.chatId.toString() ?? '');
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: ChatDetailsScreen(
+                                  title: data?.user1Name ?? '',
+                                  id: data?.chatId.toString() ?? '',
+                                )));
+                          },
+                          name: data?.user1Name ?? '',
+                          message:
+                              '${data?.user2Name ?? ''} : ${data?.lastMessage ?? ''}',
+                          img:
+                              '${chat.chat?.data?.userProfileBaseUrl}/${data?.otherUserPhoto ?? ''}',
+                          time: data?.lastMessageTime ?? '',
+                          messageindication:
+                              chat.message?.data?.chats?.length.toString() ??
+                                  '',
+                        ),
+                        Divider(
+                          thickness: 1.h,
+                          color: AppColors.bordercolor,
+                        )
+                      ],
+                    );
+                  }),
+                ),
+              )),
         );
       },
     );

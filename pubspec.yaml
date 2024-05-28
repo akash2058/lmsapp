@@ -44,6 +44,7 @@ dependencies:
   http: ^1.2.1
   shared_preferences: ^2.2.3
   cached_network_image: ^3.3.1
+  persistent_shopping_cart: ^0.0.7
   url_launcher: ^6.2.6
   badges: ^3.1.2
   google_places_autocomplete_text_field: ^0.1.3

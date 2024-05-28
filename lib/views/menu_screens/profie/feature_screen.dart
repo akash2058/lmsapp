@@ -209,7 +209,7 @@ class _ProfileScreenState extends State<FeatureScreen> {
                     },
                     minVerticalPadding: 10,
                     visualDensity:
-                        VisualDensity(horizontal: -4.w, vertical: -4.h),
+                        const VisualDensity(horizontal: -4, vertical: -4),
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     dense: true,

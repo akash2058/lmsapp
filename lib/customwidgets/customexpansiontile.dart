@@ -26,7 +26,7 @@ class CustomExpansionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ExpansionTile(
-        visualDensity: VisualDensity(horizontal: -4.w, vertical: -4.h),
+        visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
         childrenPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         shape: const RoundedRectangleBorder(side: BorderSide.none),
         iconColor: AppColors.primarybrown,
