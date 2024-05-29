@@ -50,7 +50,9 @@ class _WishListPageState extends State<WishListPage> {
                 child: Column(
                   children: [
                     Column(
-                      children: List.generate(get.wishlistitems, (index) {
+                      children: List.generate(
+                          get.wishlist?.data?.wishlistItems?.length ?? 0,
+                          (index) {
                         var data = get.wishlist?.data?.wishlistItems?[index];
                         String convertMinutesToHours(int minutes) {
                           int hours = minutes ~/ 60;
@@ -74,27 +76,33 @@ class _WishListPageState extends State<WishListPage> {
                         } else {}
                         return Column(
                           children: [
-                            WishListCard(
-                              remove: () {
-                                get.getRemoveWishlist(
-                                    data?.id.toString() ?? '', context, index);
-                              },
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CustomPageRoute(
-                                        child: PopularCourseLandingPage(
-                                      id: data?.id.toString() ?? '',
-                                    )));
-                              },
-                              title: data?.categoryTitle ?? '',
-                              coursetitle: data?.categoryTitle ?? '',
-                              lesson: '${data?.totalPlaylists ?? ''} Lessons',
-                              duration:
-                                  convertMinutesToHours(minutes?.toInt() ?? 0),
-                              img:
-                                  '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
-                            ),
+                            get.wishlist?.data?.wishlistItems?.isEmpty ?? true
+                                // ignore: prefer_const_constructors
+                                ? Text('Empty Wishlist items')
+                                : WishListCard(
+                                    remove: () {
+                                      get.getRemoveWishlist(
+                                          data?.id.toString() ?? '',
+                                          context,
+                                          index);
+                                    },
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CustomPageRoute(
+                                              child: PopularCourseLandingPage(
+                                            id: data?.id.toString() ?? '',
+                                          )));
+                                    },
+                                    title: data?.categoryTitle ?? '',
+                                    coursetitle: data?.categoryTitle ?? '',
+                                    lesson:
+                                        '${data?.totalPlaylists ?? ''} Lessons',
+                                    duration: convertMinutesToHours(
+                                        minutes?.toInt() ?? 0),
+                                    img:
+                                        '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
+                                  ),
                             SizedBox(
                               height: 12.h,
                             ),

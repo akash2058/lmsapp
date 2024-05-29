@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
-import 'package:lmsapp/models/messagemodel.dart';
+
 import 'package:lmsapp/utilities/appcolors.dart';
 
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -23,6 +23,8 @@ class ChatDetailsScreen extends StatefulWidget {
 }
 
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +38,15 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     await state.getMessage(context, widget.id);
     await auth.loadLoginData();
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      }
+    });
   }
 
   @override
@@ -49,44 +60,50 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
             child: MessageBox(
               id: widget.id,
               userId: auth.userid.toString(),
+              onSend: _scrollToBottom, // Call _scrollToBottom on send
             ),
           ),
           appBar: CustomAppbar(
             title: widget.title,
             autoapply: true,
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-            child: RefreshIndicator(
-              onRefresh: getmessagedata,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  reverse: false,
-                  itemCount: get.message?.data?.chats?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    var data = get.message?.data?.chats?[index];
+          body: get.loadingmessage == true
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+                  child: RefreshIndicator(
+                    onRefresh: getmessagedata,
+                    child: ListView.builder(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        reverse: false,
+                        itemCount: get.message?.data?.chats?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          var data = get.message?.data?.chats?[index];
 
-                    return Column(
-                      children: [
-                        if (data?.receiverId.toString() ==
-                            auth.userid.toString())
-                          ReceiverCard(
-                            img:
-                                '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
-                            message: data?.message ?? '',
-                          ),
-                        if (data?.senderId.toString() == auth.userid.toString())
-                          SenderCard(
-                            message: data?.message ?? '',
-                          ),
-                        SizedBox(
-                          height: 22.h,
-                        ),
-                      ],
-                    );
-                  }),
-            ),
-          ));
+                          return Column(
+                            children: [
+                              if (data?.receiverId.toString() ==
+                                  auth.userid.toString())
+                                ReceiverCard(
+                                  img:
+                                      '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
+                                  message: data?.message ?? '',
+                                ),
+                              if (data?.senderId.toString() ==
+                                  auth.userid.toString())
+                                SenderCard(
+                                  message: data?.message ?? '',
+                                ),
+                              SizedBox(
+                                height: 22.h,
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
+                ));
     });
   }
 }
@@ -170,10 +187,13 @@ class ReceiverCard extends StatelessWidget {
 class MessageBox extends StatelessWidget {
   final String id;
   final String userId;
+  final VoidCallback onSend;
+
   const MessageBox({
     super.key,
     required this.id,
     required this.userId,
+    required this.onSend,
   });
 
   @override
@@ -197,9 +217,10 @@ class MessageBox extends StatelessWidget {
             width: 16.w,
           ),
           GestureDetector(
-            onTap: () {
-              Provider.of<ChatProvider>(context, listen: false)
+            onTap: () async {
+              await Provider.of<ChatProvider>(context, listen: false)
                   .sendMessage(context, id, userId);
+              onSend(); // Call the onSend callback
             },
             child: CircleAvatar(
                 backgroundColor: AppColors.primarywhite,

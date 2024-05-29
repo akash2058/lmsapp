@@ -5,10 +5,8 @@ import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 
 class CartProvider extends ChangeNotifier {
-  
-
   bool loadinggetcart = false;
- 
+
   bool loadingaddtocart = false;
   bool loadingremovecart = false;
   int cartItems = 0;
@@ -90,6 +88,4 @@ class CartProvider extends ChangeNotifier {
       rethrow;
     }
   }
-
- 
 }

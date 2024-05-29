@@ -67,13 +67,7 @@ class PopularCourseList extends StatelessWidget {
                 },
                 child: GestureDetector(
                   onTap: () {
-                    main.addToWishlistPopular();
-                    if (main.addwishlistpopular == true) {
-                      main.getaddwishlist(data?.id.toString() ?? '', context);
-                    } else {
-                      main.getRemoveWishlist(
-                          data?.id.toString() ?? '', context, index);
-                    }
+                    main.getaddwishlist(data?.id.toString() ?? '', context);
                   },
                   child: Icon(
                     main.addwishlistpopular == true

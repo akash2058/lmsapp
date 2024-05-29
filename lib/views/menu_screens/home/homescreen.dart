@@ -21,8 +21,6 @@ import 'package:lmsapp/views/menu_screens/home/components/lms_slider.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/review_list.dart';
 
-import 'package:lmsapp/views/menu_screens/home/components/slider_indicator.dart';
-
 import 'package:lmsapp/views/menu_screens/home/components/upcoming_testlist.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
@@ -163,10 +161,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 32.h,
                         ),
                         const LmsSlider(),
-                        SizedBox(
-                          height: 12.h,
-                        ),
-                        const SliderIndicator(),
                         SizedBox(
                           height: 20.h,
                         ),

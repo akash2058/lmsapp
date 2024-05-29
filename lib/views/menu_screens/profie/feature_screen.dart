@@ -19,7 +19,6 @@ import 'package:lmsapp/views/menu_screens/profie/profile_pages/wishlistpage.dart
 import 'package:lmsapp/views/notification/lms_notification.dart';
 import 'package:provider/provider.dart';
 
-
 class FeatureScreen extends StatefulWidget {
   const FeatureScreen({super.key});
 
@@ -74,35 +73,6 @@ class _ProfileScreenState extends State<FeatureScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomTile(
-                          onTap: () {
-                            Navigator.push(context,
-                                CustomPageRoute(child: const ProfileScreen()));
-                          },
-                          leading: Icon(
-                            Icons.person,
-                            size: 24.h,
-                          ),
-                          title: 'My Profile'),
-                      Divider(
-                        thickness: 2.h,
-                        color: AppColors.lightwhite,
-                      ),
-                      CustomTile(
-                        onTap: () {
-                          Navigator.push(context,
-                              CustomPageRoute(child: const LmsNotifcation()));
-                        },
-                        leading: SvgPicture.asset(
-                          SvgImages.notifica,
-                          height: 24.h,
-                        ),
-                        title: 'Notification',
-                      ),
-                      Divider(
-                        thickness: 2.h,
-                        color: AppColors.lightwhite,
-                      ),
                       CustomTile(
                         onTap: () {
                           Navigator.push(context,

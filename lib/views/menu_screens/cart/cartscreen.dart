@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
+
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
@@ -67,21 +68,19 @@ class _CartScreenState extends State<CartScreen> {
                 : Column(
                     children: [
                       Expanded(
-                        child: SizedBox(
-                          height: 360.h,
-                          child: cart.cart?.data?.cartItems?.isEmpty ?? true
-                              ? Center(
-                                  child: Text(
-                                  'No Cart Items !!!',
-                                  style: pricestyle,
-                                ))
-                              : ListView.builder(
-                                  itemCount:
-                                      cart.cart?.data?.cartItems?.length ?? 0,
-                                  itemBuilder: (context, index) {
-                                    var data =
-                                        cart.cart?.data?.cartItems?[index];
-                                    return Column(
+                        child: RefreshIndicator(
+                          onRefresh: getcartdata,
+                          child: ListView.builder(
+                            itemCount: cart.cart?.data?.cartItems?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              var data = cart.cart?.data?.cartItems?[index];
+                              return cart.cart?.data?.cartItems?.isEmpty ?? true
+                                  ? Center(
+                                      child: Text(
+                                      'No Cart Items !!!',
+                                      style: pricestyle,
+                                    ))
+                                  : Column(
                                       children: [
                                         CartCard(
                                           ontapicon: () async {
@@ -111,7 +110,8 @@ class _CartScreenState extends State<CartScreen> {
                                                         cart.getremovecart(
                                                             data?.id.toString() ??
                                                                 '',
-                                                            dialogContext,index);
+                                                            dialogContext,
+                                                            index);
                                                       },
                                                     ),
                                                   ],
@@ -140,8 +140,8 @@ class _CartScreenState extends State<CartScreen> {
                                         )
                                       ],
                                     );
-                                  },
-                                ),
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
