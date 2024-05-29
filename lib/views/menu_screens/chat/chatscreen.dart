@@ -81,9 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           img:
                               '${chat.chat?.data?.userProfileBaseUrl}/${data?.otherUserPhoto ?? ''}',
                           time: data?.lastMessageTime ?? '',
-                          messageindication:
-                              chat.message?.data?.chats?.length.toString() ??
-                                  '',
+                          messageindication: index.bitLength.toString(),
                         ),
                         Divider(
                           thickness: 1.h,

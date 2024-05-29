@@ -7,6 +7,7 @@ import 'package:lmsapp/customwidgets/customexpansiontile.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
@@ -48,9 +49,10 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
+    var state = Provider.of<CartProvider>(context, listen: false);
     return Consumer<MenuProviders>(
       builder: (context, get, child) {
-        var state = Provider.of<CartProvider>(context, listen: false);
         String convertMinutesToHours(int minutes) {
           int hours = minutes ~/ 60;
           int remainingMinutes = minutes % 60;
@@ -88,7 +90,13 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                             ? 'Adding...'
                             : 'Add to Cart',
                         onTap: () {
-                          state.getaddcart(widget.id, context);
+                          if (get.course?.data?.course?.id.toString() ==
+                              auth.userid) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Already Added')));
+                          } else {
+                            state.getaddcart(widget.id, context);
+                          }
                         }))
               ],
             ),

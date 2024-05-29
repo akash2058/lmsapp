@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,20 +70,18 @@ class _MainMenuState extends State<MainMenu> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          menu.currenttab = 2;
-                        });
-                      },
-                      child: SvgPicture.asset(
-                        SvgImages.heart,
-                        height: 30.h,
-                        // ignore: deprecated_member_use
-                        color: menu.currenttab == 2
-                            ? AppColors.primarybrown
-                            : AppColors.primarygrey,
-                      ),
-                    ),
+                        onTap: () {
+                          setState(() {
+                            menu.currenttab = 2;
+                          });
+                        },
+                        child: Icon(
+                          CupertinoIcons.settings,
+                          color: menu.currenttab == 2
+                              ? AppColors.primarybrown
+                              : AppColors.primarygrey,
+                          size: 30.h,
+                        )),
                     GestureDetector(
                       onTap: () {
                         setState(() {

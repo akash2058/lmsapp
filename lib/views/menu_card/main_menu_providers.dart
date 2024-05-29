@@ -10,7 +10,8 @@ import 'package:lmsapp/models/profile_model.dart';
 import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
-import 'package:lmsapp/views/menu_screens/cart/cartscreen.dart';
+import 'package:lmsapp/views/menu_card/main_menu.dart';
+
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
@@ -49,19 +50,6 @@ class MenuProviders extends ChangeNotifier {
   TextEditingController provincecontroller = TextEditingController();
   TextEditingController postalcodecontroller = TextEditingController();
   TextEditingController countrycontroller = TextEditingController();
-
-  bool addwishlistpopular = false;
-  bool addwishlistfeatured = false;
-
-  addToWishlistPopular() {
-    addwishlistpopular = !addwishlistpopular;
-    notifyListeners();
-  }
-
-  addToWishlistfeatured() {
-    addwishlistfeatured = !addwishlistfeatured;
-    notifyListeners();
-  }
 
   Future<void> loadeditprofileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -156,7 +144,7 @@ class MenuProviders extends ChangeNotifier {
         await prefs.setString('state', provincecontroller.text);
         // ignore: use_build_context_synchronously
         Navigator.pushAndRemoveUntil(context,
-            CustomPageRoute(child: const ProfileScreen()), (route) => false);
+            CustomPageRoute(child: const MainMenu()), (route) => false);
         loadingprofiledit = false;
         notifyListeners();
       } else {
@@ -211,24 +199,6 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
-  late PageController pageController;
-  void startAutoPageChange() {
-    Timer.periodic(const Duration(seconds: 0), (Timer timer) {
-      if (currentslide < onboardimgs.length - 1) {
-        currentslide++;
-      } else {
-        currentslide = 0;
-      }
-      if (pageController.hasClients) {
-        pageController.animateToPage(
-          currentslide,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
-
   DateTime _selectedDate = DateTime.now();
   DateTime get selectdate => _selectedDate;
 
@@ -255,8 +225,8 @@ class MenuProviders extends ChangeNotifier {
   List<Widget> screens = [
     const HomeScreen(),
     const ChatScreen(),
-    const WishListPage(),
     const FeatureScreen(),
+    const ProfileScreen(),
   ];
   List<String> socialimges = [
     AppImages.insta,
@@ -308,6 +278,29 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
+  bool addwishlistpopular = false;
+  bool addwishlistfeatured = false;
+
+  addToWishlistPopular() {
+    addwishlistpopular = true;
+    notifyListeners();
+  }
+
+  addToWishlistPopularRemove() {
+    addwishlistpopular = false;
+    notifyListeners();
+  }
+
+  addToWishlistfeatured() {
+    addwishlistfeatured = true;
+    notifyListeners();
+  }
+
+  addToWishlistfeaturedremove() {
+    addwishlistfeatured = false;
+    notifyListeners();
+  }
+
   WishlistModel? _wishlistModel;
   WishlistModel? get wishlist => _wishlistModel;
   getWishlistData() async {
@@ -335,6 +328,8 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchaddwishlist(tokken, id).then((course) {
         if (course['success'] == true) {
+          addToWishlistPopular();
+          addToWishlistPopular();
           increasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
@@ -361,6 +356,9 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchremoveaddwishlist(tokken, id).then((course) {
         if (course['success'] == true) {
+          addToWishlistPopularRemove();
+
+          addToWishlistfeaturedremove();
           decreasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
