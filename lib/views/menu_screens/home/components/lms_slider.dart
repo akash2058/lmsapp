@@ -26,27 +26,27 @@ class _LmsSliderState extends State<LmsSlider> {
   void initState() {
     super.initState();
     pageController = PageController();
-    startAutoPageChange();
+    // startAutoPageChange();
   }
 
-  void startAutoPageChange() {
-    var state = Provider.of<MenuProviders>(context, listen: false);
+  // void startAutoPageChange() {
+  //   var state = Provider.of<MenuProviders>(context, listen: false);
 
-    Timer.periodic(const Duration(seconds: 2), (Timer timer) {
-      if (currentslide < state.home!.data!.homeBanner!.length - 1) {
-        currentslide++;
-      } else {
-        currentslide = 0;
-      }
-      if (pageController.hasClients) {
-        pageController.animateToPage(
-          currentslide,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      }
-    });
-  }
+  //   Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+  //     if (currentslide < state.home?.data?.homeBanner?.length - 1) {
+  //       currentslide++;
+  //     } else {
+  //       currentslide = 0;
+  //     }
+  //     if (pageController.hasClients) {
+  //       pageController.animateToPage(
+  //         currentslide,
+  //         duration: const Duration(milliseconds: 500),
+  //         curve: Curves.easeInOut,
+  //       );
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

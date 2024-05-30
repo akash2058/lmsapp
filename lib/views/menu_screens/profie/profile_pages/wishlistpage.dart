@@ -17,17 +17,17 @@ class WishListPage extends StatefulWidget {
 }
 
 class _WishListPageState extends State<WishListPage> {
+  MenuProviders? _menuProviders;
+
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      loadWishlist();
-    });
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _menuProviders ??= Provider.of<MenuProviders>(context, listen: false);
+    loadWishlist();
   }
 
   void loadWishlist() async {
-    var state = Provider.of<MenuProviders>(context, listen: false);
-    state.getWishlistData();
+    _menuProviders?.getWishlistData();
   }
 
   @override
@@ -46,39 +46,44 @@ class _WishListPageState extends State<WishListPage> {
             ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
-                child: Column(
-                  children: [
-                    Column(
-                      children: List.generate(
-                          get.wishlist?.data?.wishlistItems?.length ?? 0,
-                          (index) {
-                        var data = get.wishlist?.data?.wishlistItems?[index];
-                        String convertMinutesToHours(int minutes) {
-                          int hours = minutes ~/ 60;
-                          int remainingMinutes = minutes % 60;
-                          String result = '$hours hrs';
-                          if (remainingMinutes > 0) {
-                            result += ' $remainingMinutes min';
-                          }
-                          return result;
-                        }
+                child: get.wishlist?.data?.wishlistItems?.isEmpty ?? true
+                    ? Center(
+                        child: Text(
+                          'Empty Wishlist Items !!!',
+                          style: pricestyle,
+                        ),
+                      )
+                    : Column(
+                        children: [
+                          Column(
+                            children: List.generate(
+                                get.wishlist?.data?.wishlistItems?.length ?? 0,
+                                (index) {
+                              var data =
+                                  get.wishlist?.data?.wishlistItems?[index];
+                              String convertMinutesToHours(int minutes) {
+                                int hours = minutes ~/ 60;
+                                int remainingMinutes = minutes % 60;
+                                String result = '$hours hrs';
+                                if (remainingMinutes > 0) {
+                                  result += ' $remainingMinutes min';
+                                }
+                                return result;
+                              }
 
-                        String? courseTime = get.wishlist?.data
-                                ?.wishlistItems?[index].courseTime ??
-                            '';
+                              String? courseTime = get.wishlist?.data
+                                      ?.wishlistItems?[index].courseTime ??
+                                  '';
 
-                        // Parse courseTime to int using int.tryParse()
-                        int? minutes = int.tryParse(courseTime);
+                              int? minutes = int.tryParse(courseTime);
 
-                        if (minutes != null) {
-                          convertMinutesToHours(minutes);
-                        } else {}
-                        return Column(
-                          children: [
-                            get.wishlist?.data?.wishlistItems?.isEmpty ?? true
-                                // ignore: prefer_const_constructors
-                                ? Text('Empty Wishlist items')
-                                : WishListCard(
+                              if (minutes != null) {
+                                convertMinutesToHours(minutes);
+                              }
+
+                              return Column(
+                                children: [
+                                  WishListCard(
                                     remove: () {
                                       BuildContext dialogContext = context;
                                       showDialog(
@@ -99,11 +104,11 @@ class _WishListPageState extends State<WishListPage> {
                                               CustomSmallButton(
                                                 text: 'Yes',
                                                 onTap: () {
-                                                  Navigator.pop(dialogContext);
                                                   get.getRemoveWishlist(
                                                       data?.id.toString() ?? '',
-                                                      context,
+                                                      dialogContext,
                                                       index);
+                                                  Navigator.pop(context);
                                                 },
                                               ),
                                             ],
@@ -128,23 +133,24 @@ class _WishListPageState extends State<WishListPage> {
                                     img:
                                         '${get.wishlist?.data?.imageBaseUrl ?? ''}/${data?.courseImage ?? ''}',
                                   ),
-                            SizedBox(
-                              height: 12.h,
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
-                    const Spacer(),
-                    SizedBox(
-                      height: 16.h,
-                    )
-                  ],
-                ),
+                                  SizedBox(
+                                    height: 12.h,
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                          const Spacer(),
+                          SizedBox(
+                            height: 16.h,
+                          )
+                        ],
+                      ),
               ),
       );
     });
   }
 }
+
 
 // ignore: must_be_immutable

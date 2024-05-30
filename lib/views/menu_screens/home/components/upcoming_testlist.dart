@@ -71,7 +71,7 @@ class FeaturedCourse extends StatelessWidget {
                 title: '${data?.title}',
                 child: GestureDetector(
                   onTap: () {
-                    main.addToWishlistfeatured();
+                    main.addToWishlistfeatured(false);
                     main.getaddwishlist(data?.id.toString() ?? '', context);
                   },
                   child: Icon(

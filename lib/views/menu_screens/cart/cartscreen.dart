@@ -70,17 +70,19 @@ class _CartScreenState extends State<CartScreen> {
                       Expanded(
                         child: RefreshIndicator(
                           onRefresh: getcartdata,
-                          child: ListView.builder(
-                            itemCount: cart.cart?.data?.cartItems?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              var data = cart.cart?.data?.cartItems?[index];
-                              return cart.cart?.data?.cartItems?.isEmpty ?? true
-                                  ? Center(
-                                      child: Text(
-                                      'No Cart Items !!!',
-                                      style: pricestyle,
-                                    ))
-                                  : Column(
+                          child: cart.cart?.data?.cartItems?.isEmpty ?? true
+                              ? Center(
+                                  child: Text(
+                                  'No Cart Items !!!',
+                                  style: pricestyle,
+                                ))
+                              : ListView.builder(
+                                  itemCount:
+                                      cart.cart?.data?.cartItems?.length ?? 0,
+                                  itemBuilder: (context, index) {
+                                    var data =
+                                        cart.cart?.data?.cartItems?[index];
+                                    return Column(
                                       children: [
                                         CartCard(
                                           ontapicon: () async {
@@ -142,8 +144,8 @@ class _CartScreenState extends State<CartScreen> {
                                         )
                                       ],
                                     );
-                            },
-                          ),
+                                  },
+                                ),
                         ),
                       ),
                       SizedBox(

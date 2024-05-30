@@ -17,7 +17,6 @@ import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/feature_screen.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/profile_screen.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/wishlistpage.dart';
 import 'package:lmsapp/views/menu_screens/service/main_screen_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -281,28 +280,45 @@ class MenuProviders extends ChangeNotifier {
   bool addwishlistpopular = false;
   bool addwishlistfeatured = false;
 
-  addToWishlistPopular() {
+  addToWishlistPopular(bool value) async {
     addwishlistpopular = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('addwishlistpopular', value);
     notifyListeners();
   }
 
-  addToWishlistPopularRemove() {
+  addToWishlistPopularRemove(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('addwishlistfeatured', value);
     addwishlistpopular = false;
+
     notifyListeners();
   }
 
-  addToWishlistfeatured() {
+  addToWishlistfeatured(bool value) async {
     addwishlistfeatured = true;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('addwishlistfeatured', value);
     notifyListeners();
   }
 
-  addToWishlistfeaturedremove() {
+  addToWishlistfeaturedremove(bool value) async {
     addwishlistfeatured = false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('addwishlistfeatured', value);
     notifyListeners();
   }
 
   WishlistModel? _wishlistModel;
   WishlistModel? get wishlist => _wishlistModel;
+
+  loadwishlistdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    addwishlistpopular = prefs.getBool('addwishlistpopular') ?? false;
+    addwishlistfeatured = prefs.getBool('addwishlistfeatured') ?? false;
+    notifyListeners();
+  }
+
   getWishlistData() async {
     var tokken = await Utils.getToken();
     try {
@@ -328,8 +344,8 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchaddwishlist(tokken, id).then((course) {
         if (course['success'] == true) {
-          addToWishlistPopular();
-          addToWishlistPopular();
+          addToWishlistPopular(true);
+          addToWishlistPopular(true);
           increasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
@@ -356,9 +372,8 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchremoveaddwishlist(tokken, id).then((course) {
         if (course['success'] == true) {
-          addToWishlistPopularRemove();
-
-          addToWishlistfeaturedremove();
+          addToWishlistPopularRemove(false);
+          addToWishlistfeaturedremove(false);
           decreasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),

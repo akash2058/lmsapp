@@ -73,13 +73,13 @@ class CartProvider extends ChangeNotifier {
       var policy = await fetchRemoveCart(token, id);
       if (policy['success'] == true) {
         // Remove the item from the local cart model
-        cart!.data!.cartItems!.removeAt(index);
+        cart?.data?.cartItems?.removeAt(index);
 
         // Recalculate the total price and after discount price
-        cart?.data?.totalPrice = cart?.data?.cartItems!
-            .fold(0, (sum, item) => sum! + int.parse(item.coursePrice ?? '0'));
-        cart!.data!.afterDiscountPrice = cart!.data!.cartItems!
-            .fold(0, (sum, item) => sum! + int.parse(item.salePrice ?? '0'));
+        cart?.data?.totalPrice = cart?.data?.cartItems
+            ?.fold(0, (sum, item) => sum! + int.parse(item.coursePrice ?? '0'));
+        cart?.data?.afterDiscountPrice = cart?.data?.cartItems
+            ?.fold(0, (sum, item) => sum! + int.parse(item.salePrice ?? '0'));
 
         // Update the cart items count
         cartItems = cart!.data!.cartItems!.length;
