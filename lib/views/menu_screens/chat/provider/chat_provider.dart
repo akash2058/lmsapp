@@ -33,11 +33,14 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  getMessage(context, id) async {
+  getMessage(context, id,String userId) async {
     var tokken = await Utils.getToken();
     try {
       loadingmessage = true;
       notifyListeners();
+      message?.data?.chats?.add(Chats(
+        receiverId: int.parse(userId),
+      ));
       await fetchgetMessage(tokken, id).then((policy) {
         messageModel = MessageModel.fromJson(policy);
         loadingmessage = false;

@@ -93,7 +93,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                           if (get.course?.data?.course?.id.toString() ==
                               auth.userid) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Already Added')));
+                                const SnackBar(content: Text('Already Added')));
                           } else {
                             state.getaddcart(widget.id, context);
                           }
@@ -127,9 +127,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
           ], autoapply: true, title: 'Course Details'),
           body: get.loadingcoursedetails == true
               // ignore: prefer_const_constructors
-              ? LinearProgressIndicator(
-                  color: AppColors.primarybrown,
-                )
+              ? CircularProgressIndicator()
               : SingleChildScrollView(
                   child: Column(
                     children: [

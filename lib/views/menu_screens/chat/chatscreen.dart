@@ -34,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     return Consumer<ChatProvider>(
       builder: (context, chat, child) {
         return Scaffold(
@@ -51,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
             autoapply: false,
           ),
           body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 34.h),
+              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
               child: RefreshIndicator(
                 onRefresh: getchatdata,
                 child: ListView(
@@ -65,8 +66,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         ChatCard(
                           ontap: () {
-                            chat.getMessage(
-                                context, data?.chatId.toString() ?? '');
+                            chat.getMessage(context,
+                                data?.chatId.toString() ?? '', auth.userid);
                             Navigator.push(
                                 context,
                                 CustomPageRoute(

@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
@@ -81,17 +80,43 @@ class _WishListPageState extends State<WishListPage> {
                                 ? Text('Empty Wishlist items')
                                 : WishListCard(
                                     remove: () {
-                                      get.getRemoveWishlist(
-                                          data?.id.toString() ?? '',
-                                          context,
-                                          index);
+                                      BuildContext dialogContext = context;
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: Text(
+                                              'Are You Sure Do You Want Delete ?',
+                                              style: titlestyle,
+                                            ),
+                                            actions: [
+                                              CustomSmallButton(
+                                                text: 'No',
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              CustomSmallButton(
+                                                text: 'Yes',
+                                                onTap: () {
+                                                  Navigator.pop(dialogContext);
+                                                  get.getRemoveWishlist(
+                                                      data?.id.toString() ?? '',
+                                                      context,
+                                                      index);
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
                                     onTap: () {
                                       Navigator.push(
                                           context,
                                           CustomPageRoute(
                                               child: PopularCourseLandingPage(
-                                            id: data?.id.toString() ?? '',
+                                            id: data?.courseId.toString() ?? '',
                                           )));
                                     },
                                     title: data?.categoryTitle ?? '',

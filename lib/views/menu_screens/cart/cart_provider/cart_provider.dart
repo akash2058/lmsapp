@@ -66,16 +66,25 @@ class CartProvider extends ChangeNotifier {
   }
 
   getremovecart(id, context, index) async {
-    var tokken = await Utils.getToken();
+    var token = await Utils.getToken();
     try {
       loadingremovecart = true;
       notifyListeners();
-      var policy = await fetchRemoveCart(tokken, id);
+      var policy = await fetchRemoveCart(token, id);
       if (policy['success'] == true) {
-        decreaseCartItems();
+        // Remove the item from the local cart model
+        cart!.data!.cartItems!.removeAt(index);
+
+        // Recalculate the total price and after discount price
+        cart?.data?.totalPrice = cart?.data?.cartItems!
+            .fold(0, (sum, item) => sum! + int.parse(item.coursePrice ?? '0'));
+        cart!.data!.afterDiscountPrice = cart!.data!.cartItems!
+            .fold(0, (sum, item) => sum! + int.parse(item.salePrice ?? '0'));
+
+        // Update the cart items count
+        cartItems = cart!.data!.cartItems!.length;
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(policy['message'])));
-        cart!.data!.cartItems!.removeAt(index);
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(policy['message'])));

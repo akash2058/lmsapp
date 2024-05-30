@@ -124,7 +124,9 @@ class _CartScreenState extends State<CartScreen> {
                                               context,
                                               CustomPageRoute(
                                                 child: PopularCourseLandingPage(
-                                                  id: data?.id.toString() ?? '',
+                                                  id: data?.courseId
+                                                          .toString() ??
+                                                      '',
                                                 ),
                                               ),
                                             );
@@ -168,9 +170,7 @@ class _CartScreenState extends State<CartScreen> {
                             height: 32.h,
                           ),
                           CustomItemsPrice(
-                              amount:
-                                  '${cart.cart?.data?.cartItems?.length.toString()}',
-                              items: 'items'),
+                              amount: '${cart.cartItems}', items: 'items'),
                           SizedBox(
                             height: 12.h,
                           ),
