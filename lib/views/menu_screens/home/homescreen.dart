@@ -22,6 +22,9 @@ import 'package:lmsapp/views/menu_screens/home/components/lms_slider.dart';
 import 'package:lmsapp/views/menu_screens/home/components/review_list.dart';
 
 import 'package:lmsapp/views/menu_screens/home/components/upcoming_testlist.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/popularcourse_see_all_screen.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/recently_addedcourse_seeall_page.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/see_all_featuredcourse.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lms_notification.dart';
@@ -165,6 +168,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 20.h,
                         ),
                         CourseTitle(
+                          onpressed: () {
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: const PopularCourseSeeAll()));
+                          },
                           title: 'Popular Courses',
                         ),
                         SizedBox(
@@ -212,6 +221,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 15.h,
                         ),
                         CourseTitle(
+                          onpressed: () {
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: const SeeAllRecentlyAddedCourse()));
+                          },
                           title: 'Recently Added Courses',
                         ),
                         SizedBox(
@@ -222,6 +237,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 32.h,
                         ),
                         CourseTitle(
+                          onpressed: () {
+                            Navigator.push(context,
+                                CustomPageRoute(child: SeeAllFeaturedPage()));
+                          },
                           title: 'Featured Courses',
                         ),
                         SizedBox(

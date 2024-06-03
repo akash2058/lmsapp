@@ -26,9 +26,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
-      GlobalKey<ScaffoldMessengerState>();
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +44,6 @@ class _CartScreenState extends State<CartScreen> {
     return Consumer<CartProvider>(
       builder: (context, cart, child) {
         return Scaffold(
-          key: _scaffoldKey,
           appBar: CustomAppbar(
             autoapply: true,
             title: 'Cart',

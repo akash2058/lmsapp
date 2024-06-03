@@ -5,10 +5,8 @@ import 'package:lmsapp/utilities/textstyle.dart';
 // ignore: must_be_immutable
 class CourseTitle extends StatelessWidget {
   String title;
-   CourseTitle({
-    super.key,
-    required this.title
-  });
+  VoidCallback? onpressed;
+  CourseTitle({super.key, this.onpressed, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class CourseTitle extends StatelessWidget {
           style: titleStyle,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: onpressed,
           child: Text(
             'See all',
             style: jakratafont,
