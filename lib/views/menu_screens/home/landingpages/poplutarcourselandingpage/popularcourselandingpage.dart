@@ -17,6 +17,7 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'components/landingpagehead.dart';
 
@@ -195,7 +196,15 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                                       var getdata = data?.videoContent?[index];
                                       return Customlessontext(
                                           ontap: () {
-                                            if (getdata!.url!.contains('www.youtube.com')) {}
+                                            // print('dddd');
+                                            if (getdata!.url!
+                                                .contains('www.youtube.com')) {
+                                              setState(() {
+                                                launchUrl(Uri.parse(
+                                                    getdata.url.toString()));
+                                              });
+                                            } else if (getdata.url!
+                                                .contains('')) {}
                                           },
                                           title: getdata?.url ?? '');
                                     }));
