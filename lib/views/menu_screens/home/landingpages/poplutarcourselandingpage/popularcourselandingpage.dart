@@ -194,7 +194,10 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                                         (index) {
                                       var getdata = data?.videoContent?[index];
                                       return Customlessontext(
-                                          title: getdata?.title ?? '');
+                                          ontap: () {
+                                            if (getdata!.url!.contains('www.youtube.com')) {}
+                                          },
+                                          title: getdata?.url ?? '');
                                     }));
                               }),
                             ),

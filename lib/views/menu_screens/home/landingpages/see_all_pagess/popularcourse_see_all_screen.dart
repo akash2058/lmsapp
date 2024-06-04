@@ -31,7 +31,7 @@ class _PopularCourseSeeAllState extends State<PopularCourseSeeAll> {
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(builder: (context, state, child) {
       return Scaffold(
-        appBar: CustomAppbar(autoapply: true, title: 'All Courses'),
+        appBar: CustomAppbar(autoapply: true, title: 'All Popular Courses'),
         body: state.loadinghomedata == true
             ? const Center(child: CircularProgressIndicator())
             : Padding(
@@ -69,40 +69,44 @@ class _PopularCourseSeeAllState extends State<PopularCourseSeeAll> {
                       } else {}
                       return Column(
                         children: [
-                          CoursesCard(
-                            img: '${state.home?.data?.baseUrl}/${data?.image}',
-                            coursetitle: data?.category ?? '',
-                            lessons:
-                                '${state.home?.data?.popularCourse?[index].playlistsCount} Lessons',
-                            duration: convertMinutesToHours(minutes!.toInt()),
-                            discount: 'off $onlypercent',
-                            discountprice: '5000',
-                            price:
-                                '₹${state.home?.data?.popularCourse?[index].coursePrice ?? ''}',
-                            title: state.home?.data?.recentlyAddedCourse?[index]
-                                    .title ??
-                                '',
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  CustomPageRoute(
-                                      child: PopularCourseLandingPage(
-                                    id: data?.id.toString() ?? '',
-                                  )));
-                            },
-                            child: GestureDetector(
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width,
+                            child: CoursesCard(
+                              img:
+                                  '${state.home?.data?.baseUrl}/${data?.image}',
+                              coursetitle: data?.category ?? '',
+                              lessons:
+                                  '${state.home?.data?.popularCourse?[index].playlistsCount} Lessons',
+                              duration: convertMinutesToHours(minutes!.toInt()),
+                              discount: 'off $onlypercent',
+                              discountprice: '5000',
+                              price:
+                                  '₹${state.home?.data?.popularCourse?[index].coursePrice ?? ''}',
+                              title: state.home?.data
+                                      ?.recentlyAddedCourse?[index].title ??
+                                  '',
                               onTap: () {
-                                state.getaddwishlist(
-                                    data?.id.toString() ?? '', context);
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: PopularCourseLandingPage(
+                                      id: data?.id.toString() ?? '',
+                                    )));
                               },
-                              child: Icon(
-                                state.addwishlistpopular == true
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                size: 22.h,
-                                color: state.addwishlistpopular == true
-                                    ? AppColors.primaryred
-                                    : AppColors.primaryblack,
+                              child: GestureDetector(
+                                onTap: () {
+                                  state.getaddwishlist(
+                                      data?.id.toString() ?? '', context);
+                                },
+                                child: Icon(
+                                  state.addwishlistpopular == true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  size: 22.h,
+                                  color: state.addwishlistpopular == true
+                                      ? AppColors.primaryred
+                                      : AppColors.primaryblack,
+                                ),
                               ),
                             ),
                           ),

@@ -1,13 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
 class Customlessontext extends StatelessWidget {
+  VoidCallback? ontap;
   String title;
-  Customlessontext({super.key, required this.title});
+  Customlessontext({super.key, required this.title, this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class Customlessontext extends StatelessWidget {
           ),
           Flexible(
             child: GestureDetector(
-              onTap: () {},
+              onTap: ontap,
               child: Text(
                 title,
                 style: Linethroughtbrowntyle,
@@ -53,7 +55,7 @@ class Customlessondetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width,
-      decoration: const BoxDecoration         (),
+      decoration: const BoxDecoration(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

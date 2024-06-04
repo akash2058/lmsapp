@@ -136,7 +136,7 @@ class CoursesCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '$discount%',
+                        discount,
                         style: courseprice,
                       ),
                     ],

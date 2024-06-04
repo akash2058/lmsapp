@@ -24,9 +24,13 @@ class PopularCourseList extends StatelessWidget {
               int coursePrice = data?.coursePrice ?? 0;
               int salePrice = data?.salePrice ?? 0;
 
-              int discountAmount = coursePrice - salePrice;
-              double percentage = (discountAmount / coursePrice) * 100;
+              double percentage = 0;
+              if (coursePrice > 0 && salePrice > 0) {
+                int discountAmount = coursePrice - salePrice;
+                percentage = (discountAmount / coursePrice) * 100;
+              }
               String onlypercent = percentage.toStringAsFixed(0);
+
               String convertMinutesToHours(int minutes) {
                 int hours = minutes ~/ 60;
                 int remainingMinutes = minutes % 60;
@@ -52,8 +56,8 @@ class PopularCourseList extends StatelessWidget {
                 lessons:
                     '${main.home?.data?.featuredCourse?[index].playlistsCount} Lessons',
                 duration: convertMinutesToHours(minutes!.toInt()),
-                discount: 'off $onlypercent',
-                discountprice: '5000',
+                discount: '$onlypercent%off',
+                discountprice: '${data?.salePrice ?? '0'}',
                 price:
                     '₹${main.home?.data?.popularCourse?[index].coursePrice ?? ''}',
                 title: main.home?.data?.popularCourse?[index].title ?? '',
