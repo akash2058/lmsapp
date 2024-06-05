@@ -24,9 +24,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getmessagedata();
-    });
+    getmessagedata();
   }
 
   Future<void> getmessagedata() async {
@@ -38,11 +36,11 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   }
 
   void _scrollToBottom() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
+    if (_scrollController.hasClients) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      }
-    });
+      });
+    }
   }
 
   @override
@@ -93,9 +91,6 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                           },
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).viewInsets.bottom,
                     ),
                     BottomMessageBar(
                       id: widget.id,

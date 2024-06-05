@@ -128,7 +128,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
           ], autoapply: true, title: 'Course Details'),
           body: get.loadingcoursedetails == true
               // ignore: prefer_const_constructors
-              ? CircularProgressIndicator()
+              ? Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   child: Column(
                     children: [

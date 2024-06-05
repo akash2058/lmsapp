@@ -56,10 +56,9 @@ class FeaturedCourse extends StatelessWidget {
                 lessons:
                     '${main.home?.data?.featuredCourse?[index].playlistsCount} lessons',
                 duration: convertMinutesToHours(minutes!.toInt()),
-                discount: 'off$discountpercent',
-                discountprice: '${data?.salePrice}',
-                price:
-                    '₹${main.home?.data?.featuredCourse?[index].coursePrice}',
+                discount: '$discountpercent% off',
+                discountprice: '${data?.coursePrice}',
+                price: '₹${main.home?.data?.featuredCourse?[index].salePrice}',
                 onTap: () {
                   Navigator.push(
                       context,

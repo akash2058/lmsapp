@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CourseTitle(
                           onpressed: () {
                             Navigator.push(context,
-                                CustomPageRoute(child: SeeAllFeaturedPage()));
+                                CustomPageRoute(child: const SeeAllFeaturedPage()));
                           },
                           title: 'Featured Courses',
                         ),
