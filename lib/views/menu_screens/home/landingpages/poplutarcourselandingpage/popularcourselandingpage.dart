@@ -16,6 +16,7 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/video_player.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -204,7 +205,23 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                                                     getdata.url.toString()));
                                               });
                                             } else if (getdata.url!
-                                                .contains('')) {}
+                                                .contains('mp4')) {
+                                              Navigator.push(
+                                                  context,
+                                                  CustomPageRoute(
+                                                      child: LmsVideoPlayer(
+                                                    baseurl: get.course?.data
+                                                            ?.videoBaseUrl
+                                                            .toString() ??
+                                                        '',
+                                                    videourl: '${getdata.url}',
+                                                  )));
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      content: Text(
+                                                          'No Video Found')));
+                                            }
                                           },
                                           title: getdata?.url ?? '');
                                     }));
