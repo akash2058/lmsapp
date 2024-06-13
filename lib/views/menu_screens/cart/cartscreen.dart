@@ -12,9 +12,10 @@ import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
+import 'package:lmsapp/views/menu_screens/cart/checkoutpage/checkoutpage.dart';
 import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
-import 'package:lmsapp/views/menu_screens/cart/paymentscreen/paymentview.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +44,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(
       builder: (context, cart, child) {
+        var state = Provider.of<AuthenticationProvider>(context, listen: false);
         return Scaffold(
           appBar: CustomAppbar(
             autoapply: true,
@@ -192,11 +194,26 @@ class _CartScreenState extends State<CartScreen> {
                               height: 53.h,
                               text: 'CheckOut',
                               onTap: () {
-                                Navigator.push(
-                                    // ignore: prefer_const_constructors
+                                if (cart.cart?.data?.cartItems?.isEmpty ??
+                                    true) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Cart is Empty',
+                                        style: pricestyle,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.push(
                                     context,
                                     CustomPageRoute(
-                                        child: const PaymentScreen()));
+                                      child: CheckOutPage(
+                                        id: state.userid.toString(),
+                                      ),
+                                    ),
+                                  );
+                                }
                               })
                         ],
                       ),
