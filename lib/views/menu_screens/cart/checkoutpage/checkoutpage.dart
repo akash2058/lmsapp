@@ -4,9 +4,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class CheckOutPage extends StatefulWidget {
   final String id;
-  CheckOutPage({super.key, required this.id});
+  const CheckOutPage({super.key, required this.id});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CheckOutPageState createState() => _CheckOutPageState();
 }
 
