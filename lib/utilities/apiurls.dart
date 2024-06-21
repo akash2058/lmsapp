@@ -23,6 +23,10 @@ class AppUrls {
   static const String sendmessage = "${mainUrl}send-message";
   static const String chatroom = "${mainUrl}chat-rooms";
   static const String getmessage = "${mainUrl}chat-message?chatid=";
+  static const String getmycourse = "${mainUrl}my-course";
+  static const String courseplaylist = "${mainUrl}my-course-playlist?courseid=";
+  static const String paymentapi = "${mainUrl}my-payments";
+
   static const String logout = "${mainUrl}logout";
   static const String imagepath =
       "https://lms.hirephpdeveloperindia.com/public/uploads/course";

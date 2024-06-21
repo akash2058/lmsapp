@@ -6,7 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/models/course_details_model.dart';
 import 'package:lmsapp/models/homemodel.dart';
+import 'package:lmsapp/models/payment_model.dart';
 import 'package:lmsapp/models/profile_model.dart';
+import 'package:lmsapp/models/purchase_course_model.dart';
+import 'package:lmsapp/models/purchase_playlist_model.dart';
 import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -31,12 +34,23 @@ class MenuProviders extends ChangeNotifier {
   bool loadinggetwishlist = false;
   bool loadinggetprofile = false;
   bool loadingcoursedetails = false;
+  bool loadingmycourses = false;
+  bool loadingmyplaylist = false;
+  bool loadingpayment = false;
   HomeModel? _homeModel;
   HomeModel? get home => _homeModel;
   CourseDetailModel? _courseDetailModel;
   CourseDetailModel? get course => _courseDetailModel;
+  MyPlayListModel? _playlistItemModel;
+  MyPlayListModel? get playlistitem => _playlistItemModel;
   ProfileModel? _profileModel;
   ProfileModel? get profile => _profileModel;
+
+  MyCourseModel? _myCourseModel;
+  MyCourseModel? get mycourse => _myCourseModel;
+
+  PaymentModel? _paymentModel;
+  PaymentModel? get payment => _paymentModel;
 
   bool loadinghomedata = false;
   TextEditingController namecontroller = TextEditingController();
@@ -174,6 +188,59 @@ class MenuProviders extends ChangeNotifier {
       });
     } catch (e) {
       loadinghomedata = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getMyCourse() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingmycourses = true;
+      notifyListeners();
+      await fetchMyPurchaseCourse(tokken).then((home) {
+        _myCourseModel = MyCourseModel.fromJson(home);
+        loadingmycourses = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingmycourses = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getMyPlaylist(id) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingmyplaylist = true;
+      notifyListeners();
+      await fetchCoursePlaylist(tokken, id).then((home) {
+        _playlistItemModel = MyPlayListModel.fromJson(home);
+        loadingmyplaylist = false;
+        print(home);
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingmyplaylist = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getpayment() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingpayment = true;
+      notifyListeners();
+      await fetchPayment(tokken).then((home) {
+        _paymentModel = PaymentModel.fromJson(home);
+        loadingpayment = false;
+        print(home);
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingpayment = false;
       notifyListeners();
       rethrow;
     }

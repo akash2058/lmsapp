@@ -35,11 +35,13 @@ class PaymentHistoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              height: 80.h,
               width: 80.w,
               decoration: BoxDecoration(
+                image:
+                    DecorationImage(fit: BoxFit.fill, image: NetworkImage(img)),
                 borderRadius: BorderRadius.circular(12.r),
               ),
-              child: Image.asset(fit: BoxFit.fill, img),
             ),
             SizedBox(
               width: 10.w,

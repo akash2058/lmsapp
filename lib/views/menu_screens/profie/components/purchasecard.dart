@@ -42,7 +42,8 @@ class PurchaseCourseCard extends StatelessWidget {
               width: 80.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  image: DecorationImage(image: AssetImage(img))),
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(img))),
             ),
             SizedBox(
               width: 12.w,
@@ -92,24 +93,24 @@ class PurchaseCourseCard extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                        height: 4.h,
-                        width: 160.w,
-                        child: LinearProgressIndicator(
-                          value: value,
-                          color: AppColors.primarybrown,
-                        )),
-                    SizedBox(
-                      width: 8.w,
-                    ),
-                    Text(
-                      '$number/20',
-                      style: linearindicatorstyle,
-                    )
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     SizedBox(
+                //         height: 4.h,
+                //         width: 160.w,
+                //         child: LinearProgressIndicator(
+                //           value: value,
+                //           color: AppColors.primarybrown,
+                //         )),
+                //     SizedBox(
+                //       width: 8.w,
+                //     ),
+                //     Text(
+                //       '$number/20',
+                //       style: linearindicatorstyle,
+                //     )
+                //   ],
+                // )
               ],
             )
           ],

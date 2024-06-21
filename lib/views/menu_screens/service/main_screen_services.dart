@@ -44,6 +44,60 @@ Future<Map<String, dynamic>> fetchprofileget(token) async {
   return responseData;
 }
 
+Future<Map<String, dynamic>> fetchMyPurchaseCourse(token) async {
+  final response = await http.get(
+    Uri.parse(AppUrls.getmycourse),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
+Future<Map<String, dynamic>> fetchPayment(token) async {
+  final response = await http.get(
+    Uri.parse(AppUrls.paymentapi),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
+Future<Map<String, dynamic>> fetchCoursePlaylist(token, id) async {
+  final response = await http.post(
+    Uri.parse('${AppUrls.courseplaylist}$id'),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
 Future<Map<String, dynamic>> fetcheditprofile(
   String token,
   String name,
