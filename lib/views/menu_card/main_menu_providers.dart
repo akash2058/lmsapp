@@ -217,8 +217,8 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchCoursePlaylist(tokken, id).then((home) {
         _playlistItemModel = MyPlayListModel.fromJson(home);
-        loadingmyplaylist = false;
         print(home);
+        loadingmyplaylist = false;
         notifyListeners();
       });
     } catch (e) {
@@ -236,7 +236,6 @@ class MenuProviders extends ChangeNotifier {
       await fetchPayment(tokken).then((home) {
         _paymentModel = PaymentModel.fromJson(home);
         loadingpayment = false;
-        print(home);
         notifyListeners();
       });
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -41,7 +42,6 @@ class _PurchasedCourseLandingPageState
   void loaddata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     await state.getMyPlaylist(widget.id);
-    print(widget.id);
   }
 
   int currentstate = 0;
@@ -71,7 +71,7 @@ class _PurchasedCourseLandingPageState
                 ),
           appBar: CustomAppbar(autoapply: true, title: widget.coursename),
           body: main.loadingmyplaylist == true
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Padding(
@@ -320,7 +320,8 @@ class _PurchasedCourseLandingPageState
                               style: titlestyle,
                             ),
                             Text(
-                              '0hrs 0mins',
+                              main.playlistitem?.data?.totalPlayDuration ??
+                                  '0min',
                               style: itemsfont,
                             )
                           ],

@@ -4,11 +4,11 @@ import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/utilities/appimages.dart';
+import 'package:lmsapp/views/menu_card/main_menu.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 
 import 'package:lmsapp/views/menu_screens/profie/components/paymenthistorypagecard.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/paymentcourselandingpage.dart';
 import 'package:provider/provider.dart';
 
 class PaymentHistory extends StatefulWidget {
@@ -48,7 +48,10 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                     width: MediaQuery.sizeOf(context).width,
                     height: 53.h,
                     text: 'Back to Homepage',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context, CustomPageRoute(child: const MainMenu()));
+                    },
                   ),
                 ],
               ),
@@ -71,7 +74,9 @@ class _PaymentHistoryState extends State<PaymentHistory> {
                             Navigator.push(
                                 context,
                                 CustomPageRoute(
-                                    child: const PaymentCourseLandingPage()));
+                                    child: PopularCourseLandingPage(
+                                  id: data?.courseId.toString() ?? '',
+                                )));
                           },
                           coursetitle: data?.courseTitle ?? '',
                           date: '',
