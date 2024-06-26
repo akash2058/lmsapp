@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:lmsapp/providers/appproviders.dart';
 
 import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:persistent_shopping_cart/persistent_shopping_cart.dart';
 
 void main() async {
-  await PersistentShoppingCart().init();
   runApp(const MyApp());
+  WidgetsBinding.instance.addPostFrameCallback((timeStap) async {
+    if (Platform.isAndroid) {
+      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {

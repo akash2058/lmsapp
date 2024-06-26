@@ -17,6 +17,7 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/video_player.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/youtube_player.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -200,10 +201,12 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                                             // print('dddd');
                                             if (getdata!.url!
                                                 .contains('www.youtube.com')) {
-                                              setState(() {
-                                                launchUrl(Uri.parse(
-                                                    getdata.url.toString()));
-                                              });
+                                              Navigator.push(
+                                                  context,
+                                                  CustomPageRoute(
+                                                      child: YoutubePlayerView(
+                                                    url: getdata.url.toString(),
+                                                  )));
                                             } else if (getdata.url!
                                                 .contains('mp4')) {
                                               Navigator.push(

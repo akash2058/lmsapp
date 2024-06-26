@@ -4,6 +4,7 @@ import 'package:lmsapp/models/chatroomodel.dart';
 import 'package:lmsapp/models/messagemodel.dart';
 import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/menu_screens/chat/services/chat_services.dart';
+import 'dart:async';
 
 class ChatProvider extends ChangeNotifier {
   bool loadingchatroom = false;
@@ -16,6 +17,17 @@ class ChatProvider extends ChangeNotifier {
   MessageModel? messageModel;
   MessageModel? get message => messageModel;
   TextEditingController messagecontroller = TextEditingController();
+
+  final StreamController<MessageModel> _messageStreamController = StreamController.broadcast();
+
+  Stream<MessageModel> get messageStream => _messageStreamController.stream;
+
+  @override
+  void dispose() {
+    _messageStreamController.close();
+    super.dispose();
+  }
+
   getChatRoom(context) async {
     var tokken = await Utils.getToken();
     try {
@@ -33,16 +45,14 @@ class ChatProvider extends ChangeNotifier {
     }
   }
 
-  getMessage(context, id,String userId) async {
+  getMessage(context, id, String userId) async {
     var tokken = await Utils.getToken();
     try {
       loadingmessage = true;
       notifyListeners();
-      message?.data?.chats?.add(Chats(
-        receiverId: int.parse(userId),
-      ));
       await fetchgetMessage(tokken, id).then((policy) {
         messageModel = MessageModel.fromJson(policy);
+        _messageStreamController.add(messageModel!);
         loadingmessage = false;
         notifyListeners();
       });
@@ -58,14 +68,15 @@ class ChatProvider extends ChangeNotifier {
     try {
       loadingsendingmessage = true;
       notifyListeners();
-      message!.data!.chats!.add(Chats(
-        message: messagecontroller.text,
-        senderId: int.parse(uiserId),
-      ));
-      notifyListeners();
       await fetchSendMessage(tokken, messagecontroller.text, id).then((policy) {
+        var newMessage = Chats(
+          message: messagecontroller.text,
+          senderId: int.parse(uiserId),
+        );
+        message!.data!.chats!.add(newMessage);
+        _messageStreamController.add(messageModel!);
+        messagecontroller.clear();
         loadingsendingmessage = false;
-
         notifyListeners();
       });
     } catch (e) {

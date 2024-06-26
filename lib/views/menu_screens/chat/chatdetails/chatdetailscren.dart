@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customtextformfield.dart';
+import 'package:lmsapp/models/messagemodel.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
@@ -45,63 +46,72 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatProvider>(builder: (context, get, child) {
-      var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-      return Scaffold(
-        appBar: CustomAppbar(
-          title: widget.title,
-          autoapply: true,
-        ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-          child: get.loadingmessage == true
-              ? const Center(child: CircularProgressIndicator())
-              : Column(
-                  children: [
-                    Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: getmessagedata,
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          shrinkWrap: true,
-                          reverse: false,
-                          itemCount: get.message?.data?.chats?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            var data = get.message?.data?.chats?[index];
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
+    return Scaffold(
+      appBar: CustomAppbar(
+        title: widget.title,
+        autoapply: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+        child: Column(
+          children: [
+            Expanded(
+              child: StreamBuilder<MessageModel>(
+                stream: Provider.of<ChatProvider>(context).messageStream,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data!.data!.chats!.isEmpty) {
+                    return const Center(child: Text("No messages"));
+                  }
 
-                            return Column(
-                              children: [
-                                if (data?.receiverId.toString() ==
-                                    auth.userid.toString())
-                                  ReceiverCard(
-                                    img:
-                                        '${get.message?.data?.userProfileBaseUrl}/${data?.receiverPhoto}',
-                                    message: data?.message ?? '',
-                                  ),
-                                if (data?.senderId.toString() ==
-                                    auth.userid.toString())
-                                  SenderCard(
-                                    message: data?.message ?? '',
-                                  ),
-                                SizedBox(
-                                  height: 15.h,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+                  var messages = snapshot.data!.data!.chats!;
+
+                  return RefreshIndicator(
+                    onRefresh: getmessagedata,
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      shrinkWrap: true,
+                      reverse: false,
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        var data = messages[index];
+
+                        return Column(
+                          children: [
+                            if (data.receiverId.toString() ==
+                                auth.userid.toString())
+                              ReceiverCard(
+                                img: '${data.receiverPhoto}',
+                                message: data.message ?? '',
+                              ),
+                            if (data.senderId.toString() ==
+                                auth.userid.toString())
+                              SenderCard(
+                                message: data.message ?? '',
+                              ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                    BottomMessageBar(
-                      id: widget.id,
-                      userId: auth.userid.toString(),
-                      onSend: _scrollToBottom, // Call _scrollToBottom on send
-                    ),
-                  ],
-                ),
+                  );
+                },
+              ),
+            ),
+            BottomMessageBar(
+              id: widget.id,
+              userId: auth.userid.toString(),
+              onSend: _scrollToBottom, // Call _scrollToBottom on send
+            ),
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }
 
