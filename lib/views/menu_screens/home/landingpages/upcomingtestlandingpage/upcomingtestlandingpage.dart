@@ -5,13 +5,21 @@ import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-class UpComingTestLandingpage extends StatelessWidget {
-  const UpComingTestLandingpage({super.key});
+class UpComingTestLandingpage extends StatefulWidget {
+  final String courseid;
+  final String title;
+  const UpComingTestLandingpage({super.key, required this.courseid, required this.title});
 
+  @override
+  State<UpComingTestLandingpage> createState() =>
+      _UpComingTestLandingpageState();
+}
+
+class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(autoapply: true, title: 'UI/UX Designer'),
+      appBar: CustomAppbar(autoapply: true, title: widget.title),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
         child: Column(

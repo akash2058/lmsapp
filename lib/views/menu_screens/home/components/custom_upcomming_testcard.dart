@@ -39,8 +39,9 @@ class UpcomingTestCard extends StatelessWidget {
               height: 163.h,
               width: 178.w,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(21.16.r),
                 image:
-                    DecorationImage(fit: BoxFit.fill, image: AssetImage(img)),
+                    DecorationImage(fit: BoxFit.fill, image: NetworkImage(img)),
               ),
             ),
             SizedBox(

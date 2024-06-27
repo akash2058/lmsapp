@@ -10,6 +10,7 @@ import 'package:lmsapp/models/payment_model.dart';
 import 'package:lmsapp/models/profile_model.dart';
 import 'package:lmsapp/models/purchase_course_model.dart';
 import 'package:lmsapp/models/purchase_playlist_model.dart';
+import 'package:lmsapp/models/upcoming_test_model.dart';
 import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
@@ -37,6 +38,7 @@ class MenuProviders extends ChangeNotifier {
   bool loadingmycourses = false;
   bool loadingmyplaylist = false;
   bool loadingpayment = false;
+  bool loadingupcomingtest = false;
   HomeModel? _homeModel;
   HomeModel? get home => _homeModel;
   CourseDetailModel? _courseDetailModel;
@@ -45,7 +47,8 @@ class MenuProviders extends ChangeNotifier {
   MyPlayListModel? get playlistitem => _playlistItemModel;
   ProfileModel? _profileModel;
   ProfileModel? get profile => _profileModel;
-
+  UpComingTestModel? _upcomingTestModel;
+  UpComingTestModel? get upcomingtest => _upcomingTestModel;
   MyCourseModel? _myCourseModel;
   MyCourseModel? get mycourse => _myCourseModel;
 
@@ -188,6 +191,25 @@ class MenuProviders extends ChangeNotifier {
       });
     } catch (e) {
       loadinghomedata = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getUpComingTest() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingupcomingtest = true;
+      notifyListeners();
+      await fetchUpcomingtest(tokken).then((home) {
+        _upcomingTestModel = UpComingTestModel.fromJson(home);
+
+        loadingupcomingtest = false;
+        print(home);
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingupcomingtest = false;
       notifyListeners();
       rethrow;
     }

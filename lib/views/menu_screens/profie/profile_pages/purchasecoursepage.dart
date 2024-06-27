@@ -7,6 +7,7 @@ import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/home/components/custom_upcomming_testcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/upcomingtestlandingpage/upcomingtestlandingpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/purchasecard.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/purchasedcourselandingpage.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
     var state = Provider.of<MenuProviders>(context, listen: false);
 
     await state.getMyCourse();
+    await state.getUpComingTest();
   }
 
   @override
@@ -45,7 +47,7 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
             title: 'Purchase History',
           ),
           body: main.loadingmycourses == true
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: Column(
@@ -140,22 +142,41 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
                         ),
                       if (currentstate == 1)
                         Expanded(
-                          child: GridView.builder(
-                              itemCount: 10,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisSpacing: 14.h,
-                                      childAspectRatio: 0.65,
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 14.w),
-                              itemBuilder: (context, index) {
-                                return UpcomingTestCard(
-                                    duration: '10 Mins',
-                                    title: 'UI/UX Design',
-                                    marks: '20 Marks',
-                                    img: AppImages.uiuximg,
-                                    questions: '10 Questions');
-                              }),
+                          child: main.loadingupcomingtest == true
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : GridView.builder(
+                                  itemCount: main.upcomingtest?.data?.allTest
+                                          ?.length ??
+                                      0,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          mainAxisSpacing: 14.h,
+                                          childAspectRatio: 0.65,
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 14.w),
+                                  itemBuilder: (context, index) {
+                                    var data = main
+                                        .upcomingtest?.data?.allTest?[index];
+                                    return UpcomingTestCard(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CustomPageRoute(
+                                                  child:
+                                                      UpComingTestLandingpage(
+                                                courseid: '${data?.courseId}',
+                                                title: '${data?.title}',
+                                              )));
+                                        },
+                                        duration: '${data?.numOfAttemp}',
+                                        title: '${data?.title}',
+                                        marks: '${data?.passPercent}',
+                                        img:
+                                            '${main.upcomingtest?.data?.imageBaseUrl}/${data?.courseImage}',
+                                        questions: '${data?.questions}');
+                                  }),
                         )
                     ],
                   ),
