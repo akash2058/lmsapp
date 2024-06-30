@@ -196,6 +196,24 @@ Future<Map<String, dynamic>> fetchUpcomingtest(
   return responseData;
 }
 
+Future<Map<String, dynamic>> fetchquiz(token, id) async {
+  final response = await http.get(
+    Uri.parse('${AppUrls.starttest}/$id'),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
 Future<Map<String, dynamic>> fetchaddwishlist(token, id) async {
   var body = {'course_id': id};
   final response = await http.post(

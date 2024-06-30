@@ -8,7 +8,8 @@ import 'package:lmsapp/utilities/textstyle.dart';
 class UpComingTestLandingpage extends StatefulWidget {
   final String courseid;
   final String title;
-  const UpComingTestLandingpage({super.key, required this.courseid, required this.title});
+  const UpComingTestLandingpage(
+      {super.key, required this.courseid, required this.title});
 
   @override
   State<UpComingTestLandingpage> createState() =>
@@ -16,6 +17,11 @@ class UpComingTestLandingpage extends StatefulWidget {
 }
 
 class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

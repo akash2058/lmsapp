@@ -11,12 +11,10 @@ import 'package:lmsapp/views/authentication_pages/authentication_controller.dart
 import 'package:lmsapp/views/authentication_pages/change_password/change_password_view.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/certificatescreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/profile_screen.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/paymenthistorypage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/purchasecoursepage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/referalpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/wishlistpage.dart';
-import 'package:lmsapp/views/notification/lms_notification.dart';
 import 'package:provider/provider.dart';
 
 class FeatureScreen extends StatefulWidget {

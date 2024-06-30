@@ -173,7 +173,6 @@ class MenuProviders extends ChangeNotifier {
       }
     } catch (e) {
       loadingprofiledit = false;
-      notifyListeners();
       rethrow;
     }
   }
@@ -185,7 +184,6 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchHomedata(tokken).then((home) {
         _homeModel = HomeModel.fromJson(home);
-
         loadinghomedata = false;
         notifyListeners();
       });
@@ -205,7 +203,7 @@ class MenuProviders extends ChangeNotifier {
         _upcomingTestModel = UpComingTestModel.fromJson(home);
 
         loadingupcomingtest = false;
-        print(home);
+
         notifyListeners();
       });
     } catch (e) {
@@ -239,7 +237,6 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchCoursePlaylist(tokken, id).then((home) {
         _playlistItemModel = MyPlayListModel.fromJson(home);
-        print(home);
         loadingmyplaylist = false;
         notifyListeners();
       });
@@ -275,7 +272,6 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchprofileget(tokken).then((profile) {
         _profileModel = ProfileModel.fromJson(profile);
-
         loadinggetprofile = false;
         notifyListeners();
       });
@@ -354,7 +350,6 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchcoursedata(tokken, id).then((course) {
         _courseDetailModel = CourseDetailModel.fromJson(course);
-
         loadingcoursedetails = false;
         notifyListeners();
       });
