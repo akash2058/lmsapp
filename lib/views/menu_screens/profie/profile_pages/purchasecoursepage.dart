@@ -165,7 +165,7 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
                                               CustomPageRoute(
                                                   child:
                                                       UpComingTestLandingpage(
-                                                courseid: '${data?.courseId}',
+                                                quizid: '${data?.id}',
                                                 title: '${data?.title}',
                                               )));
                                         },

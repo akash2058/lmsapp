@@ -27,7 +27,7 @@ class AppUrls {
   static const String courseplaylist = "${mainUrl}my-course-playlist?courseid=";
   static const String paymentapi = "${mainUrl}my-payments";
   static const String upcomingtest = "${mainUrl}upcoming-test";
-  static const String starttest = "${mainUrl}start-quiz?course_id=";
+  static const String starttest = "${mainUrl}start-quiz?quiz_id=";
   static const String logout = "${mainUrl}logout";
   static const String imagepath =
       "https://lms.hirephpdeveloperindia.com/public/uploads/course";

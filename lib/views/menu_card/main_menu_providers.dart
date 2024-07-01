@@ -10,6 +10,7 @@ import 'package:lmsapp/models/payment_model.dart';
 import 'package:lmsapp/models/profile_model.dart';
 import 'package:lmsapp/models/purchase_course_model.dart';
 import 'package:lmsapp/models/purchase_playlist_model.dart';
+import 'package:lmsapp/models/start_quiz_model.dart';
 import 'package:lmsapp/models/upcoming_test_model.dart';
 import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
@@ -39,21 +40,31 @@ class MenuProviders extends ChangeNotifier {
   bool loadingmyplaylist = false;
   bool loadingpayment = false;
   bool loadingupcomingtest = false;
+  bool loadingstartquiz = false;
+
   HomeModel? _homeModel;
   HomeModel? get home => _homeModel;
+
   CourseDetailModel? _courseDetailModel;
   CourseDetailModel? get course => _courseDetailModel;
+
   MyPlayListModel? _playlistItemModel;
   MyPlayListModel? get playlistitem => _playlistItemModel;
+
   ProfileModel? _profileModel;
   ProfileModel? get profile => _profileModel;
+
   UpComingTestModel? _upcomingTestModel;
   UpComingTestModel? get upcomingtest => _upcomingTestModel;
+
   MyCourseModel? _myCourseModel;
   MyCourseModel? get mycourse => _myCourseModel;
 
   PaymentModel? _paymentModel;
   PaymentModel? get payment => _paymentModel;
+
+  QuizTestModel? _quizTestModel;
+  QuizTestModel? get quiztest => _quizTestModel;
 
   bool loadinghomedata = false;
   TextEditingController namecontroller = TextEditingController();
@@ -259,6 +270,26 @@ class MenuProviders extends ChangeNotifier {
       });
     } catch (e) {
       loadingpayment = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getStartQuiz(id) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingstartquiz = true;
+      notifyListeners();
+      await fetchStarttest(tokken, id).then((home) {
+        _quizTestModel = QuizTestModel.fromJson(home);
+        print('sssss$home');
+
+        loadingstartquiz = false;
+
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingstartquiz = false;
       notifyListeners();
       rethrow;
     }
