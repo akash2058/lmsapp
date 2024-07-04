@@ -213,6 +213,26 @@ Future<Map<String, dynamic>> fetchStarttest(token, id) async {
   return responseData;
 }
 
+Future<Map<String, dynamic>> fetchsubmittest(token, testid, answerone) async {
+  var body = {
+    'testid': testid,
+    'answer[2]': answerone,
+  };
+  final response = await http.post(Uri.parse(AppUrls.submittest),
+      headers: {
+        // 'Content-Type': 'application/json',
+        'Authorization': ' Bearer $token'
+      },
+      body: body);
+
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}
+
 Future<Map<String, dynamic>> fetchaddwishlist(token, id) async {
   var body = {'course_id': id};
   final response = await http.post(

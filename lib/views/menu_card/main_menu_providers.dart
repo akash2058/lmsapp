@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/models/course_details_model.dart';
 import 'package:lmsapp/models/homemodel.dart';
@@ -15,6 +17,7 @@ import 'package:lmsapp/models/upcoming_test_model.dart';
 import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
@@ -67,6 +70,15 @@ class MenuProviders extends ChangeNotifier {
   QuizTestModel? get quiztest => _quizTestModel;
 
   bool loadinghomedata = false;
+  Map<int, String> selectedAnswers = {};
+
+  void selectAnswer(int questionIndex, String answer) {
+    selectedAnswers[questionIndex] = answer;
+    answercontroller.text = answer;
+    print(answercontroller.text);
+    notifyListeners();
+  }
+
   TextEditingController namecontroller = TextEditingController();
   TextEditingController phonenumbercontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
@@ -78,6 +90,8 @@ class MenuProviders extends ChangeNotifier {
   TextEditingController postalcodecontroller = TextEditingController();
   TextEditingController countrycontroller = TextEditingController();
 
+  TextEditingController answercontroller = TextEditingController();
+  bool loadingsubmit = false;
   Future<void> loadeditprofileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     emailcontroller.text = prefs.getString('email') ?? '';
@@ -205,6 +219,63 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
+  getSubmittest(id, context) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingsubmit = true;
+      notifyListeners();
+      await fetchsubmittest(tokken, id, answercontroller.text).then((home) {
+        showDialog(
+            context: context,
+            // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+            builder: (BuildContext) {
+              return AlertDialog(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 52.h),
+                title: Container(
+                  height: 153.h,
+                  width: 153.w,
+                  // ignore: prefer_const_constructors
+                  decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: AssetImage(AppImages.successlogo))),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Your Test Certificate will Comming Soon !!!',
+                      style: titleStyle,
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    CustomButton(
+                        height: 53.h,
+                        width: MediaQuery.sizeOf(context).width,
+                        text: 'Close',
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                    SizedBox(
+                      height: 20.h,
+                    )
+                  ],
+                ),
+              );
+            });
+        print('submit${home}');
+        loadingsubmit = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingsubmit = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
   getUpComingTest() async {
     var tokken = await Utils.getToken();
     try {
@@ -223,7 +294,24 @@ class MenuProviders extends ChangeNotifier {
       rethrow;
     }
   }
+//  postsubmittest() async {
+//     var tokken = await Utils.getToken();
+//     try {
+//       loadingupcomingtest = true;
+//       notifyListeners();
+//       await fetchsubmittest().then((home) {
+//         _upcomingTestModel = UpComingTestModel.fromJson(home);
 
+//         loadingupcomingtest = false;
+
+//         notifyListeners();
+//       });
+//     } catch (e) {
+//       loadingupcomingtest = false;
+//       notifyListeners();
+//       rethrow;
+//     }
+//   }
   getMyCourse() async {
     var tokken = await Utils.getToken();
     try {
@@ -282,7 +370,6 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchStarttest(tokken, id).then((home) {
         _quizTestModel = QuizTestModel.fromJson(home);
-        print('sssss$home');
 
         loadingstartquiz = false;
 
