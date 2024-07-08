@@ -225,47 +225,50 @@ class MenuProviders extends ChangeNotifier {
       loadingsubmit = true;
       notifyListeners();
       await fetchsubmittest(tokken, id, answercontroller.text).then((home) {
-        showDialog(
-            context: context,
-            // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-            builder: (BuildContext) {
-              return AlertDialog(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.w, vertical: 52.h),
-                title: Container(
-                  height: 153.h,
-                  width: 153.w,
-                  // ignore: prefer_const_constructors
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          fit: BoxFit.fitHeight,
-                          image: AssetImage(AppImages.successlogo))),
-                ),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Your Test Certificate will Comming Soon !!!',
-                      style: titleStyle,
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    CustomButton(
-                        height: 53.h,
-                        width: MediaQuery.sizeOf(context).width,
-                        text: 'Close',
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                    SizedBox(
-                      height: 20.h,
-                    )
-                  ],
-                ),
-              );
-            });
-        print('submit${home}');
+        if (home['success'] == true) {
+          showDialog(
+              context: context,
+              // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+              builder: (BuildContext) {
+                return AlertDialog(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 52.h),
+                  title: Container(
+                    height: 153.h,
+                    width: 153.w,
+                    // ignore: prefer_const_constructors
+                    decoration: BoxDecoration(
+                        image: const DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: AssetImage(AppImages.successlogo))),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        '${home['message']}',
+                        style: titleStyle,
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      CustomButton(
+                          height: 53.h,
+                          width: MediaQuery.sizeOf(context).width,
+                          text: 'Close',
+                          onTap: () {
+                            Navigator.push(context,
+                                CustomPageRoute(child: const MainMenu()));
+                          }),
+                      SizedBox(
+                        height: 20.h,
+                      )
+                    ],
+                  ),
+                );
+              });
+        }
         loadingsubmit = false;
         notifyListeners();
       });

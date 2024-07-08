@@ -31,6 +31,16 @@ class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
   void loaddata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     await state.getStartQuiz(widget.quizid);
+    state.selectedAnswers.clear();
+  }
+
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+        content: Text(
+      message,
+      style: fonts,
+    ));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -43,7 +53,18 @@ class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
             child: CustomButton(
                 text: main.loadingsubmit == true ? 'Please Wait....' : 'Submit',
                 onTap: () {
-                  main.getSubmittest(widget.quizid, context);
+                  bool allAnswered = main.quiztest?.data?.allQuestions?.every(
+                          (question) => main.selectedAnswers.containsKey(main
+                              .quiztest?.data?.allQuestions
+                              ?.indexOf(question))) ??
+                      false;
+
+                  if (allAnswered) {
+                    main.getSubmittest(widget.quizid, context);
+                  } else {
+                    showSnackbar(context,
+                        'Please answer all the questions before submitting');
+                  }
                 }),
           ),
           appBar: CustomAppbar(autoapply: true, title: widget.title),
@@ -73,8 +94,10 @@ class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
                                     color: AppColors.secondarybrown,
                                   ),
                                   child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text('Q${index + 1}',
+                                      Text('Qno:${index + 1}',
                                           style: allCoursetitle),
                                       SizedBox(
                                         width: 12.w,
@@ -112,8 +135,9 @@ class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
                                                       : AppColors
                                                           .formfillcolor),
                                           padding: EdgeInsets.all(10.sp),
-                                          child: Center(
-                                              child: Row(
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Transform.scale(
                                                 scale: 0.8,
@@ -154,7 +178,7 @@ class _UpComingTestLandingpageState extends State<UpComingTestLandingpage> {
                                                     : coursestyle,
                                               )),
                                             ],
-                                          )),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(

@@ -169,12 +169,13 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
                                                 title: '${data?.title}',
                                               )));
                                         },
-                                        duration: '${data?.numOfAttemp}',
+                                        duration: '${data?.numOfAttemp} mins',
                                         title: '${data?.title}',
-                                        marks: '${data?.passPercent}',
+                                        marks: '${data?.passPercent} Marks',
                                         img:
                                             '${main.upcomingtest?.data?.imageBaseUrl}/${data?.courseImage}',
-                                        questions: '${data?.questions}');
+                                        questions:
+                                            '${data?.questions?.length} |Questions');
                                   }),
                         )
                     ],

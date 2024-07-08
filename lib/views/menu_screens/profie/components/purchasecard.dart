@@ -5,16 +5,15 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
-// ignore: must_be_immutable
 class PurchaseCourseCard extends StatelessWidget {
-  String coursetitle;
-  String lesson;
-  String duration;
-  String img;
-  double value;
-  String number;
-  VoidCallback? onTap;
-  PurchaseCourseCard(
+  final String coursetitle;
+  final String lesson;
+  final String duration;
+  final String img;
+  final double value;
+  final String number;
+  final VoidCallback? onTap;
+  const PurchaseCourseCard(
       {super.key,
       required this.coursetitle,
       required this.lesson,
@@ -93,24 +92,6 @@ class PurchaseCourseCard extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                // Row(
-                //   children: [
-                //     SizedBox(
-                //         height: 4.h,
-                //         width: 160.w,
-                //         child: LinearProgressIndicator(
-                //           value: value,
-                //           color: AppColors.primarybrown,
-                //         )),
-                //     SizedBox(
-                //       width: 8.w,
-                //     ),
-                //     Text(
-                //       '$number/20',
-                //       style: linearindicatorstyle,
-                //     )
-                //   ],
-                // )
               ],
             )
           ],

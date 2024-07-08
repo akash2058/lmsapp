@@ -175,7 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                             height: 12.h,
                           ),
                           CustomItemDiscount(
-                              discount: 'Discount Price ',
+                              discount: 'Discount Price',
                               discountpercent:
                                   '₹${cart.cart?.data?.afterDiscountPrice ?? ''}')
                         ],

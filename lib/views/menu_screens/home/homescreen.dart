@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +26,7 @@ import 'package:lmsapp/views/menu_screens/home/components/upcoming_testlist.dart
 import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/popularcourse_see_all_screen.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/recently_addedcourse_seeall_page.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/see_all_featuredcourse.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/students_review.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lms_notification.dart';
@@ -253,6 +255,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 32.h,
                         ),
                         CourseTitle(
+                          onpressed: () {
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: const AllStudentsReviews()));
+                          },
                           title: 'Our Student Reviews',
                         ),
                         SizedBox(
@@ -269,21 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Row(
-                          children: List.generate(
-                              main.socialimges.length,
-                              (index) => Row(
-                                    children: [
-                                      Image.asset(
-                                        main.socialimges[index],
-                                        height: 41.h,
-                                      ),
-                                      SizedBox(
-                                        width: 9.6.w,
-                                      )
-                                    ],
-                                  )),
-                        ),
+                        SocialMediaList(),
                         SizedBox(
                           height: 20.h,
                         ),
@@ -291,6 +285,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+        );
+      },
+    );
+  }
+}
+
+class SocialMediaList extends StatelessWidget {
+  const SocialMediaList({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<MenuProviders>(
+      builder: (context, main, child) {
+        return Row(
+          children: List.generate(
+              main.socialimges.length,
+              (index) => Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                      
+                        },
+                        child: Image.asset(
+                          main.socialimges[index],
+                          height: 41.h,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 9.6.w,
+                      )
+                    ],
+                  )),
         );
       },
     );
