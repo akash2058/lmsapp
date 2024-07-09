@@ -20,8 +20,12 @@ import 'package:provider/provider.dart';
 class PurchasedCourseLandingPage extends StatefulWidget {
   final String id;
   final String coursename;
+  final String courseid;
   const PurchasedCourseLandingPage(
-      {super.key, required this.id, required this.coursename});
+      {super.key,
+      required this.id,
+      required this.coursename,
+      required this.courseid});
 
   @override
   State<PurchasedCourseLandingPage> createState() =>
@@ -42,6 +46,7 @@ class _PurchasedCourseLandingPageState
   void loaddata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     await state.getMyPlaylist(widget.id);
+    await state.getCourseDetails(widget.courseid);
   }
 
   int currentstate = 0;

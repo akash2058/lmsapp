@@ -24,7 +24,7 @@ class _YoutubePlayerViewState extends State<YoutubePlayerView> {
     _controller = YoutubePlayerController.fromVideoId(
       videoId: YoutubePlayerController.convertUrlToId(widget.url) ?? '',
       autoPlay: true,
-      params: const YoutubePlayerParams(showFullscreenButton: true),
+      params: const YoutubePlayerParams(playsInline: true),
     );
 
     _controller.listen((value) {

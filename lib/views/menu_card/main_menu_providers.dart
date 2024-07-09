@@ -18,6 +18,7 @@ import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/drawer/drawer_screen/certificatescreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
@@ -258,8 +259,11 @@ class MenuProviders extends ChangeNotifier {
                           width: MediaQuery.sizeOf(context).width,
                           text: 'Close',
                           onTap: () {
-                            Navigator.push(context,
-                                CustomPageRoute(child: const MainMenu()));
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: const CertificateScreen()));
                           }),
                       SizedBox(
                         height: 20.h,

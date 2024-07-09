@@ -1,18 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/components/slider_indicator.dart';
 import 'package:provider/provider.dart';
 
 class LmsSlider extends StatefulWidget {
-  const LmsSlider({
-    super.key,
-  });
+  const LmsSlider({super.key});
 
   @override
   State<LmsSlider> createState() => _LmsSliderState();
@@ -21,18 +16,22 @@ class LmsSlider extends StatefulWidget {
 class _LmsSliderState extends State<LmsSlider> {
   late PageController pageController;
   int currentslide = 0;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
     pageController = PageController();
-    startAutoPageChange();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      startAutoPageChange();
+    });
   }
 
   void startAutoPageChange() {
     var state = Provider.of<MenuProviders>(context, listen: false);
+    if (state.home?.data?.homeBanner == null) return; // Add this null check
 
-    Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
       if (currentslide < state.home!.data!.homeBanner!.length - 1) {
         currentslide++;
       } else {
@@ -49,9 +48,22 @@ class _LmsSliderState extends State<LmsSlider> {
   }
 
   @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when disposing the widget
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, slider, child) {
+        if (slider.home?.data?.homeBanner == null ||
+            slider.home!.data!.homeBanner!.isEmpty) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Column(
           children: [
             SizedBox(
@@ -72,9 +84,11 @@ class _LmsSliderState extends State<LmsSlider> {
                       width: MediaQuery.sizeOf(context).width,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                '${slider.home?.data?.baseUrl}/${slider.home?.data?.homeBanner?[index].image}')),
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            '${slider.home?.data?.baseUrl}/${slides?.image ?? ''}',
+                          ),
+                        ),
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: Padding(
@@ -116,31 +130,33 @@ class _LmsSliderState extends State<LmsSlider> {
               height: 12.h,
             ),
             Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  slider.home?.data?.homeBanner?.length ?? 0,
-                  (index) => Row(
-                    children: [
-                      Container(
-                        height: 8.h,
-                        width: currentslide == index ? 25.w : 8.w,
-                        decoration: BoxDecoration(
-                            borderRadius: currentslide == index
-                                ? BorderRadius.circular(10.r)
-                                : null,
-                            color: currentslide == index
-                                ? AppColors.primarybrown
-                                : AppColors.formfillcolor,
-                            shape: currentslide == index
-                                ? BoxShape.rectangle
-                                : BoxShape.circle),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                slider.home?.data?.homeBanner?.length ?? 0,
+                (index) => Row(
+                  children: [
+                    Container(
+                      height: 8.h,
+                      width: currentslide == index ? 25.w : 8.w,
+                      decoration: BoxDecoration(
+                        borderRadius: currentslide == index
+                            ? BorderRadius.circular(10.r)
+                            : null,
+                        color: currentslide == index
+                            ? AppColors.primarybrown
+                            : AppColors.formfillcolor,
+                        shape: currentslide == index
+                            ? BoxShape.rectangle
+                            : BoxShape.circle,
                       ),
-                      SizedBox(
-                        width: 5.w,
-                      )
-                    ],
-                  ),
-                ))
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       },

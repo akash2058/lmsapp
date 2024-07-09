@@ -10,6 +10,7 @@ import 'package:lmsapp/views/drawer/drawer_screen/appguidlinescreen.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/certificatescreen.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/helpscreen.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/policyscreen.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/see_all_pagess/students_review.dart';
 
 class LmsDrawer extends StatelessWidget {
   const LmsDrawer({super.key});
@@ -76,6 +77,12 @@ class LmsDrawer extends StatelessWidget {
                 height: 12.h,
               ),
               CustomTile(
+                onTap: () {
+                  Navigator.push(
+                      // ignore: prefer_const_constructors
+                      context,
+                      CustomPageRoute(child: AllStudentsReviews()));
+                },
                 leading: SvgPicture.asset(
                   SvgImages.review,
                   height: 24.h,

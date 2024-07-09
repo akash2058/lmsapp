@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -31,6 +32,7 @@ import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/notification/lms_notification.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -300,26 +302,44 @@ class SocialMediaList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
-        return Row(
-          children: List.generate(
-              main.socialimges.length,
-              (index) => Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                      
-                        },
-                        child: Image.asset(
-                          main.socialimges[index],
-                          height: 41.h,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 9.6.w,
-                      )
-                    ],
-                  )),
-        );
+        return Row(children: [
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse(
+                  main.home?.data?.socilaLink?.facebook.toString() ?? ''));
+            },
+            child: Image.asset(
+              AppImages.facebok,
+              height: 41.h,
+            ),
+          ),
+          SizedBox(
+            width: 12.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse(
+                  main.home?.data?.socilaLink?.instagram.toString() ?? ''));
+            },
+            child: Image.asset(
+              AppImages.insta,
+              height: 41.h,
+            ),
+          ),
+          SizedBox(
+            width: 12.w,
+          ),
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse(
+                  main.home?.data?.socilaLink?.youtube.toString() ?? ''));
+            },
+            child: Image.asset(
+              AppImages.youtube,
+              height: 41.h,
+            ),
+          ),
+        ]);
       },
     );
   }
