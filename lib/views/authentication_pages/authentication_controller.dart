@@ -1,6 +1,8 @@
 // ignore_for_file: unrelated_type_equality_checks
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/models/registermodel.dart';
 import 'package:lmsapp/models/usermodel.dart';
@@ -8,7 +10,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/authentication_pages/otp_screen/otpscreen.dart';
 import 'package:lmsapp/views/authentication_pages/service/authentication_service.dart';
-
+import 'dart:developer' as developer;
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -292,5 +294,36 @@ class AuthenticationProvider extends ChangeNotifier {
       loadingchangepassword = false;
       throw {"error": e}; // Throw a map containing the error message
     }
+  }
+
+  List<ConnectivityResult> connectionStatus = [
+    ConnectivityResult.none,
+    ConnectivityResult.wifi,
+    ConnectivityResult.mobile,
+    ConnectivityResult.ethernet,
+  ];
+  final Connectivity connectivity = Connectivity();
+  Future<void> initConnectivity() async {
+    late List<ConnectivityResult> result;
+
+    try {
+      result = await connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      developer.log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+
+    return _updateConnectionStatus(result);
+  }
+
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
+    connectionStatus = result;
+
+    // ignore: avoid_print
+    print('Connectivity changed: $connectionStatus');
   }
 }

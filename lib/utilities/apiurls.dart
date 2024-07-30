@@ -30,6 +30,9 @@ class AppUrls {
   static const String starttest = "${mainUrl}start-quiz?quiz_id=";
   static const String submittest = "${mainUrl}submit_quiz";
   static const String logout = "${mainUrl}logout";
+  static const String referalshare = "${mainUrl}reffral-share";
+  static const String help = "${mainUrl}help";
+  static const String certificate = "${mainUrl}my-certificate";
   static const String imagepath =
       "https://lms.hirephpdeveloperindia.com/public/uploads/course";
 }

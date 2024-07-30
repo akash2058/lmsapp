@@ -44,3 +44,51 @@ Future<Map<String, dynamic>> fetchPrivacyPolicy(token) async {
     throw Exception('Failed to get data');
   }
 }
+
+Future<Map<String, dynamic>> fetchCertificate(token) async {
+  try {
+    final response = await http.get(
+      Uri.parse(AppUrls.certificate),
+      headers: {
+        // 'Content-Type': 'application/json',
+        'Authorization': ' Bearer $token'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to get data');
+    }
+  } catch (e) {
+    throw Exception('Failed to get data');
+  }
+}
+
+Future<Map<String, dynamic>> fetchHelp(
+    name, email, title, description, token) async {
+  var body = {
+    'name': name,
+    'email': email,
+    'title': title,
+    'description': description,
+  };
+  try {
+    final response = await http.post(Uri.parse(AppUrls.help),
+        headers: {
+          // 'Content-Type': 'application/json',
+          'Authorization': ' Bearer $token'
+        },
+        body: body);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to get data');
+    }
+  } catch (e) {
+    throw Exception('Failed to get data');
+  }
+}

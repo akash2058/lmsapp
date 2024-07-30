@@ -45,7 +45,7 @@ class MenuProviders extends ChangeNotifier {
   bool loadingpayment = false;
   bool loadingupcomingtest = false;
   bool loadingstartquiz = false;
-
+  bool loadingreferalcode = false;
   HomeModel? _homeModel;
   HomeModel? get home => _homeModel;
 
@@ -597,6 +597,33 @@ class MenuProviders extends ChangeNotifier {
       });
     } catch (e) {
       loadingaddwishlist = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getreferalcode(context) async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingreferalcode = true;
+      notifyListeners();
+      await fetchreferalshare(
+        emailcontroller.text,
+        tokken,
+      ).then((referal) {
+        if (referal['success'] == true) {
+          print(referal);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(referal['message'])));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(referal['message'])));
+        }
+        loadingreferalcode = false;
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingreferalcode = false;
       notifyListeners();
       rethrow;
     }

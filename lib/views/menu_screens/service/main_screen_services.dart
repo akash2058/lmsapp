@@ -268,3 +268,21 @@ Future<Map<String, dynamic>> fetchremoveaddwishlist(token, id) async {
   }
   return responseData;
 }
+
+Future<Map<String, dynamic>> fetchreferalshare(email, token) async {
+  var body = {'email': email};
+  final response = await http.post(
+    Uri.parse(AppUrls.referalshare),
+    body: body,
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}

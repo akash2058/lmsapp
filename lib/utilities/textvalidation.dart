@@ -113,3 +113,18 @@ String? validatephonenumber(String? value) {
 
   return null;
 }
+
+String? validatetitle(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'title required';
+  }
+
+  return null;
+}
+String? validatedescription(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'title required';
+  }
+
+  return null;
+}
