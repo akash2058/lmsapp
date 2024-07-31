@@ -48,7 +48,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
                   width: 20.w,
                 )
               ],
-              title: 'Achievements and Certificates'),
+              title: 'Certificates'),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
             child: SingleChildScrollView(
