@@ -50,7 +50,6 @@ class DrawerProvider extends ChangeNotifier {
       notifyListeners();
       await fetchCertificate(tokken).then((certificate) {
         _certificateModel = CertificateModel.fromJson(certificate);
-        print(certificate);
         loadingcertificate = false;
         notifyListeners();
       });

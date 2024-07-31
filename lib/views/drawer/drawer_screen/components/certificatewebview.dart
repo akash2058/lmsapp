@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class CheckOutPage extends StatefulWidget {
-  final String id;
-  const CheckOutPage({super.key, required this.id});
+class CertificateWebView extends StatefulWidget {
+  final String url;
+  final String title;
+  const CertificateWebView({super.key, required this.url, required this.title});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CheckOutPageState createState() => _CheckOutPageState();
+  State<CertificateWebView> createState() => _CertificateWebViewState();
 }
 
-class _CheckOutPageState extends State<CheckOutPage> {
+class _CertificateWebViewState extends State<CertificateWebView> {
   late WebViewController controller;
 
   @override
@@ -30,23 +30,20 @@ class _CheckOutPageState extends State<CheckOutPage> {
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith(
-                'https://lms.hirephpdeveloperindia.com/web-checkout?id=${widget.id}')) {
+            if (request.url.startsWith(widget.url)) {
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
         ),
       )
-      ..loadRequest(Uri.parse(
-          'https://lms.hirephpdeveloperindia.com/web-checkout?id=${widget.id}'));
+      ..loadRequest(Uri.parse(widget.url));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(autoapply: true, title: 'Checkout'),
-      body: WebViewWidget(controller: controller),
-    );
+        appBar: CustomAppbar(autoapply: true, title: widget.title),
+        body: WebViewWidget(controller: controller));
   }
 }

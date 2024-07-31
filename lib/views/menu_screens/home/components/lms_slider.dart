@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
@@ -135,19 +136,16 @@ class _LmsSliderState extends State<LmsSlider> {
                 slider.home?.data?.homeBanner?.length ?? 0,
                 (index) => Row(
                   children: [
-                    Container(
+                    AnimatedContainer(
+                      curve: Curves.linear,
+                      duration: Duration(milliseconds: 500),
                       height: 8.h,
                       width: currentslide == index ? 25.w : 8.w,
                       decoration: BoxDecoration(
-                        borderRadius: currentslide == index
-                            ? BorderRadius.circular(10.r)
-                            : null,
+                        borderRadius: BorderRadius.circular(40.r),
                         color: currentslide == index
                             ? AppColors.primarybrown
                             : AppColors.formfillcolor,
-                        shape: currentslide == index
-                            ? BoxShape.rectangle
-                            : BoxShape.circle,
                       ),
                     ),
                     SizedBox(

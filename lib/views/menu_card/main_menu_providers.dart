@@ -612,7 +612,6 @@ class MenuProviders extends ChangeNotifier {
         tokken,
       ).then((referal) {
         if (referal['success'] == true) {
-          print(referal);
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(referal['message'])));
         } else {
