@@ -138,7 +138,7 @@ class _LmsSliderState extends State<LmsSlider> {
                   children: [
                     AnimatedContainer(
                       curve: Curves.linear,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       height: 8.h,
                       width: currentslide == index ? 25.w : 8.w,
                       decoration: BoxDecoration(
