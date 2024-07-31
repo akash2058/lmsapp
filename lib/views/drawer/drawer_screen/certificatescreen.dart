@@ -57,8 +57,11 @@ class _CertificateScreenState extends State<CertificateScreen> {
                       (index) {
                 var data = drawer.certificate?.data?[index];
                 return Container(
+                  padding: const EdgeInsets.all(10),
                   width: MediaQuery.sizeOf(context).width,
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.r),
+                      border: Border.all(color: AppColors.primarylowlightdark)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +70,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            height: 60.h,
+                            height: 40.h,
                             width: 80.w,
                             decoration: BoxDecoration(
                                 image: const DecorationImage(
@@ -86,31 +89,37 @@ class _CertificateScreenState extends State<CertificateScreen> {
                                 style: titlestyle,
                               ),
                               Text(
-                                data?.isPass ?? '',
+                                'Pass: ${data?.isPass ?? ''}',
                                 style: editprofilefont,
                               )
                             ],
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CustomPageRoute(
-                                  child: CertificateWebView(
-                                      url: data?.link.toString() ?? '',
-                                      title: data?.cerificateTitle ?? '')));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10.sp),
-                          decoration: BoxDecoration(
-                            color: AppColors.bordercolor,
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Text(
-                            'View Certificate',
-                            style: formfieldstyle,
+                      SizedBox(
+                        width: 20.w,
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CustomPageRoute(
+                                    child: CertificateWebView(
+                                        url: data?.link.toString() ?? '',
+                                        title: data?.cerificateTitle ?? '')));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(10.sp),
+                            decoration: BoxDecoration(
+                              color: AppColors.primarybrown,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              'View Certificate',
+                              style: allCoursetitle,
+                            ),
                           ),
                         ),
                       )
