@@ -63,7 +63,8 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                  if (!snapshot.hasData || snapshot.data!.data!.chats!.isEmpty) {
+                  if (!snapshot.hasData ||
+                      snapshot.data!.data!.chats!.isEmpty) {
                     return const Center(child: Text("No messages"));
                   }
 
@@ -84,7 +85,8 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                             if (data.receiverId.toString() ==
                                 auth.userid.toString())
                               ReceiverCard(
-                                img: '${data.receiverPhoto}',
+                                img:
+                                    '${snapshot.data?.data?.userProfileBaseUrl}/${data.receiverPhoto ?? ''}',
                                 message: data.message ?? '',
                               ),
                             if (data.senderId.toString() ==
