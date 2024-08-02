@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Assuming these are your custom routes
 
 class Utils {
   static Future<void> manipulateLogin(BuildContext context) async {
-    var state = Provider.of<AuthenticationProvider>(context, listen: false);
     // Debug: Print the current state before attempting to get the token
 
     var token = await getToken();

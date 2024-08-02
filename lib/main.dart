@@ -76,6 +76,7 @@ class _MyAppState extends State<MyApp> {
         providers: getProviders(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          // ignore: unrelated_type_equality_checks
           home: connectionStatus == ConnectivityResult.none
               ? const NoInternetScreen()
               : const SplashScreen(),

@@ -127,7 +127,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                       onTap: () {
                         Navigator.pop(context);
                         Navigator.push(context,
-                            CustomPageRoute(child: CourseSearchPage()));
+                            CustomPageRoute(child: const CourseSearchPage()));
                       })
                 ],
               ),

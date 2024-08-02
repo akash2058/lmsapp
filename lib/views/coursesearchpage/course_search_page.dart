@@ -138,61 +138,75 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                           SizedBox(
                             height: 20.h,
                           ),
-                          Column(
-                            children: List.generate(
-                                bottom.searchCourse?.data?.course?.length ?? 0,
-                                (index) {
-                              var data =
-                                  bottom.searchCourse?.data?.course?[index];
+                          bottom.searchCourse?.data?.course?.isEmpty ?? true
+                              ? Center(
+                                  child: Text(
+                                    'No Search Found !!!',
+                                    style: pricestyle,
+                                  ),
+                                )
+                              : Column(
+                                  children: List.generate(
+                                      bottom.searchCourse?.data?.course
+                                              ?.length ??
+                                          0, (index) {
+                                    var data = bottom
+                                        .searchCourse?.data?.course?[index];
 
-                              int coursePrice = data?.coursePrice ?? 0;
-                              int salePrice = data?.salePrice ?? 0;
+                                    int coursePrice = data?.coursePrice ?? 0;
+                                    int salePrice = data?.salePrice ?? 0;
 
-                              int discountAmount = coursePrice - salePrice;
-                              double percentage =
-                                  (discountAmount / coursePrice) * 100;
-                              String onlypercent =
-                                  percentage.toStringAsFixed(0);
-                              String convertMinutesToHours(int minutes) {
-                                int hours = minutes ~/ 60;
-                                int remainingMinutes = minutes % 60;
-                                String result = '$hours hrs';
-                                if (remainingMinutes > 0) {
-                                  result += ' $remainingMinutes min';
-                                }
-                                return result;
-                              }
+                                    int discountAmount =
+                                        coursePrice - salePrice;
+                                    double percentage =
+                                        (discountAmount / coursePrice) * 100;
+                                    String onlypercent =
+                                        percentage.toStringAsFixed(0);
+                                    String convertMinutesToHours(int minutes) {
+                                      int hours = minutes ~/ 60;
+                                      int remainingMinutes = minutes % 60;
+                                      String result = '$hours hrs';
+                                      if (remainingMinutes > 0) {
+                                        result += ' $remainingMinutes min';
+                                      }
+                                      return result;
+                                    }
 
-                              String? courseTime = bottom
-                                  .searchCourse?.data?.course?[index].courseTime
-                                  .toString();
+                                    String? courseTime = bottom.searchCourse
+                                        ?.data?.course?[index].courseTime
+                                        .toString();
 
-                              // Parse courseTime to int using int.tryParse()
-                              int? minutes = int.tryParse(courseTime ?? '');
+                                    // Parse courseTime to int using int.tryParse()
+                                    int? minutes =
+                                        int.tryParse(courseTime ?? '');
 
-                              if (minutes != null) {
-                                convertMinutesToHours(minutes);
-                              } else {}
-                              return CoursesCard(
-                                img:
-                                    '${bottom.searchCourse?.data?.imageBaseUrl}/${data?.image}',
-                                coursetitle: data?.title ?? '',
-                                lessons: '${data?.totalLesson ?? '0'}lessons',
-                                duration: convertMinutesToHours(minutes ?? 0),
-                                discount: onlypercent,
-                                discountprice: '₹${data?.salePrice ?? ''}',
-                                price: '₹${data?.coursePrice ?? ''}',
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      CustomPageRoute(
-                                          child: PopularCourseLandingPage(
-                                              id: data?.id.toString() ?? '')));
-                                },
-                                title: data?.metaTitle ?? '',
-                              );
-                            }),
-                          ),
+                                    if (minutes != null) {
+                                      convertMinutesToHours(minutes);
+                                    } else {}
+                                    return CoursesCard(
+                                      img:
+                                          '${bottom.searchCourse?.data?.imageBaseUrl}/${data?.image}',
+                                      coursetitle: data?.title ?? '',
+                                      lessons:
+                                          '${data?.totalLesson ?? '0'}lessons',
+                                      duration:
+                                          convertMinutesToHours(minutes ?? 0),
+                                      discount: onlypercent,
+                                      discountprice:
+                                          '₹${data?.salePrice ?? ''}',
+                                      price: '₹${data?.coursePrice ?? ''}',
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            CustomPageRoute(
+                                                child: PopularCourseLandingPage(
+                                                    id: data?.id.toString() ??
+                                                        '')));
+                                      },
+                                      title: data?.metaTitle ?? '',
+                                    );
+                                  }),
+                                ),
                         ],
                       ),
                     )),

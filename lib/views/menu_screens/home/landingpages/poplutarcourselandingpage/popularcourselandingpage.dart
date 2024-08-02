@@ -19,7 +19,6 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/views/menu_screens/home/landingpages/video_player.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/youtube_player.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'components/landingpagehead.dart';
 

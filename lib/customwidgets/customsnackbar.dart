@@ -5,7 +5,7 @@ class CustomSnackBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldMessenger(
+    return const ScaffoldMessenger(
       child: SnackBar(content: Text('Hello')),
     );
   }

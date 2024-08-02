@@ -3,13 +3,12 @@ String? validateEmail(String? value) {
     return 'email required';
   }
 
-  // Use a regex to validate the email format
-  // String emailPattern = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
-  // RegExp regex = RegExp(emailPattern);
+  String emailPattern = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
+  RegExp regex = RegExp(emailPattern);
 
-  // if (!regex.hasMatch(value)) {
-  //   return 'Please enter a valid email address';
-  // }
+  if (!regex.hasMatch(value)) {
+    return 'Please enter a valid email address';
+  }
 
   return null;
 }
@@ -52,7 +51,7 @@ String? validaterepeatPassword(String? value) {
 
 String? validatename(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Name required';
+    return 'name required';
   }
 
   return null;
@@ -121,9 +120,10 @@ String? validatetitle(String? value) {
 
   return null;
 }
+
 String? validatedescription(String? value) {
   if (value == null || value.isEmpty) {
-    return 'title required';
+    return 'description required';
   }
 
   return null;

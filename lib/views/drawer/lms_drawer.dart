@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/aboutuscreen.dart';
@@ -24,12 +26,27 @@ class LmsDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 52.h,
-                width: 54.w,
-                decoration: const BoxDecoration(
-                    image:
-                        DecorationImage(image: AssetImage(AppImages.applogo))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 52.h,
+                    width: 54.w,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(AppImages.applogo))),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.close,
+                      color: AppColors.primaryred,
+                      size: 40.h,
+                    ),
+                  )
+                ],
               ),
               SizedBox(
                 height: 32.h,
@@ -81,7 +98,7 @@ class LmsDrawer extends StatelessWidget {
                   Navigator.push(
                       // ignore: prefer_const_constructors
                       context,
-                      CustomPageRoute(child: AllStudentsReviews()));
+                      CustomPageRoute(child: const AllStudentsReviews()));
                 },
                 leading: SvgPicture.asset(
                   SvgImages.review,

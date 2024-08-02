@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lmsapp/models/cart_model.dart';
-import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 
