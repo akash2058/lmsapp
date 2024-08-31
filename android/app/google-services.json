@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1095243799626",
+    "project_id": "cnlapp-44509",
+    "storage_bucket": "cnlapp-44509.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095243799626:android:abd62e3a97c8bb89dc9ab3",
+        "android_client_info": {
+          "package_name": "com.example.lmsapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjSn-qD5jlFP9OglxNLbzP3djUGThxcQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

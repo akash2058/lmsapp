@@ -24,7 +24,7 @@ class _PopularCourseSeeAllState extends State<PopularCourseSeeAll> {
 
   void allcoursedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    await state.getHomedata();
+    await state.getHomedata(context);
   }
 
   @override

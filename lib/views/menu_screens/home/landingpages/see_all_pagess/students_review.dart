@@ -21,7 +21,7 @@ class _AllStudentsReviewsState extends State<AllStudentsReviews> {
 
   void loadingdata() {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    state.getHomedata();
+    state.getHomedata(context);
   }
 
   @override

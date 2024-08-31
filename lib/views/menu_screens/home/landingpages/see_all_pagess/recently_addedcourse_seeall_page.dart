@@ -26,7 +26,7 @@ class _SeeAllRecentlyAddedCourseState extends State<SeeAllRecentlyAddedCourse> {
 
   void loaddata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    await state.getHomedata();
+    await state.getHomedata(context);
   }
 
   @override

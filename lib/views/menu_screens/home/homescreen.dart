@@ -9,6 +9,7 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lms_drawer.dart';
 
@@ -50,9 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void homedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
-    await state.getHomedata();
+    await state.getHomedata(context);
   }
 
+  var tokken = Utils.getToken();
   @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(

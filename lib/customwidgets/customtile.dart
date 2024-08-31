@@ -34,7 +34,7 @@ class CustomTile extends StatelessWidget {
       onTap: onTap,
       leading: leading,
       visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-      contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+      contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       dense: true,
       title: Text(
         title,

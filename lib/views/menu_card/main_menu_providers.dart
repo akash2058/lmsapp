@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/models/course_details_model.dart';
 import 'package:lmsapp/models/homemodel.dart';
+import 'package:lmsapp/models/notificationmodel.dart';
 import 'package:lmsapp/models/payment_model.dart';
 import 'package:lmsapp/models/profile_model.dart';
 import 'package:lmsapp/models/purchase_course_model.dart';
@@ -18,6 +20,7 @@ import 'package:lmsapp/models/wishlist_model.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/drawer/drawer_screen/certificatescreen.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 
@@ -36,6 +39,7 @@ class MenuProviders extends ChangeNotifier {
   int currentslide = 0;
 
   bool loadingprofiledit = false;
+  bool loadingnotifications = false;
   bool loadingaddwishlist = false;
   bool loadinggetwishlist = false;
   bool loadinggetprofile = false;
@@ -48,6 +52,9 @@ class MenuProviders extends ChangeNotifier {
   bool loadingreferalcode = false;
   HomeModel? _homeModel;
   HomeModel? get home => _homeModel;
+
+  NotificationModels? _notificationModel;
+  NotificationModels? get notification => _notificationModel;
 
   CourseDetailModel? _courseDetailModel;
   CourseDetailModel? get course => _courseDetailModel;
@@ -203,18 +210,58 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
-  getHomedata() async {
+  getHomedata(context) async {
     var tokken = await Utils.getToken();
     try {
       loadinghomedata = true;
       notifyListeners();
       await fetchHomedata(tokken).then((home) {
-        _homeModel = HomeModel.fromJson(home);
-        loadinghomedata = false;
-        notifyListeners();
+        if (tokken == null) {
+          showDialog(
+              context: context,
+              builder: (builder) => AlertDialog(
+                    title: Text(
+                      'Session Expired',
+                      style: jakratafont,
+                    ),
+                    actions: [
+                      CustomButton(
+                        text: 'Back To Login',
+                        onTap: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              CustomPageRoute(child: const LoginPage()),
+                              (route) => false);
+                        },
+                      )
+                    ],
+                  ));
+        } else {
+          _homeModel = HomeModel.fromJson(home);
+          loadinghomedata = false;
+          notifyListeners();
+        }
       });
     } catch (e) {
       loadinghomedata = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
+  getNotifications() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadingnotifications = true;
+      notifyListeners();
+      await fetchNotification(tokken).then((nots) {
+        _notificationModel = NotificationModels.fromJson(nots);
+        loadingnotifications = false;
+        print(nots);
+        notifyListeners();
+      });
+    } catch (e) {
+      loadingnotifications = false;
       notifyListeners();
       rethrow;
     }

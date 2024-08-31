@@ -286,3 +286,21 @@ Future<Map<String, dynamic>> fetchreferalshare(email, token) async {
   }
   return responseData;
 }
+
+Future<Map<String, dynamic>> fetchNotification(token) async {
+  final response = await http.get(
+    Uri.parse(AppUrls.mynotification),
+    headers: {
+      // 'Content-Type': 'application/json',
+      'Authorization': ' Bearer $token'
+    },
+  );
+  // if (kDebugMode) {
+  //   print("status code: ${response.statusCode}");
+  // }
+  final Map<String, dynamic> responseData = jsonDecode(response.body);
+  if (responseData['status'] == false) {
+    throw Exception(responseData['status_message']);
+  }
+  return responseData;
+}

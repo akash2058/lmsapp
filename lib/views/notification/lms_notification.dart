@@ -3,57 +3,74 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:provider/provider.dart';
 
-class LmsNotifcation extends StatelessWidget {
+class LmsNotifcation extends StatefulWidget {
   const LmsNotifcation({super.key});
 
   @override
+  State<LmsNotifcation> createState() => _LmsNotifcationState();
+}
+
+class _LmsNotifcationState extends State<LmsNotifcation> {
+  @override
+  void initState() {
+    super.initState();
+    getdata();
+  }
+
+  void getdata() async {
+    var state = Provider.of<MenuProviders>(context, listen: false);
+    await state.getNotifications();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppbar(
-        autoapply: true,
-        title: 'Notifications',
-        actions: [
-          const Icon(Icons.more_horiz),
-          SizedBox(
-            width: 20.w,
-          )
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-        child: Column(
-          children: [
-            CustomTile(
-                trailing: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [Text(''), Text('28 Mar, 2024 06:57 PM')],
-                ),
-                leading: Icon(
-                  Icons.circle,
-                  size: 24.h,
+    return Consumer<MenuProviders>(
+      builder: (context, nots, child) {
+        return Scaffold(
+          appBar: CustomAppbar(
+            autoapply: true,
+            title: 'Notifications',
+            actions: [
+              const Icon(Icons.more_horiz),
+              SizedBox(
+                width: 20.w,
+              )
+            ],
+          ),
+          body: nots.loadingnotifications == true
+              ? const Center(
+                  child: CircularProgressIndicator(
                   color: AppColors.primarybrown,
+                ))
+              : Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
+                  child: Column(
+                      children: List.generate(
+                          nots.notification?.data?.length ?? 0, (index) {
+                    var data = nots.notification?.data?[index];
+                    return Column(
+                      children: [
+                        CustomTile(
+                          trailing: Text(
+                            data?.createdAt ?? '',
+                            style: subtitlefont,
+                          ),
+                          title: data?.title ?? '',
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                      ],
+                    );
+                  })),
                 ),
-                title: 'Notifcations',
-                subtitle: 'Ringtone, message, notification'),
-            SizedBox(
-              height: 20.h,
-            ),
-            CustomTile(
-                trailing: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [Text(''), Text('28 Mar, 2024 06:57 PM')],
-                ),
-                leading: Icon(
-                  Icons.circle,
-                  size: 24.h,
-                  color: AppColors.primarybrown,
-                ),
-                title: 'Notifcations',
-                subtitle: 'Ringtone, message, notification'),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

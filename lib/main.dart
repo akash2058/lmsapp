@@ -1,17 +1,23 @@
-import 'dart:io';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:lmsapp/firebase_api/firebase_api.dart';
 import 'package:lmsapp/providers/appproviders.dart';
 import 'package:lmsapp/views/nointernet_screen/noconection.dart';
-import 'dart:developer' as developer;
 import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'dart:io';
+import 'dart:developer' as developer;
+
+final navigatorkey = GlobalKey<NavigatorState>();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseApi().notification();
   runApp(const MyApp());
   WidgetsBinding.instance.addPostFrameCallback((timeStap) async {
     if (Platform.isAndroid) {
@@ -32,6 +38,7 @@ class _MyAppState extends State<MyApp> {
     ConnectivityResult.none,
   ];
   final Connectivity connectivity = Connectivity();
+
   @override
   void initState() {
     super.initState();
@@ -48,9 +55,6 @@ class _MyAppState extends State<MyApp> {
       return;
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) {
       return Future.value(null);
     }
@@ -62,7 +66,6 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       connectionStatus = result;
     });
-    // ignore: avoid_print
     print('Connectivity changed: $connectionStatus');
   }
 
@@ -75,6 +78,8 @@ class _MyAppState extends State<MyApp> {
       child: MultiProvider(
         providers: getProviders(),
         child: MaterialApp(
+          navigatorKey: navigatorkey,
+
           debugShowCheckedModeBanner: false,
           // ignore: unrelated_type_equality_checks
           home: connectionStatus == ConnectivityResult.none
