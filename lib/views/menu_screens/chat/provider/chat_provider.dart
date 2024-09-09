@@ -18,7 +18,8 @@ class ChatProvider extends ChangeNotifier {
   MessageModel? get message => messageModel;
   TextEditingController messagecontroller = TextEditingController();
 
-  final StreamController<MessageModel> _messageStreamController = StreamController.broadcast();
+  final StreamController<MessageModel> _messageStreamController =
+      StreamController.broadcast();
 
   Stream<MessageModel> get messageStream => _messageStreamController.stream;
 
@@ -77,6 +78,7 @@ class ChatProvider extends ChangeNotifier {
         _messageStreamController.add(messageModel!);
         messagecontroller.clear();
         loadingsendingmessage = false;
+        print(policy);
         notifyListeners();
       });
     } catch (e) {

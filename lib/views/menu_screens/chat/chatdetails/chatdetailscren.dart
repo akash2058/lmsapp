@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -25,7 +27,13 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    getmessagedata();
+    chatheat();
+  }
+
+  void chatheat() {
+    Timer.periodic(Duration(seconds: 60), (timer) {
+      getmessagedata();
+    });
   }
 
   Future<void> getmessagedata() async {
