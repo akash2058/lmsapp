@@ -49,15 +49,6 @@ class _CartScreenState extends State<CartScreen> {
           appBar: CustomAppbar(
             autoapply: true,
             title: 'Cart',
-            actions: [
-              Icon(
-                Icons.more_horiz,
-                size: 24.h,
-              ),
-              SizedBox(
-                width: 21.w,
-              )
-            ],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 15.h),

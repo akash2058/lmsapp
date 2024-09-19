@@ -22,13 +22,15 @@ Future<Map<String, dynamic>> fetchGategory(token) async {
 
 Future<Map<String, dynamic>> fetchSearchCourse(
   token,
+  search,
+  gategory,
   startPrice,
   endPrice,
   star,
 ) async {
   final response = await http.get(
     Uri.parse(
-        '${AppUrls.searchcourse}?start_price=$startPrice&end_price=$endPrice&star=$star'),
+        '${AppUrls.searchcourse}?search=$search&gategory=${gategory}start_price=$startPrice&end_price=$endPrice&star=$star'),
     headers: {
       // 'Content-Type': 'application/json',
       'Authorization': ' Bearer $token'

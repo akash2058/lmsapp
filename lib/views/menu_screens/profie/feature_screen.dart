@@ -48,15 +48,6 @@ class _ProfileScreenState extends State<FeatureScreen> {
           appBar: CustomAppbar(
             autoapply: false,
             title: 'Features',
-            actions: [
-              Icon(
-                Icons.more_horiz,
-                size: 24.h,
-              ),
-              SizedBox(
-                width: 21.w,
-              )
-            ],
           ),
           body: SingleChildScrollView(
             child: Column(

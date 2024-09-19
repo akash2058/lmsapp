@@ -13,6 +13,7 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/landingpagehead.dart';
 import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/components/payedcourselist.dart';
 import 'package:provider/provider.dart';
 
@@ -178,21 +179,33 @@ class _PurchasedCourseLandingPageState
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                LandingPageHead(
+                                  img:
+                                      '${main.home?.data?.baseUrl ?? ''}/${main.course?.data?.course?.image ?? ''}',
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
                                 CourseDetailCard(
-                                  coursetitle: 'UI/UX Design',
+                                  coursetitle:
+                                      main.course?.data?.course?.title ?? '',
                                   title: 'Expert Wireframing for Mobile Design',
                                   duration: '4h 24m',
                                   lessons: '4 lessons',
                                   name: 'Jerremy Mamika',
-                                  ratings: '4.5',
-                                  img: AppImages.imgone,
+                                  ratings: main.course?.data?.reviews?.length
+                                          .toString() ??
+                                      '0',
+                                  img:
+                                      '${main.course?.data?.userProfileUrl}/${main.course?.data?.course?.userImage}',
                                 ),
                                 SizedBox(
                                   height: 16.h,
                                 ),
                                 AboutCourseCard(
                                   description:
-                                      'Learn What It Takes to Code Dynamic, Professional Websites and Web Apps From The...Read more Learn What It Takes to Code Dynamic, Professional Websites and Web Apps From The Learn What It Takes to Code Dynamic, Professional Websites and Web Apps From The.',
+                                      main.course?.data?.course?.description ??
+                                          '',
                                 ),
                                 SizedBox(
                                   height: 16.h,
@@ -340,7 +353,7 @@ class _PurchasedCourseLandingPageState
                               var data =
                                   main.playlistitem?.data?.playlist?[index];
                               return CustomExpansionTile(
-                                  lessonnum: index.bitLength.toInt().toString(),
+                                  lessonnum: (index + 1).toString(),
                                   duration: data?.timeDuration ?? '',
                                   lessontitle: data?.title ?? '',
                                   children: [

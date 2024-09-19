@@ -63,34 +63,37 @@ class _PaymentHistoryState extends State<PaymentHistory> {
               : Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-                  child: Column(
-                      children: List.generate(
-                          value.payment?.data?.payments?.length ?? 0, (index) {
-                    var data = value.payment?.data?.payments?[index];
-                    return Column(
-                      children: [
-                        PaymentHistoryCard(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: PopularCourseLandingPage(
-                                  id: data?.courseId.toString() ?? '',
-                                )));
-                          },
-                          coursetitle: data?.courseTitle ?? '',
-                          date: '',
-                          price: 'INR${data?.salePrice ?? ''}',
-                          time: data?.createdAt ?? '',
-                          img:
-                              '${value.payment?.data?.baseUrl}/${data?.courseImage}',
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        )
-                      ],
-                    );
-                  })),
+                  child: SingleChildScrollView(
+                    child: Column(
+                        children: List.generate(
+                            value.payment?.data?.payments?.length ?? 0,
+                            (index) {
+                      var data = value.payment?.data?.payments?[index];
+                      return Column(
+                        children: [
+                          PaymentHistoryCard(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(
+                                      child: PopularCourseLandingPage(
+                                    id: data?.courseId.toString() ?? '',
+                                  )));
+                            },
+                            coursetitle: data?.courseTitle ?? '',
+                            date: '',
+                            price: 'INR${data?.salePrice ?? ''}',
+                            time: data?.createdAt ?? '',
+                            img:
+                                '${value.payment?.data?.baseUrl}/${data?.courseImage}',
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          )
+                        ],
+                      );
+                    })),
+                  ),
                 ),
         );
       },

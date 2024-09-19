@@ -18,6 +18,15 @@ class BottomsheetProvider extends ChangeNotifier {
   // ignore: unused_field
   double currentSliderValue = 500;
   String selectstar = '';
+  String selectgategory = '';
+
+  void selectgategorylist(String text) {
+    selectgategory = text;
+    gategorycontroller.text = text;
+    print(gategorycontroller.text);
+    notifyListeners();
+  }
+
   void selectstarlist(String text) {
     selectstar = text;
     ratingcontroller.text = text;
@@ -43,6 +52,8 @@ class BottomsheetProvider extends ChangeNotifier {
       notifyListeners();
       await fetchSearchCourse(
         tokken,
+        searchbycontroller.text,
+        gategorycontroller.text,
         coursestartrprice.text,
         courseendprice.text,
         ratingcontroller.text,

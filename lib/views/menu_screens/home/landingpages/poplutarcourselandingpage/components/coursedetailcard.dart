@@ -32,13 +32,6 @@ class CourseDetailCard extends StatelessWidget {
         children: [
           Text(
             coursetitle,
-            style: coursetitlefont,
-          ),
-          SizedBox(
-            height: 4.h,
-          ),
-          Text(
-            title,
             style: titleStyle,
           ),
           SizedBox(
@@ -104,10 +97,6 @@ class CourseDetailCard extends StatelessWidget {
                     ratings,
                     style: jakratafontblack,
                   ),
-                  Text(
-                    '(55 Reviews)',
-                    style: ratinggrey,
-                  )
                 ],
               )
             ],

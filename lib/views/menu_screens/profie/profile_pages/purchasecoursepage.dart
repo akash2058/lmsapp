@@ -126,6 +126,7 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
                                     context,
                                     CustomPageRoute(
                                         child: PurchasedCourseLandingPage(
+                                          
                                       coursename: data?.courseTitle ?? '',
                                       courseid: data?.courseId ?? '',
                                       id: data?.id.toString() ?? '',

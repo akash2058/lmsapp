@@ -54,6 +54,7 @@ class ChatProvider extends ChangeNotifier {
       await fetchgetMessage(tokken, id).then((policy) {
         messageModel = MessageModel.fromJson(policy);
         _messageStreamController.add(messageModel!);
+        print(policy);
         loadingmessage = false;
         notifyListeners();
       });

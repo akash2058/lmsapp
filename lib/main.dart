@@ -1,15 +1,15 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:lmsapp/firebase_api/firebase_api.dart';
 import 'package:lmsapp/providers/appproviders.dart';
-import 'package:lmsapp/views/nointernet_screen/noconection.dart';
 import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'dart:io';
 import 'dart:developer' as developer;
 
 final navigatorkey = GlobalKey<NavigatorState>();
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       connectionStatus = result;
     });
-    print('Connectivity changed: $connectionStatus');
+
   }
 
   @override
@@ -82,9 +82,7 @@ class _MyAppState extends State<MyApp> {
 
           debugShowCheckedModeBanner: false,
           // ignore: unrelated_type_equality_checks
-          home: connectionStatus == ConnectivityResult.none
-              ? const NoInternetScreen()
-              : const SplashScreen(),
+          home:  const SplashScreen(),
         ),
       ),
     );

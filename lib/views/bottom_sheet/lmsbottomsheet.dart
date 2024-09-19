@@ -21,6 +21,7 @@ class LmsBottomSheet extends StatefulWidget {
 class _LmsBottomSheetState extends State<LmsBottomSheet> {
   RangeValues _currentRangeValues =
       const RangeValues(20, 80); // Initialize range values
+  final double _minGap = 10;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
       builder: (context, bottom, child) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          height: 490.h,
+          height: 650.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(20.r),
@@ -78,7 +79,8 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                   Text('Search By', style: titlestyle),
                   SizedBox(height: 20.h),
                   CustomFormField(
-                    hint: 'By Class',
+                    controller: bottom.searchbycontroller,
+                    hint: '',
                   ),
                   SizedBox(height: 20.h),
                   Text('Search By', style: titlestyle),
@@ -87,6 +89,8 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                   SizedBox(height: 20.h),
                   Text('Price', style: titlestyle),
                   SizedBox(height: 20.h),
+
+                  // Range slider with gap logic
                   RangeSlider(
                     activeColor: AppColors.primarybrown,
                     values: _currentRangeValues,
@@ -94,41 +98,67 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                     max: 100000,
                     divisions: 100,
                     labels: RangeLabels(
-                      _currentRangeValues.start.round().toString(),
-                      _currentRangeValues.end.round().toString(),
+                      '₹${_currentRangeValues.start.round()}',
+                      '₹${_currentRangeValues.end.round()}',
                     ),
                     onChanged: (RangeValues values) {
                       setState(() {
-                        _currentRangeValues = values;
-                        bottom.coursestartrprice.text =
-                            _currentRangeValues.start.round().toString();
-                        bottom.courseendprice.text =
-                            _currentRangeValues.end.round().toString();
+                        // Ensure the gap between start and end values
+                        if ((values.end - values.start) >= _minGap) {
+                          _currentRangeValues = values;
+                          bottom.coursestartrprice.text =
+                              _currentRangeValues.start.round().toString();
+                          bottom.courseendprice.text =
+                              _currentRangeValues.end.round().toString();
+                        } else {
+                          // Maintain the gap if user tries to bring sliders too close
+                          if (_currentRangeValues.start != values.start) {
+                            _currentRangeValues = RangeValues(
+                              values.start,
+                              values.start + _minGap,
+                            );
+                          } else {
+                            _currentRangeValues = RangeValues(
+                              values.end - _minGap,
+                              values.end,
+                            );
+                          }
+                        }
                       });
                     },
                   ),
+
+                  SizedBox(height: 10.h), // Space between slider and labels
+
+                  // Adjusted price labels with proper spacing between them
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('\$${_currentRangeValues.start.round()}',
-                          style: titlestyle),
-                      Text('\$${_currentRangeValues.end.round()}',
-                          style: titlestyle),
+                      Expanded(
+                        child: Text('₹${_currentRangeValues.start.round()}',
+                            style: titlestyle),
+                      ),
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text('₹${_currentRangeValues.end.round()}',
+                              style: titlestyle),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
+                  SizedBox(height: 25.h),
                   CustomButton(
-                      height: 53.h,
-                      text: bottom.loadingsearchcourse == true
-                          ? 'Searching....'
-                          : 'Search',
-                      onTap: () {
-                        Navigator.pop(context);
-                        Navigator.push(context,
-                            CustomPageRoute(child: const CourseSearchPage()));
-                      })
+                    height: 53.h,
+                    text: bottom.loadingsearchcourse == true
+                        ? 'Searching....'
+                        : 'Search',
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          CustomPageRoute(child: const CourseSearchPage()));
+                    },
+                  ),
                 ],
               ),
             ),

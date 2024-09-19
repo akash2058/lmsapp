@@ -40,15 +40,6 @@ class _ChatScreenState extends State<ChatScreen> {
         return Scaffold(
           appBar: CustomAppbar(
             title: 'Message',
-            actions: [
-              Icon(
-                Icons.more_horiz,
-                size: 24.h,
-              ),
-              SizedBox(
-                width: 21.w,
-              )
-            ],
             autoapply: false,
           ),
           body: Padding(

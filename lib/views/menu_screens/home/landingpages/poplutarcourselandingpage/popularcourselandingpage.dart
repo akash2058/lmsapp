@@ -79,7 +79,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
             child: Row(
               children: [
                 Text(
-                  '₹${get.course?.data?.course?.salePrice ?? ''}',
+                  '₹${get.course?.data?.course?.coursePrice ?? ''}',
                   style: titlestyle,
                 ),
                 SizedBox(

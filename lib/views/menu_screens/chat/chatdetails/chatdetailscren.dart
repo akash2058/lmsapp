@@ -27,13 +27,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    chatheat();
-  }
-
-  void chatheat() {
-    Timer.periodic(Duration(seconds: 60), (timer) {
-      getmessagedata();
-    });
+    getmessagedata();
   }
 
   Future<void> getmessagedata() async {

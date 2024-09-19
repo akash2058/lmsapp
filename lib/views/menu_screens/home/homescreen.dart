@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await state.getHomedata(context);
   }
 
-  var tokken = Utils.getToken();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
