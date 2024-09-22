@@ -9,7 +9,6 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lms_drawer.dart';
 
@@ -52,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void homedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     await state.getHomedata(context);
+    await state.getMyCourse();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -127,16 +126,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             CustomSearchField(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CustomPageRoute(
-                                        child: const MySearchScreen()));
+                                if (main.mycourse?.data != null) {
+                                  showSearch(
+                                    context: context,
+                                    delegate: CustomSearchDelegate(main
+                                        .mycourse!
+                                        .data!), // Trigger search directly
+                                  );
+                                }
                               },
                               prefix: SvgPicture.asset(
                                 SvgImages.search,
                                 height: 24.h,
                               ),
-                              hint: 'Search any thing',
+                              hint: 'Search any course',
                             ),
                             SizedBox(
                               width: 20.w,

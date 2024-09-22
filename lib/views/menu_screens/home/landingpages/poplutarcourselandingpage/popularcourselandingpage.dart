@@ -46,6 +46,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
     var cart = Provider.of<CartProvider>(context, listen: false);
 
     await state.getCourseDetails(widget.id);
+    print(widget.id);
     await cart.getCartData();
   }
 
@@ -79,7 +80,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
             child: Row(
               children: [
                 Text(
-                  '₹${get.course?.data?.course?.coursePrice ?? ''}',
+                  '₹${get.course?.data?.course?.coursePrice ?? '0'}',
                   style: titlestyle,
                 ),
                 SizedBox(
@@ -136,6 +137,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                       SizedBox(
                         height: 24.h,
                       ),
+                      if (get.course?.data?.course?.image == null) Container(),
                       LandingPageHead(
                           img:
                               '${get.home?.data?.baseUrl ?? ''}/${get.course?.data?.course?.image ?? ''}'),
@@ -154,7 +156,9 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                               lessons:
                                   '${get.course?.data?.course?.playlistCount} lessons',
                               name: get.course?.data?.course?.userName ?? '',
-                              ratings: '5',
+                              ratings: get.course?.data?.reviews?.length
+                                      .toString() ??
+                                  '',
                               img:
                                   '${get.course?.data?.userProfileUrl}/${get.course?.data?.course?.userImage}',
                             ),

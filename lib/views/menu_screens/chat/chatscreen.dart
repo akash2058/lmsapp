@@ -131,25 +131,13 @@ class ChatCard extends StatelessWidget {
                     style: itemsfont,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
                         time,
                         style: itemsfont,
                       ),
-                      Container(
-                        height: 32.h,
-                        width: 31.w,
-                        decoration: BoxDecoration(
-                            color: AppColors.primarybrown,
-                            borderRadius: BorderRadius.circular(8.r)),
-                        child: Center(
-                          child: Text(
-                            messageindication,
-                            style: messageindicationstyle,
-                          ),
-                        ),
-                      )
                     ],
                   )
                 ],

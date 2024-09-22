@@ -36,15 +36,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
     return Consumer<DrawerProvider>(
       builder: (context, drawer, child) {
         return Scaffold(
-          appBar: CustomAppbar(
-              autoapply: true,
-              actions: [
-                const Icon(Icons.more_horiz),
-                SizedBox(
-                  width: 20.w,
-                )
-              ],
-              title: 'Certificates'),
+          appBar: CustomAppbar(autoapply: true, title: 'Certificates'),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
             child: SingleChildScrollView(
@@ -113,7 +105,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
                             ),
                             child: Text(
                               textAlign: TextAlign.center,
-                              'View Certificate',
+                              'View',
                               style: allCoursetitle,
                             ),
                           ),

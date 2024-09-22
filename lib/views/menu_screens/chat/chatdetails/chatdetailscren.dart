@@ -35,15 +35,15 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     await state.getMessage(context, widget.id, auth.userid);
     await auth.loadLoginData();
-    _scrollToBottom();
+    _scrollToBottom(); // Ensure to scroll after loading messages
   }
 
   void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      });
-    }
+      }
+    });
   }
 
   @override
@@ -72,6 +72,11 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
 
                   var messages = snapshot.data!.data!.chats!;
 
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    // Scroll to bottom after the frame is built with new messages
+                    _scrollToBottom();
+                  });
+
                   return RefreshIndicator(
                     onRefresh: getmessagedata,
                     child: ListView.builder(
@@ -96,9 +101,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                               SenderCard(
                                 message: data.message ?? '',
                               ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
+                            SizedBox(height: 15.h),
                           ],
                         );
                       },

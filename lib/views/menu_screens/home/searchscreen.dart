@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
-
+import 'package:lmsapp/customwidgets/customtile.dart';
+import 'package:lmsapp/models/purchase_course_model.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+
+import 'package:provider/provider.dart';
 
 class CustomSearchDelegate extends SearchDelegate<String> {
-  final List<String> data; // Your data source for searching
+  final List<CourseData> data;
 
   CustomSearchDelegate(this.data);
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    // Actions for search bar (e.g., clear query button)
     return [
       IconButton(
         icon: const Icon(Icons.clear),
@@ -26,7 +31,6 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildLeading(BuildContext context) {
-    // Leading icon on the left of the search bar (e.g., back button)
     return IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
@@ -37,17 +41,35 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    // Build search results based on the query
-    final results = data.where((element) => element.contains(query)).toList();
+    // Filter and remove duplicates by course title
+    final results = data
+        .where((course) =>
+            course.courseTitle != null &&
+            course.courseTitle!.toLowerCase().contains(query.toLowerCase()))
+        .toSet()
+        .toList();
+
+    if (results.isEmpty) {
+      return const Center(
+        child: Text("No results found"),
+      );
+    }
+
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(results[index]),
+        var course = results[index];
+        return CustomTile(
+          leading: Image.network('${course.baseUrl}/${course.courseImage}'),
           onTap: () {
-            // Handle tapping on a search result
-            close(context, results[index]);
+            Navigator.push(
+              context,
+              CustomPageRoute(
+                child: PopularCourseLandingPage(id: course.courseId.toString()),
+              ),
+            );
           },
+          title: course.courseTitle ?? '',
         );
       },
     );
@@ -55,102 +77,107 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // Suggestions that appear as the user types
+    // Filter and remove duplicates by course title
     final suggestionList = query.isEmpty
         ? []
-        : data.where((element) => element.contains(query)).toList();
+        : data
+            .where((course) =>
+                course.courseTitle != null &&
+                course.courseTitle!.toLowerCase().contains(query.toLowerCase()))
+            .toSet()
+            .toList();
+
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestionList[index]),
+        var course = suggestionList[index];
+        return CustomTile(
           onTap: () {
-            // Handle tapping on a suggestion
-            query = suggestionList[index];
-            showResults(context);
+            Navigator.push(
+              context,
+              CustomPageRoute(
+                child: PopularCourseLandingPage(id: course.courseId.toString()),
+              ),
+            );
           },
+          leading: Image.network(course.baseUrl! + course.courseImage!),
+          title: course.courseTitle ?? '',
         );
       },
     );
   }
 }
 
-// Usage
 class MySearchScreen extends StatefulWidget {
   const MySearchScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MySearchScreenState createState() => _MySearchScreenState();
 }
 
 class _MySearchScreenState extends State<MySearchScreen> {
-  List<String> data = [
-    'Apple',
-    'Banana',
-    'Orange',
-    'Mango',
-    'Pineapple'
-  ]; // Your data source
+  List<CourseData>? courses;
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    var provider = Provider.of<MenuProviders>(context, listen: false);
+    await provider.getMyCourse();
+
+    // Prevent duplicates by using toSet().toList() if necessary
+    setState(() {
+      courses = provider.mycourse?.data?.toSet().toList() ?? [];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            SizedBox(
-              width: 50.w,
-            ),
-            CustomSearchField(
-              onTap: () {
+      appBar: AppBar(
+        actions: [
+          SizedBox(width: 50.w),
+          CustomSearchField(
+            onTap: () {
+              if (courses != null && courses!.isNotEmpty) {
                 showSearch(
                   context: context,
-                  delegate: CustomSearchDelegate(data),
+                  delegate:
+                      CustomSearchDelegate(courses!), // Ensure no duplicates
                 );
-              },
-              suffix: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.clear),
-                  SizedBox(
-                    width: 18.w,
-                  ),
-                  SvgPicture.asset(SvgImages.bottomsheetimg),
-                  SizedBox(
-                    width: 18.w,
-                  ),
-                ],
-              ),
-              prefix: SvgPicture.asset(
-                SvgImages.search,
-                height: 24.h,
-              ),
-              hint: 'Search any thing',
+              }
+            },
+            suffix: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.clear),
+                SizedBox(width: 18.w),
+                SvgPicture.asset(SvgImages.bottomsheetimg),
+                SizedBox(width: 18.w),
+              ],
             ),
-            SizedBox(
-              width: 28.w,
-            )
+            prefix: SvgPicture.asset(SvgImages.search, height: 24.h),
+            hint: 'Search any course',
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Recent Search', style: titlestyle),
+                Text('Clear all', style: paymentpricestyle),
+              ],
+            ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Recent Search',
-                    style: titlestyle,
-                  ),
-                  Text(
-                    'Close all',
-                    style: paymentpricestyle,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

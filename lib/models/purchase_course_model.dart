@@ -1,6 +1,6 @@
 class MyCourseModel {
   bool? success;
-  List<Data>? data;
+  List<CourseData>? data;
   String? message;
 
   MyCourseModel({this.success, this.data, this.message});
@@ -8,9 +8,9 @@ class MyCourseModel {
   MyCourseModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <CourseData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(CourseData.fromJson(v));
       });
     }
     message = json['message'];
@@ -27,7 +27,7 @@ class MyCourseModel {
   }
 }
 
-class Data {
+class CourseData {
   int? id;
   String? orderId;
   String? courseTitle;
@@ -37,7 +37,7 @@ class Data {
   String? duration;
   String? baseUrl;
 
-  Data(
+  CourseData(
       {this.id,
       this.orderId,
       this.courseTitle,
@@ -47,7 +47,7 @@ class Data {
       this.duration,
       this.baseUrl});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CourseData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     orderId = json['order_id'];
     courseTitle = json['course_title'];

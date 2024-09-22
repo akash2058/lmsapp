@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:provider/provider.dart';
 
 class LmsSlider extends StatefulWidget {
@@ -80,45 +82,55 @@ class _LmsSliderState extends State<LmsSlider> {
                   },
                   itemBuilder: (context, index) {
                     var slides = slider.home?.data?.homeBanner?[index];
-                    return Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            '${slider.home?.data?.baseUrl}/${slides?.image ?? ''}',
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            CustomPageRoute(
+                                child: PopularCourseLandingPage(
+                              id: slides?.id.toString() ?? '',
+                            )));
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              '${slider.home?.data?.baseUrl}/${slides?.image ?? ''}',
+                            ),
                           ),
+                          borderRadius: BorderRadius.circular(20.r),
                         ),
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 20.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'All Course',
-                              style: resendotpstyle,
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                            Text(
-                              slides?.title ?? '',
-                              style: titlestyle,
-                            ),
-                            SizedBox(
-                              height: 12.h,
-                            ),
-                            Text(
-                              '${slides?.playlistsCount ?? '0'}/25 Lesson',
-                              style: resendotpstyle,
-                            ),
-                            SizedBox(
-                              height: 28.h,
-                            ),
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 20.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'All Course',
+                                style: resendotpstyle,
+                              ),
+                              SizedBox(
+                                height: 4.h,
+                              ),
+                              Text(
+                                slides?.title ?? '',
+                                style: titlestyle,
+                              ),
+                              SizedBox(
+                                height: 12.h,
+                              ),
+                              Text(
+                                '${slides?.playlistsCount ?? '0'}/25 Lesson',
+                                style: resendotpstyle,
+                              ),
+                              SizedBox(
+                                height: 28.h,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -129,28 +141,31 @@ class _LmsSliderState extends State<LmsSlider> {
             SizedBox(
               height: 12.h,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                slider.home?.data?.homeBanner?.length ?? 0,
-                (index) => Row(
-                  children: [
-                    AnimatedContainer(
-                      curve: Curves.linear,
-                      duration: const Duration(milliseconds: 500),
-                      height: 8.h,
-                      width: currentslide == index ? 25.w : 8.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40.r),
-                        color: currentslide == index
-                            ? AppColors.primarybrown
-                            : AppColors.formfillcolor,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  slider.home?.data?.homeBanner?.length ?? 0,
+                  (index) => Row(
+                    children: [
+                      AnimatedContainer(
+                        curve: Curves.linear,
+                        duration: const Duration(milliseconds: 500),
+                        height: 8.h,
+                        width: currentslide == index ? 25.w : 8.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40.r),
+                          color: currentslide == index
+                              ? AppColors.primarybrown
+                              : AppColors.formfillcolor,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    )
-                  ],
+                      SizedBox(
+                        width: 5.w,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

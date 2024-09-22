@@ -56,6 +56,7 @@ class _LmsNotifcationState extends State<LmsNotifcation> {
                     return Column(
                       children: [
                         CustomTile(
+                          onTap: () {},
                           trailing: Text(
                             data?.createdAt ?? '',
                             style: subtitlefont,

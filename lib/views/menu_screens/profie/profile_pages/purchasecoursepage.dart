@@ -31,7 +31,6 @@ class _PurchaseCoursePageState extends State<PurchaseCoursePage> {
 
   void loadpurchasedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
-
     await state.getMyCourse();
     await state.getUpComingTest();
   }

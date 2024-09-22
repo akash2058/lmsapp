@@ -14,7 +14,6 @@ import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandin
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
 import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/landingpagehead.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/components/payedcourselist.dart';
 import 'package:provider/provider.dart';
 
 class PurchasedCourseLandingPage extends StatefulWidget {
@@ -54,6 +53,25 @@ class _PurchasedCourseLandingPageState
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
+        String convertMinutesToHours(int minutes) {
+          int hours = minutes ~/ 60;
+          int remainingMinutes = minutes % 60;
+          String result = '$hours hrs';
+          if (remainingMinutes > 0) {
+            result += ' $remainingMinutes min';
+          }
+          return result;
+        }
+
+        String? courseTime = main.course?.data?.course?.courseTime?.toString();
+
+        // Parse courseTime to int using int.tryParse()
+        int? minutes = int.tryParse(courseTime ?? '');
+
+        if (minutes != null) {
+          convertMinutesToHours(minutes);
+        } else {}
+
         return Scaffold(
           bottomNavigationBar: currentstate == 0
               ? null
@@ -85,7 +103,7 @@ class _PurchasedCourseLandingPageState
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           GestureDetector(
                             onTap: () {
@@ -141,33 +159,6 @@ class _PurchasedCourseLandingPageState
                               ),
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                currentstate = 2;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: currentstate == 2
-                                        ? AppColors.primarybrown
-                                        : AppColors.primarygrey),
-                                color: currentstate == 2
-                                    ? AppColors.primarybrown
-                                    : AppColors.primarywhite,
-                                borderRadius: BorderRadius.circular(50.r),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.h, horizontal: 12.w),
-                              child: Text(
-                                'Certificates',
-                                style: currentstate == 2
-                                    ? popularcoursestyle
-                                    : itemsfont,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                       SizedBox(
@@ -175,135 +166,148 @@ class _PurchasedCourseLandingPageState
                       ),
                       if (currentstate == 1)
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                LandingPageHead(
-                                  img:
-                                      '${main.home?.data?.baseUrl ?? ''}/${main.course?.data?.course?.image ?? ''}',
+                          child: main.loadingcoursedetails == true
+                              ? const Center(child: CircularProgressIndicator())
+                              : SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      LandingPageHead(
+                                        img:
+                                            '${main.home?.data?.baseUrl ?? ''}/${main.course?.data?.course?.image ?? ''}',
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      CourseDetailCard(
+                                        coursetitle:
+                                            main.course?.data?.course?.title ??
+                                                '',
+                                        title:
+                                            'Expert Wireframing for Mobile Design',
+                                        duration:
+                                            convertMinutesToHours(minutes ?? 0),
+                                        lessons:
+                                            '${main.course?.data?.course?.playlistCount ?? ''} lessons',
+                                        name: main.course?.data?.course
+                                                ?.userName ??
+                                            '',
+                                        ratings: main
+                                                .course?.data?.reviews?.length
+                                                .toString() ??
+                                            '0',
+                                        img:
+                                            '${main.course?.data?.userProfileUrl}/${main.course?.data?.course?.userImage}',
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      AboutCourseCard(
+                                        description: main.course?.data?.course
+                                                ?.description ??
+                                            '',
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Text(
+                                        'Lessons',
+                                        style: titlestyle,
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Text(
+                                        'Please finish the lessons step by step',
+                                        style: itemsfont,
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      // const PayedCourseLandingPage(),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      Text(
+                                        'Review',
+                                        style: titlestyle,
+                                      ),
+                                      SizedBox(
+                                        height: 16.h,
+                                      ),
+                                      const CourseReviewList(),
+                                      Text(
+                                        'Overall rating',
+                                        style: titlestyle,
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Row(
+                                        children: List.generate(
+                                            5,
+                                            (index) => Row(
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(2.sp),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      6.r),
+                                                          border: Border.all(
+                                                            color: AppColors
+                                                                .primarylightgrey,
+                                                          )),
+                                                      child: const Icon(
+                                                        Icons.star,
+                                                        color: AppColors
+                                                            .primaryellow,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 4.w,
+                                                    )
+                                                  ],
+                                                )),
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      Text(
+                                        'click to rate',
+                                        style: ratingtextstyle,
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text(
+                                        'Product Review',
+                                        style: titlestyle,
+                                      ),
+                                      SizedBox(
+                                        height: 8.h,
+                                      ),
+                                      CustomFormField(
+                                          maxlines: 3,
+                                          hint:
+                                              'Would you like to write anything about this course.'),
+                                      SizedBox(
+                                        height: 32.h,
+                                      ),
+                                      CustomButton(
+                                          width: 122.w,
+                                          height: 53.h,
+                                          text: 'Post Review',
+                                          onTap: () {}),
+                                      SizedBox(
+                                        height: 32.h,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                CourseDetailCard(
-                                  coursetitle:
-                                      main.course?.data?.course?.title ?? '',
-                                  title: 'Expert Wireframing for Mobile Design',
-                                  duration: '4h 24m',
-                                  lessons: '4 lessons',
-                                  name: 'Jerremy Mamika',
-                                  ratings: main.course?.data?.reviews?.length
-                                          .toString() ??
-                                      '0',
-                                  img:
-                                      '${main.course?.data?.userProfileUrl}/${main.course?.data?.course?.userImage}',
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                AboutCourseCard(
-                                  description:
-                                      main.course?.data?.course?.description ??
-                                          '',
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Text(
-                                  'Lessons',
-                                  style: titlestyle,
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Text(
-                                  'Please finish the lessons step by step',
-                                  style: itemsfont,
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                const PayedCourseLandingPage(),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                Text(
-                                  'Review',
-                                  style: titlestyle,
-                                ),
-                                SizedBox(
-                                  height: 16.h,
-                                ),
-                                const CourseReviewList(),
-                                Text(
-                                  'Overall rating',
-                                  style: titlestyle,
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Row(
-                                  children: List.generate(
-                                      5,
-                                      (index) => Row(
-                                            children: [
-                                              Container(
-                                                padding: EdgeInsets.all(2.sp),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6.r),
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .primarylightgrey,
-                                                    )),
-                                                child: const Icon(
-                                                  Icons.star,
-                                                  color: AppColors.primaryellow,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 4.w,
-                                              )
-                                            ],
-                                          )),
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                Text(
-                                  'click to rate',
-                                  style: ratingtextstyle,
-                                ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Text(
-                                  'Product Review',
-                                  style: titlestyle,
-                                ),
-                                SizedBox(
-                                  height: 8.h,
-                                ),
-                                CustomFormField(
-                                    maxlines: 3,
-                                    hint:
-                                        'Would you like to write anything about this course.'),
-                                SizedBox(
-                                  height: 32.h,
-                                ),
-                                CustomButton(
-                                    width: 122.w,
-                                    height: 53.h,
-                                    text: 'Post Review',
-                                    onTap: () {}),
-                                SizedBox(
-                                  height: 32.h,
-                                ),
-                              ],
-                            ),
-                          ),
                         ),
                       if (currentstate == 2)
                         Column(

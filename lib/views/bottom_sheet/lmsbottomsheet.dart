@@ -42,7 +42,6 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
       builder: (context, bottom, child) {
         return Container(
           width: MediaQuery.sizeOf(context).width,
-          height: 650.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(20.r),
