@@ -91,10 +91,14 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                             children: [
                               CustomSearchField(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      CustomPageRoute(
-                                          child: const MySearchScreen()));
+                                  if (state.mycourse?.data != null) {
+                                    showSearch(
+                                      context: context,
+                                      delegate: CustomSearchDelegate(state
+                                          .mycourse!
+                                          .data!), // Trigger search directly
+                                    );
+                                  }
                                 },
                                 prefix: SvgPicture.asset(
                                   SvgImages.search,

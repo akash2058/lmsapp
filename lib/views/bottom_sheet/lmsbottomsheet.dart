@@ -20,8 +20,8 @@ class LmsBottomSheet extends StatefulWidget {
 
 class _LmsBottomSheetState extends State<LmsBottomSheet> {
   RangeValues _currentRangeValues =
-      const RangeValues(20, 80); // Initialize range values
-  final double _minGap = 10;
+      const RangeValues(10000, 90000); // Set initial gap
+  final double _minGap = 10000;
 
   @override
   void initState() {

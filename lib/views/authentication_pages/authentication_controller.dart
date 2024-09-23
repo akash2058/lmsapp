@@ -1,6 +1,5 @@
 // ignore_for_file: unrelated_type_equality_checks
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
@@ -40,7 +39,7 @@ class AuthenticationProvider extends ChangeNotifier {
   RegisterModel? get registers => _registerModel;
 
 //savingusercredintial
-  String token = '';
+  String? token = '';
   String name = '';
   String email = '';
   String userid = '';
@@ -294,36 +293,5 @@ class AuthenticationProvider extends ChangeNotifier {
       loadingchangepassword = false;
       throw {"error": e}; // Throw a map containing the error message
     }
-  }
-
-  List<ConnectivityResult> connectionStatus = [
-    ConnectivityResult.none,
-    ConnectivityResult.wifi,
-    ConnectivityResult.mobile,
-    ConnectivityResult.ethernet,
-  ];
-  final Connectivity connectivity = Connectivity();
-  Future<void> initConnectivity() async {
-    late List<ConnectivityResult> result;
-
-    try {
-      result = await connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    connectionStatus = result;
-
-    // ignore: avoid_print
-    print('Connectivity changed: $connectionStatus');
   }
 }

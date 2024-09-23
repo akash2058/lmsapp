@@ -1,16 +1,15 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:lmsapp/firebase_api/firebase_api.dart';
 import 'package:lmsapp/providers/appproviders.dart';
 import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:developer' as developer;
 
 final navigatorkey = GlobalKey<NavigatorState>();
 
@@ -34,39 +33,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<ConnectivityResult> connectionStatus = [
-    ConnectivityResult.none,
-  ];
-  final Connectivity connectivity = Connectivity();
-
+  bool isinternetisconnected = false;
+  StreamSubscription? _streamSubscription;
   @override
   void initState() {
     super.initState();
-    initConnectivity();
+
   }
 
-  Future<void> initConnectivity() async {
-    late List<ConnectivityResult> result;
-
-    try {
-      result = await connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      developer.log('Couldn\'t check connectivity status', error: e);
-      return;
-    }
-
-    if (!mounted) {
-      return Future.value(null);
-    }
-
-    return _updateConnectionStatus(result);
-  }
-
-  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
-    setState(() {
-      connectionStatus = result;
-    });
-
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -82,7 +60,7 @@ class _MyAppState extends State<MyApp> {
 
           debugShowCheckedModeBanner: false,
           // ignore: unrelated_type_equality_checks
-          home:  const SplashScreen(),
+          home: const SplashScreen(),
         ),
       ),
     );

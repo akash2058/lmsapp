@@ -150,7 +150,7 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                             CourseDetailCard(
                               coursetitle:
                                   get.course?.data?.course?.metaTitle ?? '',
-                              title: 'Expert Wireframing for Mobile Design',
+                              title: '',
                               duration:
                                   convertMinutesToHours(minutes?.toInt() ?? 0),
                               lessons:

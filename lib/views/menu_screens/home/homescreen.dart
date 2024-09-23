@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
 
@@ -9,6 +12,8 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/drawer/lms_drawer.dart';
 
@@ -40,24 +45,71 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isinternetisconnected = false;
+  StreamSubscription? _streamSubscription;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       homedata();
+      _streamSubscription = InternetConnection().onStatusChange.listen((event) {
+        print('event: $event');
+        switch (event) {
+          case InternetStatus.connected:
+            setState(() {
+              isinternetisconnected = true;
+            });
+            break;
+          case InternetStatus.disconnected:
+            setState(() {
+              isinternetisconnected = false;
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    content: Text(
+                      'No Internet Connection !!!',
+                      style: titlestyle,
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Ok',
+                            style: titleStyle,
+                          ))
+                    ],
+                  );
+                },
+              );
+            });
+            break;
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _streamSubscription?.cancel();
   }
 
   void homedata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
+    var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     await state.getHomedata(context);
     await state.getMyCourse();
+    await auth.loadLoginData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<MenuProviders>(
       builder: (context, main, child) {
+        var auth = Provider.of<AuthenticationProvider>(context, listen: false);
         return Scaffold(
           backgroundColor: AppColors.lightwhite,
           drawer: const LmsDrawer(),
@@ -115,181 +167,203 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CircularProgressIndicator(
                   color: AppColors.primarybrown,
                 ))
-              : Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 32.h),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+              : auth.token == null
+                  ? Card(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Session Expired. Please Login Again',
+                            style: titlestyle,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    CustomPageRoute(child: const LoginPage()));
+                              },
+                              child: Text(
+                                'Logout',
+                                style: testtitlestyle,
+                              ))
+                        ],
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 28.w, vertical: 32.h),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CustomSearchField(
-                              onTap: () {
-                                if (main.mycourse?.data != null) {
-                                  showSearch(
-                                    context: context,
-                                    delegate: CustomSearchDelegate(main
-                                        .mycourse!
-                                        .data!), // Trigger search directly
-                                  );
-                                }
-                              },
-                              prefix: SvgPicture.asset(
-                                SvgImages.search,
-                                height: 24.h,
-                              ),
-                              hint: 'Search any course',
-                            ),
-                            SizedBox(
-                              width: 20.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) {
-                                      return const LmsBottomSheet();
-                                    });
-                              },
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.primarylightgrey),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 18.h, horizontal: 16.w),
-                                  child: SvgPicture.asset(
-                                    SvgImages.bottomsheetimg,
+                            Row(
+                              children: [
+                                CustomSearchField(
+                                  onTap: () {
+                                    if (main.mycourse?.data != null) {
+                                      showSearch(
+                                        context: context,
+                                        delegate: CustomSearchDelegate(main
+                                            .mycourse!
+                                            .data!), // Trigger search directly
+                                      );
+                                    }
+                                  },
+                                  prefix: SvgPicture.asset(
+                                    SvgImages.search,
+                                    height: 24.h,
                                   ),
+                                  hint: 'Search any course',
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        const LmsSlider(),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        CourseTitle(
-                          onpressed: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: const PopularCourseSeeAll()));
-                          },
-                          title: 'Popular Courses',
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: List.generate(
-                                main.home?.data?.category?.length ?? 0,
-                                (index) => Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(50.r),
-                                          gradient: const LinearGradient(
-                                              colors: [
-                                                AppColors.primarybrown,
-                                                AppColors.secondarybrown,
-                                                AppColors.primaryacent
-                                              ])),
+                                SizedBox(
+                                  width: 20.w,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return const LmsBottomSheet();
+                                        });
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: AppColors.primarylightgrey),
+                                    child: Padding(
                                       padding: EdgeInsets.symmetric(
-                                          vertical: 10.h, horizontal: 12.w),
-                                      child: Text(
-                                        main.home?.data?.category?[index].title
-                                                .toString() ??
-                                            '',
-                                        style: popularcoursestyle,
+                                          vertical: 18.h, horizontal: 16.w),
+                                      child: SvgPicture.asset(
+                                        SvgImages.bottomsheetimg,
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: 15.w,
-                                    )
-                                  ],
-                                ),
-                              )),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 32.h,
+                            ),
+                            const LmsSlider(),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            CourseTitle(
+                              onpressed: () {
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: const PopularCourseSeeAll()));
+                              },
+                              title: 'Popular Courses',
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                    main.home?.data?.category?.length ?? 0,
+                                    (index) => Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.r),
+                                              gradient: const LinearGradient(
+                                                  colors: [
+                                                    AppColors.primarybrown,
+                                                    AppColors.secondarybrown,
+                                                    AppColors.primaryacent
+                                                  ])),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10.h, horizontal: 12.w),
+                                          child: Text(
+                                            main.home?.data?.category?[index]
+                                                    .title
+                                                    .toString() ??
+                                                '',
+                                            style: popularcoursestyle,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            const PopularCourseList(),
+                            SizedBox(
+                              height: 15.h,
+                            ),
+                            CourseTitle(
+                              onpressed: () {
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child:
+                                            const SeeAllRecentlyAddedCourse()));
+                              },
+                              title: 'Recently Added Courses',
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const AddedCourseList(),
+                            SizedBox(
+                              height: 32.h,
+                            ),
+                            CourseTitle(
+                              onpressed: () {
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: const SeeAllFeaturedPage()));
+                              },
+                              title: 'Featured Courses',
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const FeaturedCourse(),
+                            SizedBox(
+                              height: 32.h,
+                            ),
+                            CourseTitle(
+                              onpressed: () {
+                                Navigator.push(
+                                    context,
+                                    CustomPageRoute(
+                                        child: const AllStudentsReviews()));
+                              },
+                              title: 'Our Student Reviews',
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const ReviewList(),
+                            SizedBox(
+                              height: 32.h,
+                            ),
+                            Text(
+                              'Social Links',
+                              style: titleStyle,
+                            ),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                            const SocialMediaList(),
+                            SizedBox(
+                              height: 20.h,
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        const PopularCourseList(),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        CourseTitle(
-                          onpressed: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: const SeeAllRecentlyAddedCourse()));
-                          },
-                          title: 'Recently Added Courses',
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        const AddedCourseList(),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        CourseTitle(
-                          onpressed: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: const SeeAllFeaturedPage()));
-                          },
-                          title: 'Featured Courses',
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        const FeaturedCourse(),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        CourseTitle(
-                          onpressed: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: const AllStudentsReviews()));
-                          },
-                          title: 'Our Student Reviews',
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        const ReviewList(),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Text(
-                          'Social Links',
-                          style: titleStyle,
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        const SocialMediaList(),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
         );
       },
     );
