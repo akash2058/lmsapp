@@ -116,6 +116,7 @@ class AuthenticationProvider extends ChangeNotifier {
         await prefs.setString('name', user?.data?.name ?? '');
         await prefs.setString('email', user?.data?.email ?? '');
         await prefs.setString('userid', user?.data?.id.toString() ?? '');
+        await prefs.setString('token', user?.data?.token ?? '');
 
         Navigator.pushAndRemoveUntil(
           // ignore: use_build_context_synchronously
