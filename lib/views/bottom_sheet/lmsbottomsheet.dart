@@ -79,7 +79,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                   SizedBox(height: 20.h),
                   CustomFormField(
                     controller: bottom.searchbycontroller,
-                    hint: '',
+                    hint: 'Search Course',
                   ),
                   SizedBox(height: 20.h),
                   Text('Search By', style: titlestyle),

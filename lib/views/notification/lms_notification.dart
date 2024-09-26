@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
 import 'package:provider/provider.dart';
 
 class LmsNotifcation extends StatefulWidget {
@@ -34,12 +36,6 @@ class _LmsNotifcationState extends State<LmsNotifcation> {
           appBar: CustomAppbar(
             autoapply: true,
             title: 'Notifications',
-            actions: [
-              const Icon(Icons.more_horiz),
-              SizedBox(
-                width: 20.w,
-              )
-            ],
           ),
           body: nots.loadingnotifications == true
               ? const Center(
@@ -56,7 +52,15 @@ class _LmsNotifcationState extends State<LmsNotifcation> {
                     return Column(
                       children: [
                         CustomTile(
-                          onTap: () {},
+                          onTap: () {
+                            if (data?.section == 'orders') {
+                              Navigator.push(
+                                  context,
+                                  CustomPageRoute(
+                                      child: PopularCourseLandingPage(
+                                          id: data?.id.toString() ?? '')));
+                            }
+                          },
                           trailing: Text(
                             data?.createdAt ?? '',
                             style: subtitlefont,

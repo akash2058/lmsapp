@@ -93,10 +93,13 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
                             ? 'Adding...'
                             : 'Add to Cart',
                         onTap: () {
-                          if (get.course?.data?.course?.id.toString() ==
-                              auth.userid) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Already Added')));
+                          if (get.course?.data?.course?.salePrice == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                'Invalid Course !!!',
+                                style: fonts,
+                              ),
+                            ));
                           } else {
                             state.getaddcart(widget.id, context);
                           }
@@ -131,125 +134,137 @@ class _PopularCourseLandingPageState extends State<PopularCourseLandingPage> {
           body: get.loadingcoursedetails == true
               // ignore: prefer_const_constructors
               ? Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 24.h,
-                      ),
-                      if (get.course?.data?.course?.image == null) Container(),
-                      LandingPageHead(
-                          img:
-                              '${get.home?.data?.baseUrl ?? ''}/${get.course?.data?.course?.image ?? ''}'),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 28.w, vertical: 24.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CourseDetailCard(
-                              coursetitle:
-                                  get.course?.data?.course?.metaTitle ?? '',
-                              title: '',
-                              duration:
-                                  convertMinutesToHours(minutes?.toInt() ?? 0),
-                              lessons:
-                                  '${get.course?.data?.course?.playlistCount} lessons',
-                              name: get.course?.data?.course?.userName ?? '',
-                              ratings: get.course?.data?.reviews?.length
-                                      .toString() ??
-                                  '',
+              : get.course?.data?.course?.image == null
+                  ? Center(
+                      child: Text('No Course Found !!!'),
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          LandingPageHead(
                               img:
-                                  '${get.course?.data?.userProfileUrl}/${get.course?.data?.course?.userImage}',
+                                  '${get.home?.data?.baseUrl ?? ''}/${get.course?.data?.course?.image ?? ''}'),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 28.w, vertical: 24.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CourseDetailCard(
+                                  coursetitle:
+                                      get.course?.data?.course?.metaTitle ?? '',
+                                  title: '',
+                                  duration: convertMinutesToHours(
+                                      minutes?.toInt() ?? 0),
+                                  lessons:
+                                      '${get.course?.data?.course?.playlistCount} lessons',
+                                  name:
+                                      get.course?.data?.course?.userName ?? '',
+                                  ratings: get.course?.data?.reviews?.length
+                                          .toString() ??
+                                      '',
+                                  img:
+                                      '${get.course?.data?.userProfileUrl}/${get.course?.data?.course?.userImage}',
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                AboutCourseCard(
+                                  description:
+                                      get.course?.data?.course?.description ??
+                                          '',
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Text(
+                                  'Lessons',
+                                  style: titlestyle,
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Text(
+                                  'Please finish the lessons step by step',
+                                  style: itemsfont,
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Column(
+                                  children: List.generate(
+                                      get.course?.data?.playlist?.length ?? 0,
+                                      (index) {
+                                    var data =
+                                        get.course?.data?.playlist?[index];
+                                    return CustomExpansionTile(
+                                        lessonnum: index.bitLength.toString(),
+                                        duration: data?.createdAt ?? '',
+                                        lessontitle: data?.title ?? '',
+                                        children: List.generate(
+                                            data?.videoContent?.length ?? 0,
+                                            (index) {
+                                          var getdata =
+                                              data?.videoContent?[index];
+                                          return Customlessontext(
+                                              ontap: () {
+                                                // print('dddd');
+                                                if (getdata!.url!.contains(
+                                                    'www.youtube.com')) {
+                                                  Navigator.push(
+                                                      context,
+                                                      CustomPageRoute(
+                                                          child:
+                                                              YoutubePlayerView(
+                                                        url: getdata.url
+                                                            .toString(),
+                                                      )));
+                                                } else if (getdata.url!
+                                                    .contains('mp4')) {
+                                                  Navigator.push(
+                                                      context,
+                                                      CustomPageRoute(
+                                                          child: LmsVideoPlayer(
+                                                        baseurl: get
+                                                                .course
+                                                                ?.data
+                                                                ?.videoBaseUrl
+                                                                .toString() ??
+                                                            '',
+                                                        videourl:
+                                                            '${getdata.url}',
+                                                      )));
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(const SnackBar(
+                                                          content: Text(
+                                                              'No Video Found')));
+                                                }
+                                              },
+                                              title: getdata?.url ?? '');
+                                        }));
+                                  }),
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                Text(
+                                  'Review',
+                                  style: titlestyle,
+                                ),
+                                SizedBox(
+                                  height: 16.h,
+                                ),
+                                const CourseReviewList()
+                              ],
                             ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            AboutCourseCard(
-                              description:
-                                  get.course?.data?.course?.description ?? '',
-                            ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            Text(
-                              'Lessons',
-                              style: titlestyle,
-                            ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            Text(
-                              'Please finish the lessons step by step',
-                              style: itemsfont,
-                            ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            Column(
-                              children: List.generate(
-                                  get.course?.data?.playlist?.length ?? 0,
-                                  (index) {
-                                var data = get.course?.data?.playlist?[index];
-                                return CustomExpansionTile(
-                                    lessonnum: index.bitLength.toString(),
-                                    duration: data?.createdAt ?? '',
-                                    lessontitle: data?.title ?? '',
-                                    children: List.generate(
-                                        data?.videoContent?.length ?? 0,
-                                        (index) {
-                                      var getdata = data?.videoContent?[index];
-                                      return Customlessontext(
-                                          ontap: () {
-                                            // print('dddd');
-                                            if (getdata!.url!
-                                                .contains('www.youtube.com')) {
-                                              Navigator.push(
-                                                  context,
-                                                  CustomPageRoute(
-                                                      child: YoutubePlayerView(
-                                                    url: getdata.url.toString(),
-                                                  )));
-                                            } else if (getdata.url!
-                                                .contains('mp4')) {
-                                              Navigator.push(
-                                                  context,
-                                                  CustomPageRoute(
-                                                      child: LmsVideoPlayer(
-                                                    baseurl: get.course?.data
-                                                            ?.videoBaseUrl
-                                                            .toString() ??
-                                                        '',
-                                                    videourl: '${getdata.url}',
-                                                  )));
-                                            } else {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                      content: Text(
-                                                          'No Video Found')));
-                                            }
-                                          },
-                                          title: getdata?.url ?? '');
-                                    }));
-                              }),
-                            ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            Text(
-                              'Review',
-                              style: titlestyle,
-                            ),
-                            SizedBox(
-                              height: 16.h,
-                            ),
-                            const CourseReviewList()
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
         );
       },
     );

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/customwidgets/customtile.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
@@ -164,7 +165,29 @@ class _ProfileScreenState extends State<FeatureScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 28.w),
                   child: ListTile(
                     onTap: () {
-                      state.logout(context);
+                      showDialog(
+                          context: context,
+                          builder: (builder) => AlertDialog(
+                                title: Text(
+                                  'Are you sure you want to logout?',
+                                  style: titlestyle,
+                                ),
+                                actions: [
+                                  CustomSmallButton(
+                                    text: 'Yes',
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      state.logout(context);
+                                    },
+                                  ),
+                                  CustomSmallButton(
+                                    text: 'No',
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              ));
                     },
                     minVerticalPadding: 10,
                     visualDensity:

@@ -37,11 +37,14 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
 
   void loadsearchdata() async {
     var state = Provider.of<BottomsheetProvider>(context, listen: false);
+    var menu = Provider.of<MenuProviders>(context, listen: false);
     await state.getSearchCourse();
+    await menu.getNotifications();
   }
 
   @override
   Widget build(BuildContext context) {
+    var menu = Provider.of<MenuProviders>(context, listen: false);
     return Consumer<BottomsheetProvider>(
       builder: (context, bottom, child) {
         var state = Provider.of<MenuProviders>(context, listen: false);
@@ -72,11 +75,16 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.primarylightgrey)),
-                    child: SvgPicture.asset(
-                      SvgImages.notifi,
-                      height: 24.h,
-                    )),
-              ),
+                    child: Badge(
+                        largeSize: 18.sp,
+                        textStyle: Linethroughtgreystyle,
+                        label: Text(
+                            menu.notification?.data?.length.toString() ?? '0'),
+                        child: Icon(
+                          Icons.notifications_none_outlined,
+                          size: 25.sp,
+                        ))),
+              )
             ],
           ),
           body: Padding(

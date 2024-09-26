@@ -5,8 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:lmsapp/firebase_api/firebase_api.dart';
 import 'package:lmsapp/providers/appproviders.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +40,41 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
+    _streamSubscription = InternetConnection().onStatusChange.listen((event) {
+      switch (event) {
+        case InternetStatus.connected:
+          setState(() {
+            isinternetisconnected = true;
+          });
+          break;
+        case InternetStatus.disconnected:
+          setState(() {
+            isinternetisconnected = false;
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  content: Text(
+                    'No Internet Connection !!!',
+                    style: titlestyle,
+                  ),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Ok',
+                          style: titleStyle,
+                        ))
+                  ],
+                );
+              },
+            );
+          });
+          break;
+      }
+    });
   }
 
   @override

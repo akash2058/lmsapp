@@ -142,21 +142,6 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: CustomFormField(hint: 'Coupon Code'),
-                              ),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Expanded(
-                                  child: CustomButton(
-                                      height: 53.h,
-                                      text: 'Apply',
-                                      onTap: () {}))
-                            ],
-                          ),
                           SizedBox(
                             height: 32.h,
                           ),

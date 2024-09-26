@@ -10,6 +10,18 @@ import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/models/messagemodel.dart';
+import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ChatDetailsScreen extends StatefulWidget {
   final String title;
@@ -23,11 +35,25 @@ class ChatDetailsScreen extends StatefulWidget {
 
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
+  Timer? _timer; // Timer for periodic message fetching
 
   @override
   void initState() {
     super.initState();
     getmessagedata();
+
+    // Set up a timer to call getmessagedata every 60 seconds
+    _timer = Timer.periodic(const Duration(seconds: 60), (timer) {
+      getmessagedata();
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    _timer?.cancel();
+    _scrollController.dispose(); // Dispose the scroll controller
+    super.dispose();
   }
 
   Future<void> getmessagedata() async {
@@ -49,75 +75,93 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-    return Scaffold(
-      appBar: CustomAppbar(
-        title: widget.title,
-        autoapply: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
-        child: Column(
-          children: [
-            Expanded(
-              child: StreamBuilder<MessageModel>(
-                stream: Provider.of<ChatProvider>(context).messageStream,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData ||
-                      snapshot.data!.data!.chats!.isEmpty) {
-                    return const Center(child: Text("No messages"));
-                  }
 
-                  var messages = snapshot.data!.data!.chats!;
+    // Check when the keyboard is visible
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    // Scroll to bottom after the frame is built with new messages
-                    _scrollToBottom();
-                  });
+    // Scroll to bottom if keyboard opens
+    if (bottomInset > 0) {
+      _scrollToBottom();
+    }
 
-                  return RefreshIndicator(
-                    onRefresh: getmessagedata,
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      shrinkWrap: true,
-                      reverse: false,
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        var data = messages[index];
+    return Consumer<ChatProvider>(
+      builder: (context, main, child) {
+        return Scaffold(
+          appBar: CustomAppbar(
+            title: widget.title,
+            autoapply: true,
+          ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 11.h),
+            child: Column(
+              children: [
+                Expanded(
+                  child: StreamBuilder<MessageModel>(
+                    stream: Provider.of<ChatProvider>(context).messageStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (!snapshot.hasData ||
+                          snapshot.data!.data!.chats!.isEmpty) {
+                        return const Center(child: Text("No messages"));
+                      }
 
-                        return Column(
-                          children: [
-                            if (data.receiverId.toString() ==
-                                auth.userid.toString())
-                              ReceiverCard(
-                                img:
-                                    '${snapshot.data?.data?.userProfileBaseUrl}/${data.receiverPhoto ?? ''}',
-                                message: data.message ?? '',
-                              ),
-                            if (data.senderId.toString() ==
-                                auth.userid.toString())
-                              SenderCard(
-                                message: data.message ?? '',
-                              ),
-                            SizedBox(height: 15.h),
-                          ],
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
+                      var messages = snapshot.data!.data!.chats!;
+
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        // Scroll to bottom after the frame is built with new messages
+                        _scrollToBottom();
+                      });
+
+                      return RefreshIndicator(
+                        onRefresh: getmessagedata,
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          shrinkWrap: true,
+                          reverse: false,
+                          itemCount: messages.length,
+                          itemBuilder: (context, index) {
+                            var data = messages[index];
+
+                            return Column(
+                              children: [
+                                if (data.receiverId.toString() ==
+                                    auth.userid.toString())
+                                  main.loadingmessage == true
+                                      ? LoadingAnimationWidget
+                                          .staggeredDotsWave(
+                                              color: AppColors.primarybrown,
+                                              size: 20.sp)
+                                      : ReceiverCard(
+                                          img:
+                                              '${snapshot.data?.data?.userProfileBaseUrl}/${data.receiverPhoto ?? ''}',
+                                          message: data.message ?? '',
+                                        ),
+                                if (data.senderId.toString() ==
+                                    auth.userid.toString())
+                                  SenderCard(
+                                    message: data.message ?? '',
+                                  ),
+                                SizedBox(height: 15.h),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                BottomMessageBar(
+                  id: widget.id,
+                  userId: auth.userid.toString(),
+                  onSend: _scrollToBottom, // Call _scrollToBottom on send
+                ),
+              ],
             ),
-            BottomMessageBar(
-              id: widget.id,
-              userId: auth.userid.toString(),
-              onSend: _scrollToBottom, // Call _scrollToBottom on send
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

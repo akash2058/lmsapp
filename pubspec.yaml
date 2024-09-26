@@ -41,6 +41,7 @@ dependencies:
   dotted_border: ^2.1.0
   pinput: ^4.0.0
   chewie: ^1.8.1
+  loading_animation_widget: ^1.2.1
   video_player: ^2.8.6
   flutter_widget_from_html: ^0.15.0
   http: ^1.2.1

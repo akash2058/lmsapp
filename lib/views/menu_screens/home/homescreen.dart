@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/customwidgets/customsearch.dart';
 
@@ -45,56 +43,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isinternetisconnected = false;
-  StreamSubscription? _streamSubscription;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       homedata();
-      _streamSubscription = InternetConnection().onStatusChange.listen((event) {
-        print('event: $event');
-        switch (event) {
-          case InternetStatus.connected:
-            setState(() {
-              isinternetisconnected = true;
-            });
-            break;
-          case InternetStatus.disconnected:
-            setState(() {
-              isinternetisconnected = false;
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: Text(
-                      'No Internet Connection !!!',
-                      style: titlestyle,
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'Ok',
-                            style: titleStyle,
-                          ))
-                    ],
-                  );
-                },
-              );
-            });
-            break;
-        }
-      });
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _streamSubscription?.cancel();
   }
 
   void homedata() async {
@@ -103,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await state.getHomedata(context);
     await state.getMyCourse();
     await auth.loadLoginData();
+    await state.getNotifications();
   }
 
   @override
@@ -133,10 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(color: AppColors.primarylightgrey)),
-                    child: SvgPicture.asset(
-                      SvgImages.notifi,
-                      height: 24.h,
-                    )),
+                    child: Badge(
+                        largeSize: 18.sp,
+                        textStyle: Linethroughtgreystyle,
+                        label: Text(
+                            main.notification?.data?.length.toString() ?? '0'),
+                        child: Icon(
+                          Icons.notifications_none_outlined,
+                          size: 25.sp,
+                        ))),
               ),
               Builder(builder: (context) {
                 return GestureDetector(
@@ -181,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     CustomPageRoute(child: const LoginPage()));
                               },
                               child: Text(
-                                'Logout',
+                                'Login',
                                 style: testtitlestyle,
                               ))
                         ],
@@ -218,11 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    showModalBottomSheet(
+                                    showBottomSheet(
                                         context: context,
-                                        builder: (context) {
-                                          return const LmsBottomSheet();
-                                        });
+                                        builder: (context) =>
+                                            const LmsBottomSheet());
                                   },
                                   child: Container(
                                     decoration: const BoxDecoration(
