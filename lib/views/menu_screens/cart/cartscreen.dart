@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/customwidgets/%20customitemdiscount.dart';
 
 import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
+import 'package:lmsapp/customwidgets/customitemdiscount.dart';
 import 'package:lmsapp/customwidgets/customitemprice.dart';
 import 'package:lmsapp/customwidgets/custompaymentcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
@@ -16,7 +16,7 @@ import 'package:lmsapp/views/authentication_pages/authentication_controller.dart
 import 'package:lmsapp/views/menu_screens/cart/cart_provider/cart_provider.dart';
 import 'package:lmsapp/views/menu_screens/cart/checkoutpage/checkoutpage.dart';
 import 'package:lmsapp/views/menu_screens/cart/components/coursecartcard.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
                                             Navigator.push(
                                               context,
                                               CustomPageRoute(
-                                                child: PopularCourseLandingPage(
+                                                child: CourseLandingPage(
                                                   id: data?.courseId
                                                           .toString() ??
                                                       '',
@@ -123,7 +123,7 @@ class _CartScreenState extends State<CartScreen> {
                                             );
                                           },
                                           coursetitle: data?.courseTitle ?? '',
-                                          price: '₹${data?.coursePrice}',
+                                          price: '₹${data?.salePrice}',
                                           title: data?.courseTitle ?? '',
                                           img:
                                               '${cart.cart?.data?.imageBaseUrl}/${data?.courseImage}',

@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   moveToOnBoard() async {
     Future.delayed(const Duration(seconds: 2), () {
+      // ignore: use_build_context_synchronously
       Utils.manipulateLogin(context);
     });
   }

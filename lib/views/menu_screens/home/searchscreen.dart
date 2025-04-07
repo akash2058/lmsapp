@@ -8,7 +8,7 @@ import 'package:lmsapp/models/purchase_course_model.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 
 import 'package:provider/provider.dart';
 
@@ -65,7 +65,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
             Navigator.push(
               context,
               CustomPageRoute(
-                child: PopularCourseLandingPage(id: course.courseId.toString()),
+                child: CourseLandingPage(id: course.courseId.toString()),
               ),
             );
           },
@@ -96,7 +96,7 @@ class CustomSearchDelegate extends SearchDelegate<String> {
             Navigator.push(
               context,
               CustomPageRoute(
-                child: PopularCourseLandingPage(id: course.courseId.toString()),
+                child: CourseLandingPage(id: course.courseId.toString()),
               ),
             );
           },

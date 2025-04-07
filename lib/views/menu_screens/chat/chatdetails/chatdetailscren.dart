@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -7,17 +8,6 @@ import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/models/messagemodel.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
-import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lmsapp/customwidgets/customappbar.dart';
-import 'package:lmsapp/models/messagemodel.dart';
-import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
 import 'package:provider/provider.dart';
@@ -211,12 +201,19 @@ class ReceiverCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
+          SizedBox(
             height: 36.h,
             width: 36.w,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(image: NetworkImage(img))),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30.r),
+              child: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    LoadingAnimationWidget.fallingDot(
+                        color: AppColors.primarybrown, size: 30.h),
+                imageUrl: img,
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           SizedBox(
             width: 9.w,
@@ -269,7 +266,7 @@ class BottomMessageBar extends StatelessWidget {
                 child: CustomFormField(
                   controller: get.messagecontroller,
                   fillcolor: AppColors.primarywhite,
-                  hint: 'Write message',
+                  hint: 'Type message',
                 ),
               ),
             ),

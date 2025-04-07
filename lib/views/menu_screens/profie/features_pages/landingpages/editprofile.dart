@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_places_autocomplete_text_field/google_places_autocomplete_text_field.dart';
@@ -52,16 +53,16 @@ class _EditProfilleState extends State<EditProfille> {
                             child: profile.selectedimage != null
                                 ? Image.file(
                                     fit: BoxFit.cover, profile.selectedimage!)
-                                : Container(
+                                : SizedBox(
                                     height: 65.h,
                                     width: 65.w,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(
-                                                '${profile.profile?.data?.baseurl}/${profile.profile?.data?.photo}'))),
-                                    child: child,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(35.r),
+                                      child: CachedNetworkImage(
+                                          fit: BoxFit.fill,
+                                          imageUrl:
+                                              '${profile.profile?.data?.baseurl}/${profile.profile?.data?.photo}'),
+                                    ),
                                   )),
                         Column(
                           children: [

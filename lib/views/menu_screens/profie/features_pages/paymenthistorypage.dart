@@ -4,9 +4,10 @@ import 'package:lmsapp/customwidgets/customappbar.dart';
 import 'package:lmsapp/customwidgets/custombutton.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 
 import 'package:lmsapp/views/menu_screens/profie/components/paymenthistorypagecard.dart';
 import 'package:provider/provider.dart';
@@ -60,41 +61,48 @@ class _PaymentHistoryState extends State<PaymentHistory> {
           appBar: CustomAppbar(autoapply: true, title: 'Payment History'),
           body: value.loadingpayment == true
               ? const Center(child: CircularProgressIndicator())
-              : Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-                  child: SingleChildScrollView(
-                    child: Column(
-                        children: List.generate(
-                            value.payment?.data?.payments?.length ?? 0,
-                            (index) {
-                      var data = value.payment?.data?.payments?[index];
-                      return Column(
-                        children: [
-                          PaymentHistoryCard(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  CustomPageRoute(
-                                      child: PopularCourseLandingPage(
-                                    id: data?.courseId.toString() ?? '',
-                                  )));
-                            },
-                            coursetitle: data?.courseTitle ?? '',
-                            date: '',
-                            price: 'INR${data?.salePrice ?? ''}',
-                            time: data?.createdAt ?? '',
-                            img:
-                                '${value.payment?.data?.baseUrl}/${data?.courseImage}',
-                          ),
-                          SizedBox(
-                            height: 24.h,
-                          )
-                        ],
-                      );
-                    })),
-                  ),
-                ),
+              : value.payment == null && value.payment?.data == null
+                  ? Center(
+                      child: Text(
+                        'No Payment history !!!',
+                        style: appbartitlestyle,
+                      ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 28.w, vertical: 24.h),
+                      child: SingleChildScrollView(
+                        child: Column(
+                            children: List.generate(
+                                value.payment?.data?.payments?.length ?? 0,
+                                (index) {
+                          var data = value.payment?.data?.payments?[index];
+                          return Column(
+                            children: [
+                              PaymentHistoryCard(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                          child: CourseLandingPage(
+                                        id: data?.courseId.toString() ?? '',
+                                      )));
+                                },
+                                coursetitle: data?.courseTitle ?? '',
+                                date: '',
+                                price: 'INR${data?.salePrice ?? ''}',
+                                time: data?.createdAt ?? '',
+                                img:
+                                    '${value.payment?.data?.baseUrl}/${data?.courseImage}',
+                              ),
+                              SizedBox(
+                                height: 24.h,
+                              )
+                            ],
+                          );
+                        })),
+                      ),
+                    ),
         );
       },
     );

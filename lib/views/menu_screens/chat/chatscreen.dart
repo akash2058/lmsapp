@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
@@ -7,6 +8,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatdetails/chatdetailscren.dart';
 import 'package:lmsapp/views/menu_screens/chat/provider/chat_provider.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -29,7 +31,6 @@ class _ChatScreenState extends State<ChatScreen> {
     var state = Provider.of<ChatProvider>(context, listen: false);
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     await state.getChatRoom(context);
-    await auth.loadLoginData();
   }
 
   @override
@@ -177,10 +178,17 @@ class ChatUserPicCard extends StatelessWidget {
           Container(
             height: 60.h,
             width: 60.w,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(img)),
-                shape: BoxShape.circle),
+            decoration: BoxDecoration(),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30.r),
+              child: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    LoadingAnimationWidget.fallingDot(
+                        color: AppColors.primarygreen, size: 30.h),
+                imageUrl: img,
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           Icon(
             Icons.circle,

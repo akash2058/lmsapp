@@ -6,11 +6,11 @@ import 'package:lmsapp/customwidgets/customtextformfield.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/appimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/aboutcard.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursedetailcard.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/coursereviewlist.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/landingpagehead.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/components/payedcourselist.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/components/aboutcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/components/coursedetailcard.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/components/coursereviewlist.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/components/landingpagehead.dart';
+import 'package:lmsapp/views/menu_screens/profie/features_pages/landingpages/components/payedcourselist.dart';
 
 class PaymentCourseLandingPage extends StatelessWidget {
   const PaymentCourseLandingPage({super.key});

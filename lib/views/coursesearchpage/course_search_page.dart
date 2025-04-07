@@ -11,7 +11,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/bottom_sheet/lmsbottomsheet.dart';
 import 'package:lmsapp/views/bottom_sheet/provider/bottomsheetprovider.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 import 'package:lmsapp/views/menu_screens/home/searchscreen.dart';
 import 'package:lmsapp/views/notification/lms_notification.dart';
 import 'package:provider/provider.dart';
@@ -211,7 +211,7 @@ class _CourseSearchPageState extends State<CourseSearchPage> {
                                         Navigator.push(
                                             context,
                                             CustomPageRoute(
-                                                child: PopularCourseLandingPage(
+                                                child: CourseLandingPage(
                                                     id: data?.id.toString() ??
                                                         '')));
                                       },

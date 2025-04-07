@@ -1,23 +1,25 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-// ignore: must_be_immutable
 class CoursesCard extends StatelessWidget {
-  String img;
-  Widget? child;
-  String coursetitle;
-  String lessons;
-  String duration;
-  String title;
-  String price;
-  String discountprice;
-  String discount;
-  VoidCallback onTap;
-  CoursesCard(
+  final String img;
+
+  final Widget? child;
+  final String coursetitle;
+  final String lessons;
+  final String duration;
+  final String title;
+  final String price;
+  final String discountprice;
+  final String discount;
+  final VoidCallback onTap;
+  const CoursesCard(
       {super.key,
       required this.img,
       this.child,
@@ -42,32 +44,30 @@ class CoursesCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.r)),
         child: Column(
           children: [
-            Container(
-              height: 158.h,
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(img)),
+            ClipRRect(
                 borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15.r),
-                    topLeft: Radius.circular(15.r)),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(right: 12.w, top: 12.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                    topLeft: Radius.circular(15.r),
+                    topRight: Radius.circular(15.r)),
+                child: Stack(
                   children: [
-                    Container(
-                        height: 30.h,
-                        width: 30.w,
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.primarywhite),
-                        child: child),
+                    CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          LoadingAnimationWidget.inkDrop(
+                              color: AppColors.primarybrown, size: 20.h),
+                      width: MediaQuery.sizeOf(context).width,
+                      fit: BoxFit.fill,
+                      imageUrl: img,
+                      height: 158.h,
+                    ),
+                    Positioned(
+                      top: 10.h,
+                      right: 10.w,
+                      child: Container(
+                        child: child,
+                      ),
+                    ),
                   ],
-                ),
-              ),
-            ),
+                )),
             Padding(
               padding: EdgeInsets.only(left: 16.w, top: 16.h),
               child: Column(

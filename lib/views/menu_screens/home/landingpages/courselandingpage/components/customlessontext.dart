@@ -6,9 +6,9 @@ import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 
 class Customlessontext extends StatelessWidget {
-  VoidCallback? ontap;
-  String title;
-  Customlessontext({super.key, required this.title, this.ontap});
+  final VoidCallback? ontap;
+  final String title;
+  const Customlessontext({super.key, required this.title, this.ontap});
 
   @override
   Widget build(BuildContext context) {

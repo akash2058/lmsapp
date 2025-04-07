@@ -45,6 +45,7 @@ Future<Map<String, dynamic>> fetchprofileget(token) async {
 }
 
 Future<Map<String, dynamic>> fetchMyPurchaseCourse(token) async {
+  print('token');
   final response = await http.get(
     Uri.parse(AppUrls.getmycourse),
     headers: {
@@ -56,6 +57,7 @@ Future<Map<String, dynamic>> fetchMyPurchaseCourse(token) async {
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
+  print('jjjjj');
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }
@@ -178,6 +180,7 @@ Future<Map<String, dynamic>> fetchcoursedata(token, id) async {
 
 Future<Map<String, dynamic>> fetchUpcomingtest(
   token,
+  
 ) async {
   final response = await http.get(
     Uri.parse(AppUrls.upcomingtest),
@@ -190,6 +193,7 @@ Future<Map<String, dynamic>> fetchUpcomingtest(
   //   print("status code: ${response.statusCode}");
   // }
   final Map<String, dynamic> responseData = jsonDecode(response.body);
+  print('home');
   if (responseData['status'] == false) {
     throw Exception(responseData['status_message']);
   }

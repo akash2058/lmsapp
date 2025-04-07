@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PurchaseCourseCard extends StatelessWidget {
   final String coursetitle;
@@ -11,11 +13,13 @@ class PurchaseCourseCard extends StatelessWidget {
   final String duration;
   final String img;
   final double value;
+  final bool? loading;
   final String number;
   final VoidCallback? onTap;
   const PurchaseCourseCard(
       {super.key,
       required this.coursetitle,
+      this.loading,
       required this.lesson,
       required this.img,
       required this.duration,
@@ -40,9 +44,16 @@ class PurchaseCourseCard extends StatelessWidget {
               height: 80.h,
               width: 80.w,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.r),
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: NetworkImage(img))),
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          LoadingAnimationWidget.fallingDot(
+                              color: AppColors.primarybrown, size: 25.h),
+                      imageUrl: img)),
             ),
             SizedBox(
               width: 12.w,

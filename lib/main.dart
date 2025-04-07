@@ -1,10 +1,6 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:lmsapp/firebase_api/firebase_api.dart';
 import 'package:lmsapp/providers/appproviders.dart';
@@ -20,11 +16,11 @@ void main() async {
   await Firebase.initializeApp();
   await FirebaseApi().notification();
   runApp(const MyApp());
-  WidgetsBinding.instance.addPostFrameCallback((timeStap) async {
-    if (Platform.isAndroid) {
-      await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-    }
-  });
+  // WidgetsBinding.instance.addPostFrameCallback((timeStap) async {
+  //   if (Platform.isAndroid) {
+  //     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  //   }
+  // });
 }
 
 class MyApp extends StatefulWidget {

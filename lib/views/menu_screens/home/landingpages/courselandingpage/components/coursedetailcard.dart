@@ -31,6 +31,13 @@ class CourseDetailCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            title,
+            style: courseprice,
+          ),
+          SizedBox(
+            height: 8.h,
+          ),
+          Text(
             coursetitle,
             style: titleStyle,
           ),

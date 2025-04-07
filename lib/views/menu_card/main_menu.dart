@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lmsapp/customwidgets/customroute.dart';
+import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:lmsapp/utilities/utils.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
+import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:provider/provider.dart';
 
@@ -16,94 +21,190 @@ class MainMenu extends StatefulWidget {
 }
 
 class _MainMenuState extends State<MainMenu> {
+  var token = Utils.getToken();
   @override
   void initState() {
     super.initState();
     var state = Provider.of<MenuProviders>(context, listen: false);
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
     state.currenttab = 0;
-    auth.loadLoginData();
+    print('token${auth.email}');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MenuProviders>(
-      builder: (context, menu, child) {
-        return Scaffold(
-            bottomNavigationBar: BottomAppBar(
-              height: 80.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 29.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
+    return Consumer<MenuProviders>(builder: (context, menu, child) {
+      var auth = Provider.of<AuthenticationProvider>(context, listen: false);
+
+      return Scaffold(
+          bottomNavigationBar: BottomAppBar(
+            height: 80.h,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 29.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (auth.token.isEmpty) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(
+                                  textAlign: TextAlign.center,
+                                  'Session Expired Please Login !!!',
+                                  style: appbartitlestyle,
+                                ),
+                                content: CustomSmallButton(
+                                    textcolor: AppColors.lightwhite,
+                                    backgroudcolor: AppColors.primarybrown,
+                                    text: 'Login',
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          CustomPageRoute(child: LoginPage()));
+                                    }),
+                              );
+                            },
+                          );
+                        } else {
                           menu.currenttab = 0;
-                        });
-                      },
-                      child: SvgPicture.asset(
-                        SvgImages.home,
-                        height: 30.h,
-                        // ignore: deprecated_member_use
-                        color: menu.currenttab == 0
-                            ? AppColors.primarybrown
-                            : AppColors.primarygrey,
-                      ),
+                        }
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      SvgImages.home,
+                      height: 30.h,
+                      // ignore: deprecated_member_use
+                      color: menu.currenttab == 0
+                          ? AppColors.primarybrown
+                          : AppColors.primarygrey,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (auth.token.isEmpty) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(
+                                  textAlign: TextAlign.center,
+                                  'Session Expired Please Login !!!',
+                                  style: appbartitlestyle,
+                                ),
+                                content: CustomSmallButton(
+                                    textcolor: AppColors.lightwhite,
+                                    backgroudcolor: AppColors.primarybrown,
+                                    text: 'Login',
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          CustomPageRoute(child: LoginPage()));
+                                    }),
+                              );
+                            },
+                          );
+                        } else {
                           menu.currenttab = 1;
-                        });
-                      },
-                      child: SvgPicture.asset(
-                        SvgImages.chat,
-                        height: 30.h,
-                        // ignore: deprecated_member_use
-                        color: menu.currenttab == 1
-                            ? AppColors.primarybrown
-                            : AppColors.primarygrey,
-                      ),
+                        }
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      SvgImages.chat,
+                      height: 30.h,
+                      // ignore: deprecated_member_use
+                      color: menu.currenttab == 1
+                          ? AppColors.primarybrown
+                          : AppColors.primarygrey,
                     ),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            menu.currenttab = 2;
-                          });
-                        },
-                        child: Icon(
-                          CupertinoIcons.settings,
-                          color: menu.currenttab == 2
-                              ? AppColors.primarybrown
-                              : AppColors.primarygrey,
-                          size: 30.h,
-                        )),
-                    GestureDetector(
+                  ),
+                  GestureDetector(
                       onTap: () {
                         setState(() {
-                          menu.currenttab = 3;
+                          if (auth.token.isEmpty) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    textAlign: TextAlign.center,
+                                    'Session Expired Please Login !!!',
+                                    style: appbartitlestyle,
+                                  ),
+                                  content: CustomSmallButton(
+                                      textcolor: AppColors.lightwhite,
+                                      backgroudcolor: AppColors.primarybrown,
+                                      text: 'Login',
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            CustomPageRoute(
+                                                child: LoginPage()));
+                                      }),
+                                );
+                              },
+                            );
+                          } else {
+                            menu.currenttab = 2;
+                          }
                         });
                       },
-                      child: SvgPicture.asset(
-                        SvgImages.profile,
-                        height: 30.h,
-                        // ignore: deprecated_member_use
-                        color: menu.currenttab == 3
+                      child: Icon(
+                        CupertinoIcons.settings,
+                        color: menu.currenttab == 2
                             ? AppColors.primarybrown
                             : AppColors.primarygrey,
-                      ),
+                        size: 30.h,
+                      )),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (auth.token.isEmpty) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(
+                                  textAlign: TextAlign.center,
+                                  'Session Expired Please Login !!!',
+                                  style: appbartitlestyle,
+                                ),
+                                content: CustomSmallButton(
+                                    textcolor: AppColors.lightwhite,
+                                    backgroudcolor: AppColors.primarybrown,
+                                    text: 'Login',
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          CustomPageRoute(child: LoginPage()));
+                                    }),
+                              );
+                            },
+                          );
+                        } else {
+                          menu.currenttab = 3;
+                        }
+                      });
+                    },
+                    child: SvgPicture.asset(
+                      SvgImages.profile,
+                      height: 30.h,
+                      // ignore: deprecated_member_use
+                      color: menu.currenttab == 3
+                          ? AppColors.primarybrown
+                          : AppColors.primarygrey,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            body: IndexedStack(
-              index: menu.currenttab,
-              children: menu.screens,
-            ));
-      },
-    );
+          ),
+          body: IndexedStack(
+            index: menu.currenttab,
+            children: menu.screens,
+          )
+          );
+    });
   }
 }

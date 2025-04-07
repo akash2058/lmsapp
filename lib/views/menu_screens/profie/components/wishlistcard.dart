@@ -1,21 +1,23 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-// ignore: must_be_immutable
 class WishListCard extends StatelessWidget {
-  String title;
-  String coursetitle;
-  String lesson;
-  String duration;
-  String img;
-  VoidCallback? onTap;
-  VoidCallback? remove;
+  final String title;
+  final String coursetitle;
+  final String lesson;
+  final String duration;
+  final String img;
 
-  WishListCard(
+  final VoidCallback? onTap;
+  final VoidCallback? remove;
+
+  const WishListCard(
       {super.key,
       required this.title,
       required this.coursetitle,
@@ -43,9 +45,16 @@ class WishListCard extends StatelessWidget {
             Container(
               height: 86.h,
               width: 80.w,
-              decoration: BoxDecoration(
+              decoration: BoxDecoration(),
+              child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
-                  image: DecorationImage(image: NetworkImage(img))),
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) =>
+                        LoadingAnimationWidget.fallingDot(
+                            color: AppColors.primarybrown, size: 25.sp),
+                    imageUrl: img,
+                    fit: BoxFit.cover,
+                  )),
             ),
             SizedBox(
               width: 12.w,

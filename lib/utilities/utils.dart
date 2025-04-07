@@ -4,19 +4,11 @@ import 'package:lmsapp/views/authentication_pages/login_page/login_page.dart';
 import 'package:lmsapp/views/menu_card/main_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Assuming these are your custom routes
-
 class Utils {
   static Future<void> manipulateLogin(BuildContext context) async {
-    // Debug: Print the current state before attempting to get the token
-
     var token = await getToken();
 
-    // Debug: Log the retrieved token value
-
-    if (token == null) {
-      // Debug: Token is null or empty, navigating to LoginPage
-      // Navigate to LoginPage if the token is null or empty
+    if (token == null || token.isEmpty) {
       Navigator.pushAndRemoveUntil(
         // ignore: use_build_context_synchronously
         context,
@@ -24,9 +16,6 @@ class Utils {
         (route) => false,
       );
     } else {
-      // Debug: Token is valid, navigating to MainMenu
-
-      // Navigate to MainMenu if the token is not null and not empty
       Navigator.pushAndRemoveUntil(
         // ignore: use_build_context_synchronously
         context,
@@ -49,5 +38,13 @@ class Utils {
   static Future<void> deleteToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
+  }
+
+  // New method to save user details
+  static Future<void> saveUserDetails(String name, String email, String userId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('name', name);
+    await prefs.setString('email', email);
+    await prefs.setString('userid', userId);
   }
 }

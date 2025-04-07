@@ -1,21 +1,25 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class PaymentHistoryCard extends StatelessWidget {
-  String coursetitle;
-  String date;
-  String time;
-  String price;
-  String img;
-  VoidCallback? onTap;
-  PaymentHistoryCard(
+  final String coursetitle;
+  final String date;
+  final String time;
+  final String price;
+  final bool? loading;
+  final String img;
+  final VoidCallback? onTap;
+  const PaymentHistoryCard(
       {super.key,
       required this.coursetitle,
       required this.date,
+      this.loading,
       required this.price,
       required this.img,
       this.onTap,
@@ -38,10 +42,16 @@ class PaymentHistoryCard extends StatelessWidget {
               height: 80.h,
               width: 80.w,
               decoration: BoxDecoration(
-                image:
-                    DecorationImage(fit: BoxFit.fill, image: NetworkImage(img)),
                 borderRadius: BorderRadius.circular(12.r),
               ),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.r),
+                  child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          LoadingAnimationWidget.fallingDot(
+                              color: AppColors.primarybrown, size: 25.h),
+                      fit: BoxFit.cover,
+                      imageUrl: img)),
             ),
             SizedBox(
               width: 10.w,

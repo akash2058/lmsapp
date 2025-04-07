@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class PopularCourseList extends StatelessWidget {
@@ -65,22 +66,37 @@ class PopularCourseList extends StatelessWidget {
                   Navigator.push(
                       context,
                       CustomPageRoute(
-                          child: PopularCourseLandingPage(
+                          child: CourseLandingPage(
                         id: data?.id.toString() ?? '',
                       )));
+                  print(data!.id);
                 },
                 child: GestureDetector(
                   onTap: () {
                     main.getaddwishlist(data?.id.toString() ?? '', context);
+                    print(main.wishlistPopularStatus[data?.id.toString()]);
+                    print(data?.id.toString());
                   },
-                  child: Icon(
-                    main.addwishlistpopular == true
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    size: 22.h,
-                    color: main.addwishlistpopular == true
-                        ? AppColors.primaryred
-                        : AppColors.primaryblack,
+                  child: Container(
+                    padding: EdgeInsets.all(5.sp),
+                    decoration: BoxDecoration(
+                        color: AppColors.primarylightgrey,
+                        shape: BoxShape.circle),
+                    child: main.loadingaddwishlist == true
+                        ? LoadingAnimationWidget.beat(
+                            color: AppColors.primarybrown, size: 22.h)
+                        : Icon(
+                            main.wishlistPopularStatus[data?.id.toString()] ==
+                                    true
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            size: 22.h,
+                            color: main.wishlistPopularStatus[
+                                        data?.id.toString()] ==
+                                    true
+                                ? AppColors.primaryred
+                                : AppColors.primaryblack,
+                          ),
                   ),
                 ),
               );

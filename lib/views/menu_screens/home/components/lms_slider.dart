@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 class LmsSlider extends StatefulWidget {
-  const LmsSlider({super.key});
+  const LmsSlider({
+    super.key,
+  });
 
   @override
   State<LmsSlider> createState() => _LmsSliderState();
@@ -87,52 +91,57 @@ class _LmsSliderState extends State<LmsSlider> {
                         Navigator.push(
                             context,
                             CustomPageRoute(
-                                child: PopularCourseLandingPage(
+                                child: CourseLandingPage(
                               id: slides?.id.toString() ?? '',
                             )));
                       },
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              '${slider.home?.data?.baseUrl}/${slides?.image ?? ''}',
+                      child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: Stack(children: [
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width,
+                              child: CachedNetworkImage(
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                  fit: BoxFit.fill,
+                                  placeholder: (context, url) =>
+                                      LoadingAnimationWidget.fallingDot(
+                                          color: AppColors.primarybrown,
+                                          size: 30.h),
+                                  imageUrl:
+                                      '${slider.home?.data?.baseUrl}/${slides?.image ?? ''}'),
                             ),
-                          ),
-                          borderRadius: BorderRadius.circular(20.r),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.w, vertical: 20.h),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'All Course',
-                                style: resendotpstyle,
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w, vertical: 20.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'All Course',
+                                    style: resendotpstyle,
+                                  ),
+                                  SizedBox(
+                                    height: 4.h,
+                                  ),
+                                  Text(
+                                    slides?.title ?? '',
+                                    style: titlestyle,
+                                  ),
+                                  SizedBox(
+                                    height: 12.h,
+                                  ),
+                                  Text(
+                                    '${slides?.playlistsCount ?? '0'}/25 Lesson',
+                                    style: resendotpstyle,
+                                  ),
+                                  SizedBox(
+                                    height: 28.h,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 4.h,
-                              ),
-                              Text(
-                                slides?.title ?? '',
-                                style: titlestyle,
-                              ),
-                              SizedBox(
-                                height: 12.h,
-                              ),
-                              Text(
-                                '${slides?.playlistsCount ?? '0'}/25 Lesson',
-                                style: resendotpstyle,
-                              ),
-                              SizedBox(
-                                height: 28.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            ),
+                          ])),
                     );
                   },
                 ),
@@ -141,30 +150,34 @@ class _LmsSliderState extends State<LmsSlider> {
             SizedBox(
               height: 12.h,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  slider.home?.data?.homeBanner?.length ?? 0,
-                  (index) => Row(
-                    children: [
-                      AnimatedContainer(
-                        curve: Curves.linear,
-                        duration: const Duration(milliseconds: 500),
-                        height: 8.h,
-                        width: currentslide == index ? 25.w : 8.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
-                          color: currentslide == index
-                              ? AppColors.primarybrown
-                              : AppColors.formfillcolor,
+            SizedBox(
+              width: 50.w,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    slider.home?.data?.homeBanner?.length ?? 0,
+                    (index) => Row(
+                      children: [
+                        AnimatedContainer(
+                          curve: Curves.linear,
+                          duration: const Duration(milliseconds: 500),
+                          height: 8.h,
+                          width: currentslide == index ? 25.w : 8.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40.r),
+                            color: currentslide == index
+                                ? AppColors.primarybrown
+                                : AppColors.formfillcolor,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 5.w,
-                      )
-                    ],
+                        SizedBox(
+                          width: 5.w,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

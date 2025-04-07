@@ -31,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
 
   void logincrediantial() {
     var clean = Provider.of<AuthenticationProvider>(context, listen: false);
-    clean.loadLoginData();
   }
 
   final fomrkey = GlobalKey<FormState>();
@@ -42,138 +41,135 @@ class _LoginPageState extends State<LoginPage> {
         return Scaffold(
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 28.w),
-            child: Form(
-              key: fomrkey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 80.h,
-                  ),
-                  Text(
-                    'Hello!',
-                    style: authenticationtitlestyle,
-                  ),
-                  Text(
-                    'Welcome Back',
-                    style: authenticationtitlestyle,
-                  ),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  Text(
-                    'Email',
-                    style: othernormaltextStyle,
-                  ),
-                  AppSizeBox.defaultHeightforsplash,
-                  CustomFormField(
-                      controller: auth.emailcontroller,
-                      validation: validateEmail,
-                      maxlines: 1,
-                      hint: 'Enter Your Email'),
-                  AppSizeBox.defaultHeight,
-                  Text(
-                    'Password',
-                    style: othernormaltextStyle,
-                  ),
-                  AppSizeBox.defaultHeightforsplash,
-                  CustomFormField(
-                      suffix: GestureDetector(
-                        onTap: () {
-                          auth.hidepassword();
-                        },
-                        child: Icon(
-                          auth.hideenterpassword == true
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          size: 25.h,
-                          color: AppColors.primarybrown,
-                        ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 80.h,
+                ),
+                Text(
+                  'Hello!',
+                  style: authenticationtitlestyle,
+                ),
+                Text(
+                  'Welcome Back',
+                  style: authenticationtitlestyle,
+                ),
+                SizedBox(
+                  height: 40.h,
+                ),
+                Text(
+                  'Email',
+                  style: othernormaltextStyle,
+                ),
+                AppSizeBox.defaultHeightforsplash,
+                CustomFormField(
+                    controller: auth.emailcontroller,
+                    validation: validateEmail,
+                    maxlines: 1,
+                    hint: 'Enter Your Email'),
+                AppSizeBox.defaultHeight,
+                Text(
+                  'Password',
+                  style: othernormaltextStyle,
+                ),
+                AppSizeBox.defaultHeightforsplash,
+                CustomFormField(
+                    suffix: GestureDetector(
+                      onTap: () {
+                        auth.hidepassword();
+                      },
+                      child: Icon(
+                        auth.hideenterpassword == true
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        size: 25.h,
+                        color: AppColors.primarybrown,
                       ),
-                      hidepassword: auth.hideenterpassword,
-                      controller: auth.passwordcontroller,
-                      validation: validatePassword,
-                      maxlines: 1,
-                      hint: 'Enter Your Password'),
-                  AppSizeBox.defaultHeight,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Transform.scale(
-                            scale: 0.8.w,
-                            child: Checkbox(
-                              semanticLabel: 'Remember me',
-                              activeColor: AppColors.primarybrown,
-                              // ignore: prefer_const_constructors
-                              visualDensity: VisualDensity(
-                                horizontal: -4,
-                                vertical: -4,
-                              ),
-                              value: auth.isRememberMe,
-                              onChanged: (newValue) {
-                                auth.toggleRememberMe(newValue!);
-                              },
+                    ),
+                    hidepassword: auth.hideenterpassword,
+                    controller: auth.passwordcontroller,
+                    validation: validatePassword,
+                    maxlines: 1,
+                    hint: 'Enter Your Password'),
+                AppSizeBox.defaultHeight,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 0.8.w,
+                          child: Checkbox(
+                            semanticLabel: 'Remember me',
+                            activeColor: AppColors.primarybrown,
+                            // ignore: prefer_const_constructors
+                            visualDensity: VisualDensity(
+                              horizontal: -4,
+                              vertical: -4,
                             ),
+                            value: auth.isRememberMe,
+                            onChanged: (newValue) {
+                              auth.toggleRememberMe(newValue!);
+                            },
                           ),
-                          Text(
-                            'Remember me',
-                            style: hinttextstyle,
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              CustomPageRoute(child: const ForgotPassword()));
-                        },
-                        child: Text(
-                          'Forgot Password',
+                        ),
+                        Text(
+                          'Remember me',
                           style: hinttextstyle,
                         ),
-                      ),
-                    ],
-                  ),
-                  CustomButton(
-                      height: 53.h,
-                      text: auth.loadinguser == true ? 'Loading....' : 'Login',
+                      ],
+                    ),
+                    GestureDetector(
                       onTap: () {
-                        if (fomrkey.currentState!.validate()) {
-                          auth.getLogin(context);
-                        }
+                        Navigator.push(context,
+                            CustomPageRoute(child: const ForgotPassword()));
+                      },
+                      child: Text(
+                        'Forgot Password',
+                        style: hinttextstyle,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomButton(
+                    height: 53.h,
+                    text: auth.loadinguser == true ? 'Loading....' : 'Login',
+                    onTap: () {
+                      if (fomrkey.currentState!.validate()) {
+                      
                       }
-                      // Provide an empty function as a default when the condition is not met
+                    }
+                    // Provide an empty function as a default when the condition is not met
+                    ),
+                AppSizeBox.defaultHeight,
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Dont’t have an account?",
+                      style: fonts,
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            CustomPageRoute(child: const RegisterPage()));
+                      },
+                      child: Text(
+                        'Register',
+                        style: otherfont,
                       ),
-                  AppSizeBox.defaultHeight,
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Dont’t have an account?",
-                        style: fonts,
-                      ),
-                      SizedBox(
-                        width: 6.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              CustomPageRoute(child: const RegisterPage()));
-                        },
-                        child: Text(
-                          'Register',
-                          style: otherfont,
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.h,
-                  )
-                ],
-              ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 30.h,
+                )
+              ],
             ),
           ),
         );

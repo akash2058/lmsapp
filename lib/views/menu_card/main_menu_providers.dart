@@ -26,7 +26,7 @@ import 'package:lmsapp/views/menu_screens/cart/service/cart_services.dart';
 import 'package:lmsapp/views/menu_screens/chat/chatscreen.dart';
 import 'package:lmsapp/views/menu_screens/home/homescreen.dart';
 import 'package:lmsapp/views/menu_screens/profie/feature_screen.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/profile_screen.dart';
+import 'package:lmsapp/views/menu_screens/profie/profile_screen.dart';
 import 'package:lmsapp/views/menu_screens/service/main_screen_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,6 +39,7 @@ class MenuProviders extends ChangeNotifier {
   bool loadingprofiledit = false;
   bool loadingnotifications = false;
   bool loadingaddwishlist = false;
+  bool loadingremovewishlist = false;
   bool loadinggetwishlist = false;
   bool loadinggetprofile = false;
   bool loadingcoursedetails = false;
@@ -81,7 +82,6 @@ class MenuProviders extends ChangeNotifier {
   void selectAnswer(int questionIndex, String answer) {
     selectedAnswers[questionIndex] = answer;
     answercontroller.text = answer;
-    print(answercontroller.text);
     notifyListeners();
   }
 
@@ -335,7 +335,7 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchUpcomingtest(tokken).then((home) {
         _upcomingTestModel = UpComingTestModel.fromJson(home);
-
+        print('home');
         loadingupcomingtest = false;
 
         notifyListeners();
@@ -372,6 +372,7 @@ class MenuProviders extends ChangeNotifier {
       await fetchMyPurchaseCourse(tokken).then((home) {
         _myCourseModel = MyCourseModel.fromJson(home);
         loadingmycourses = false;
+        print(home);
         notifyListeners();
       });
     } catch (e) {
@@ -502,6 +503,7 @@ class MenuProviders extends ChangeNotifier {
     'Always keep in touch with your tutor & friend. Let’s get connected!',
     'Anywhere, anytime. The time is at your discretion so study whenever.',
   ];
+
   int wishlistitems = 0;
   void increasecartitems() {
     wishlistitems++;
@@ -532,62 +534,68 @@ class MenuProviders extends ChangeNotifier {
 
   bool addwishlistpopular = false;
   bool addwishlistfeatured = false;
+  bool addwishlistaddedrecentcourse = false;
 
-  addToWishlistPopular(bool value) async {
-    addwishlistpopular = true;
+// Use course-specific keys for SharedPreferences to store wishlist status
+  // Use a Map to track the wishlist state for each course
+  Map<String, bool> wishlistPopularStatus = {};
+  Map<String, bool> wishlistFeaturedStatus = {};
+  Map<String, bool> wishlistRecentStatus = {};
+
+// Function to add course to popular wishlist
+  addToWishlistPopular(bool value, String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('addwishlistpopular', value);
+    await prefs.setBool(
+        'addwishlistpopular_$id', value); // Unique key for each course
+    wishlistPopularStatus[id] =
+        value; // Update individual course wishlist status
     notifyListeners();
   }
 
-  addToWishlistPopularRemove(bool value) async {
+  removeWishlistPopular(String id) async {
+    print('ID ===> $id');
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('addwishlistfeatured', value);
-    addwishlistpopular = false;
+    await prefs.setBool('addwishlistpopular_$id',
+        false); // Set the value to false in SharedPreferences
+    wishlistPopularStatus[id] = false;
 
+    print(wishlistPopularStatus);
+    // Update the map to reflect removal
+    notifyListeners(); // Notify listeners to rebuild the UI
+  }
+
+// Similar functions for the featured and recent courses
+  addToWishlistfeatured(bool value, String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(
+        'addwishlistfeatured_$id', value); // Use course-specific key
+    wishlistFeaturedStatus[id] = value;
     notifyListeners();
   }
 
-  addToWishlistfeatured(bool value) async {
-    addwishlistfeatured = true;
+  removeWishlistfeatured(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('addwishlistfeatured', value);
+    await prefs.setBool('addwishlistfeatured_$id',
+        false); // Set the value to false in SharedPreferences
+    wishlistFeaturedStatus[id] = false; // Update the map to reflect removal
+    notifyListeners(); // Notify listeners to rebuild the UI
+  }
+
+// Recently added course wishlist functions
+  addToWishlistaddedrecentcourse(bool value, String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(
+        'addwishlistrecentlyadded_$id', value); // Use course-specific key
+    wishlistRecentStatus[id] = value;
     notifyListeners();
   }
 
-  addToWishlistfeaturedremove(bool value) async {
-    addwishlistfeatured = false;
+  removeWishlistaddedcourse(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('addwishlistfeatured', value);
-    notifyListeners();
-  }
-
-  WishlistModel? _wishlistModel;
-  WishlistModel? get wishlist => _wishlistModel;
-
-  loadwishlistdata() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    addwishlistpopular = prefs.getBool('addwishlistpopular') ?? false;
-    addwishlistfeatured = prefs.getBool('addwishlistfeatured') ?? false;
-    notifyListeners();
-  }
-
-  getWishlistData() async {
-    var tokken = await Utils.getToken();
-    try {
-      loadinggetwishlist = true;
-      notifyListeners();
-      await fetchWishlistdata(tokken).then((policy) {
-        _wishlistModel = WishlistModel.fromJson(policy);
-        wishlistitems = _wishlistModel!.data!.wishlistItems!.length;
-        loadinggetwishlist = false;
-        notifyListeners();
-      });
-    } catch (e) {
-      loadinggetwishlist = false;
-      notifyListeners();
-      rethrow;
-    }
+    await prefs.setBool('addwishlistrecentlyadded_$id',
+        false); // Set the value to false in SharedPreferences
+    wishlistRecentStatus[id] = false; // Update the map to reflect removal
+    notifyListeners(); // Notify listeners to rebuild the UI
   }
 
   getaddwishlist(id, context) async {
@@ -597,8 +605,9 @@ class MenuProviders extends ChangeNotifier {
       notifyListeners();
       await fetchaddwishlist(tokken, id).then((course) {
         if (course['success'] == true) {
-          addToWishlistPopular(true);
-          addToWishlistPopular(true);
+          addToWishlistPopular(true, id);
+          addToWishlistfeatured(true, id);
+          addToWishlistaddedrecentcourse(true, id);
           increasecartitems();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
@@ -618,30 +627,53 @@ class MenuProviders extends ChangeNotifier {
     }
   }
 
-  getRemoveWishlist(id, context, int index) async {
-    var tokken = await Utils.getToken();
+  getRemoveWishlist(id, context, int index, String courseId) async {
+    var token = await Utils.getToken();
     try {
-      loadingaddwishlist = true;
+      loadingremovewishlist = true;
       notifyListeners();
-      await fetchremoveaddwishlist(tokken, id).then((course) {
+      await fetchremoveaddwishlist(token, id).then((course) {
         if (course['success'] == true) {
-          addToWishlistPopularRemove(false);
-          addToWishlistfeaturedremove(false);
-          decreasecartitems();
+          removeWishlistPopular(courseId); // Remove from popular wishlist
+          removeWishlistaddedcourse(
+              courseId); // Remove from recently added wishlist
+          removeWishlistfeatured(courseId); // Remove from featured wishlist
+          decreasecartitems(); // Update cart if needed
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
           ));
-          wishlist?.data?.wishlistItems?.removeAt(index);
+          wishlist?.data?.wishlistItems
+              ?.removeAt(index); // Remove item from local list
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(course['message']),
           ));
         }
-        loadingaddwishlist = false;
+        loadingremovewishlist = false;
+        notifyListeners(); // Notify listeners to update the UI
+      });
+    } catch (e) {
+      loadingremovewishlist = false;
+      notifyListeners(); // Notify listeners to stop loading indicator
+      rethrow;
+    }
+  }
+
+  WishlistModel? _wishlistModel;
+  WishlistModel? get wishlist => _wishlistModel;
+  getWishlistData() async {
+    var tokken = await Utils.getToken();
+    try {
+      loadinggetwishlist = true;
+      notifyListeners();
+      await fetchWishlistdata(tokken).then((policy) {
+        _wishlistModel = WishlistModel.fromJson(policy);
+        wishlistitems = _wishlistModel!.data!.wishlistItems!.length;
+        loadinggetwishlist = false;
         notifyListeners();
       });
     } catch (e) {
-      loadingaddwishlist = false;
+      loadinggetwishlist = false;
       notifyListeners();
       rethrow;
     }

@@ -5,7 +5,7 @@ import 'package:lmsapp/customwidgets/customsmallbutton.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/wishlistcard.dart';
 import 'package:provider/provider.dart';
 
@@ -59,6 +59,8 @@ class _WishListPageState extends State<WishListPage> {
                             children: List.generate(
                                 get.wishlist?.data?.wishlistItems?.length ?? 0,
                                 (index) {
+                              print(
+                                  get.wishlist?.data?.wishlistItems![index].id);
                               var data =
                                   get.wishlist?.data?.wishlistItems?[index];
                               String convertMinutesToHours(int minutes) {
@@ -107,7 +109,50 @@ class _WishListPageState extends State<WishListPage> {
                                                   get.getRemoveWishlist(
                                                       data?.id.toString() ?? '',
                                                       dialogContext,
-                                                      index);
+                                                      index,
+                                                      data?.courseId
+                                                              .toString() ??
+                                                          '');
+                                                  get.removeWishlistfeatured(
+                                                      data?.id.toString() ??
+                                                          '');
+                                                  get.removeWishlistPopular(
+                                                      data?.id.toString() ??
+                                                          '');
+                                                  get.removeWishlistaddedcourse(
+                                                      data?.id.toString() ??
+                                                          '');
+
+                                                  // if (get.wishlistRecentStatus[
+                                                  //         data?.id
+                                                  //             .toString()] ==
+                                                  //     true) {
+                                                  //   get.getRemoveWishlist(
+                                                  //       data?.id.toString() ??
+                                                  //           '',
+                                                  //       dialogContext,
+                                                  //       index);
+                                                  // } else if (get
+                                                  //             .wishlistFeaturedStatus[
+                                                  //         data?.id
+                                                  //             .toString()] ==
+                                                  //     true) {
+                                                  //   get.getRemoveWishlist(
+                                                  //       data?.id.toString() ??
+                                                  //           '',
+                                                  //       dialogContext,
+                                                  //       index);
+                                                  // } else if (get
+                                                  //             .wishlistPopularStatus[
+                                                  //         data?.id
+                                                  //             .toString()] ==
+                                                  //     false) {
+                                                  //   get.getRemoveWishlist(
+                                                  //       data?.id.toString() ??
+                                                  //           '',
+                                                  //       dialogContext,
+                                                  //       index);
+                                                  // }
                                                   Navigator.pop(context);
                                                 },
                                               ),
@@ -120,7 +165,7 @@ class _WishListPageState extends State<WishListPage> {
                                       Navigator.push(
                                           context,
                                           CustomPageRoute(
-                                              child: PopularCourseLandingPage(
+                                              child: CourseLandingPage(
                                             id: data?.courseId.toString() ?? '',
                                           )));
                                     },

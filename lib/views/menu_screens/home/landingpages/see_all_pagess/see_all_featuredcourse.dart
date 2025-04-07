@@ -5,7 +5,7 @@ import 'package:lmsapp/customwidgets/customcard.dart';
 import 'package:lmsapp/customwidgets/customroute.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/popularcourselandingpage.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/courselandingpage.dart';
 
 import 'package:provider/provider.dart';
 
@@ -92,7 +92,7 @@ class _SeeAllFeaturedPageState extends State<SeeAllFeaturedPage> {
                             Navigator.push(
                                 context,
                                 CustomPageRoute(
-                                    child: PopularCourseLandingPage(
+                                    child: CourseLandingPage(
                                   id: data?.id.toString() ?? '',
                                 )));
                           },

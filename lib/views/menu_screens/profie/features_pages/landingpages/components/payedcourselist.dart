@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/customwidgets/customexpansiontile.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
-import 'package:lmsapp/views/menu_screens/home/landingpages/poplutarcourselandingpage/components/customlessontext.dart';
+import 'package:lmsapp/views/menu_screens/home/landingpages/courselandingpage/components/customlessontext.dart';
 import 'package:provider/provider.dart';
 
 class PayedCourseLandingPage extends StatelessWidget {

@@ -9,7 +9,7 @@ import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:lmsapp/views/authentication_pages/authentication_controller.dart';
 import 'package:lmsapp/views/menu_card/main_menu_providers.dart';
 import 'package:lmsapp/views/menu_screens/profie/components/profileheader.dart';
-import 'package:lmsapp/views/menu_screens/profie/profile_pages/landingpages/editprofile.dart';
+import 'package:lmsapp/views/menu_screens/profie/features_pages/landingpages/editprofile.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,7 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> profiledata() async {
     var state = Provider.of<MenuProviders>(context, listen: false);
     var auth = Provider.of<AuthenticationProvider>(context, listen: false);
-
     await state.getMyProfile();
     await auth.loadLoginData();
   }

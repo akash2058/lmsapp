@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:lmsapp/customwidgets/customappbar.dart';
+import 'package:lmsapp/customwidgets/customcard.dart';
+import 'package:lmsapp/utilities/textstyle.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class YoutubePlayerView extends StatefulWidget {
+  final String videotitle;
+  final String description;
   final String url;
-  const YoutubePlayerView({super.key, required this.url});
+  const YoutubePlayerView(
+      {super.key,
+      required this.url,
+      required this.videotitle,
+      required this.description});
 
   @override
   State<YoutubePlayerView> createState() => _YoutubePlayerViewState();
@@ -52,17 +62,38 @@ class _YoutubePlayerViewState extends State<YoutubePlayerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(autoapply: true, title: 'YouTube Player'),
-      body: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(color: Colors.white),
-            child: YoutubePlayer(
-              controller: _controller,
-              aspectRatio: 16 / 9,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(color: Colors.white),
+              child: YoutubePlayer(
+                controller: _controller,
+                aspectRatio: 16 / 9,
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 20.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.videotitle,
+                    style: onboardtitle,
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  HtmlWidget(
+                    widget.description,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

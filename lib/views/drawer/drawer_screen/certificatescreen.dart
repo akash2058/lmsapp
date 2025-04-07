@@ -37,86 +37,98 @@ class _CertificateScreenState extends State<CertificateScreen> {
       builder: (context, drawer, child) {
         return Scaffold(
           appBar: CustomAppbar(autoapply: true, title: 'Certificates'),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
-            child: SingleChildScrollView(
-              child: Column(
-                  children: List.generate(drawer.certificate?.data?.length ?? 0,
-                      (index) {
-                var data = drawer.certificate?.data?[index];
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  width: MediaQuery.sizeOf(context).width,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.r),
-                      border: Border.all(color: AppColors.primarylowlightdark)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 40.h,
-                            width: 80.w,
-                            decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                    fit: BoxFit.fitHeight,
-                                    image: AssetImage(AppImages.certificate)),
-                                borderRadius: BorderRadius.circular(10.r)),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data?.cerificateTitle ?? '',
-                                style: titlestyle,
-                              ),
-                              Text(
-                                'Pass: ${data?.isPass ?? ''}',
-                                style: editprofilefont,
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                CustomPageRoute(
-                                    child: CertificateWebView(
-                                        url: data?.link.toString() ?? '',
-                                        title: data?.cerificateTitle ?? '')));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10.sp),
-                            decoration: BoxDecoration(
-                              color: AppColors.primarybrown,
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              'View',
-                              style: allCoursetitle,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+          body: drawer.certificate?.data?.isEmpty ?? true
+              ? Center(
+                  child: Text(
+                    'No Certificate !!!',
+                    style: appbartitlestyle,
                   ),
-                );
-              })),
-            ),
-          ),
+                )
+              : Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 28.w, vertical: 24.h),
+                  child: SingleChildScrollView(
+                    child: Column(
+                        children: List.generate(
+                            drawer.certificate?.data?.length ?? 0, (index) {
+                      var data = drawer.certificate?.data?[index];
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.sizeOf(context).width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.r),
+                            border: Border.all(
+                                color: AppColors.primarylowlightdark)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 40.h,
+                                  width: 80.w,
+                                  decoration: BoxDecoration(
+                                      image: const DecorationImage(
+                                          fit: BoxFit.fitHeight,
+                                          image: AssetImage(
+                                              AppImages.certificate)),
+                                      borderRadius:
+                                          BorderRadius.circular(10.r)),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      data?.cerificateTitle ?? '',
+                                      style: titlestyle,
+                                    ),
+                                    Text(
+                                      'Pass: ${data?.isPass ?? ''}',
+                                      style: editprofilefont,
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CustomPageRoute(
+                                          child: CertificateWebView(
+                                              url: data?.link.toString() ?? '',
+                                              title: data?.cerificateTitle ??
+                                                  '')));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10.sp),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primarybrown,
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    'View',
+                                    style: allCoursetitle,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    })),
+                  ),
+                ),
         );
       },
     );

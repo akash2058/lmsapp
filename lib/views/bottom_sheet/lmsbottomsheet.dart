@@ -41,6 +41,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
     return Consumer<BottomsheetProvider>(
       builder: (context, bottom, child) {
         return Container(
+          height: 600.h,
           width: MediaQuery.sizeOf(context).width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -53,6 +54,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
             padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 12.h),
             child: SingleChildScrollView(
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Align(
@@ -62,7 +64,7 @@ class _LmsBottomSheetState extends State<LmsBottomSheet> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        height: 4.h,
+                        height: 8.h,
                         width: 48.w,
                         decoration: BoxDecoration(
                           color: AppColors.primarygrey,

@@ -79,7 +79,7 @@ class ChatProvider extends ChangeNotifier {
         _messageStreamController.add(messageModel!);
         messagecontroller.clear();
         loadingsendingmessage = false;
-        print(policy);
+        print('policy');
         notifyListeners();
       });
     } catch (e) {

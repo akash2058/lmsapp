@@ -1,21 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lmsapp/utilities/svgimages.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../../../utilities/appcolors.dart';
 
 // ignore: must_be_immutable
-class CourseCard extends StatelessWidget {
-  String title;
-  String lessons;
-  String duration;
-  String name;
-  String price;
-  String img;
-  VoidCallback? ontap;
-  CourseCard(
+class Addcoursecard extends StatelessWidget {
+  final String title;
+  final String lessons;
+  final String duration;
+  final String name;
+  final String price;
+
+  final String img;
+  final VoidCallback? ontap;
+  const Addcoursecard(
       {super.key,
       required this.title,
       this.ontap,
@@ -44,10 +47,17 @@ class CourseCard extends StatelessWidget {
               Container(
                 height: 116.h,
                 width: 104.w,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fill, image: NetworkImage(img)),
-                    borderRadius: BorderRadius.circular(8.r)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15.r),
+                    child: CachedNetworkImage(
+                      imageUrl: img,
+                      placeholder: (context, url) =>
+                          LoadingAnimationWidget.fallingDot(
+                              color: AppColors.primarybrown, size: 25.h),
+                      fit: BoxFit.cover,
+                    )),
               ),
               SizedBox(
                 width: 16.w,

@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lmsapp/utilities/appcolors.dart';
 import 'package:lmsapp/utilities/textstyle.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class UpcomingTestCard extends StatelessWidget {
   String title;
@@ -38,10 +40,16 @@ class UpcomingTestCard extends StatelessWidget {
             Container(
               height: 163.h,
               width: 178.w,
-              decoration: BoxDecoration(
+              decoration: BoxDecoration(),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(21.16.r),
-                image:
-                    DecorationImage(fit: BoxFit.fill, image: NetworkImage(img)),
+                child: CachedNetworkImage(
+                  placeholder: (context, url) =>
+                      LoadingAnimationWidget.fallingDot(
+                          color: AppColors.primarybrown, size: 20.h),
+                  imageUrl: img,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
