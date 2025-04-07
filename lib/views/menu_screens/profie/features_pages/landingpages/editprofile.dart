@@ -248,50 +248,42 @@ class _EditProfilleState extends State<EditProfille> {
                       height: 4.h,
                     ),
                     GooglePlacesAutoCompleteTextFormField(
-                        validator: validateaddress,
-                        decoration: InputDecoration(
-                            hintStyle: hinttextstyle,
-                            errorStyle: paymentpricestyle,
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 14.h),
-                            disabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                              borderSide: const BorderSide(
-                                  color: AppColors.primarylightgrey),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                              borderSide: const BorderSide(
-                                  color: AppColors.primarylightgrey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                              borderSide: const BorderSide(
-                                  color: AppColors.primarylightgrey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                              borderSide: const BorderSide(
-                                  color: AppColors.primarylightgrey),
-                            ),
-                            hintText: 'Enter Your Permanent address'),
-                        style: formfieldstyle,
-                        textEditingController: profile.addresscontroller,
-                        googleAPIKey: "AIzaSyAldFf3OU4nVwg21S7bIVdwPExCf8sJsEg",
-                        debounceTime: 400, // Adjust debounce time as needed
-                        // Optional countries parameter
+                      validator: validateaddress,
+                      decoration: InputDecoration(
+                          hintStyle: hinttextstyle,
+                          errorStyle: paymentpricestyle,
+                          isDense: true,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 14.h),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: const BorderSide(
+                                color: AppColors.primarylightgrey),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: const BorderSide(
+                                color: AppColors.primarylightgrey),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: const BorderSide(
+                                color: AppColors.primarylightgrey),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                            borderSide: const BorderSide(
+                                color: AppColors.primarylightgrey),
+                          ),
+                          hintText: 'Enter Your Permanent address'),
+                      style: formfieldstyle,
+                      textEditingController: profile.addresscontroller,
+                      googleAPIKey: "AIzaSyAldFf3OU4nVwg21S7bIVdwPExCf8sJsEg",
+                      debounceTime: 400, // Adjust debounce time as needed
+                      // Optional countries parameter
 
-                        isLatLngRequired: true,
-                        getPlaceDetailWithLatLng: (prediction) {},
-                        // Callback to handle user selection from suggestions
-                        itmClick: (prediction) {
-                          profile.addresscontroller.text =
-                              prediction.description.toString();
-                          profile.addresscontroller.selection =
-                              TextSelection.fromPosition(TextPosition(
-                                  offset: prediction.description!.length));
-                        }),
+                      // Callback to handle user selection from suggestions
+                    ),
                     SizedBox(
                       height: 20.h,
                     ),
